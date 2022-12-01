@@ -1,0 +1,274 @@
+.release button {
+    width: 225px;
+    height: 48px;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    
+}
+
+.main .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.main .top .el-breadcrumb {
+    margin: 15px 60px;
+
+}
+
+.main .tabs {
+    display: flex;
+}
+
+.main .tabs span {
+    display: inline-block;
+    font-size: 20px;
+    color: #777777;
+    padding: 10px 5px;
+    margin-right: 30px;
+}
+
+.main .tabs span.active {
+    font-size: 20px;
+    font-weight: 700;
+    color: #007768;
+    border-bottom: 3px solid #007768;
+}
+.main .mainContent {
+    width: 100%;
+    display: flex;
+    background-color: #FFFFFF;
+    justify-content: space-evenly;
+}
+
+.main .mainContent .nav {
+    width: 20%;
+    min-height: 845px;
+    background-color: #F7F7F7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .mainContent .nav h2 {
+    width: 100%;
+    height: 80px;
+    color: #007768;
+    font-size: 28px;
+    border-bottom: 1px solid #E9E9E9;
+    line-height: 80px;
+    text-align: center;
+}
+
+.main .mainContent .nav span {
+    font-size: 20px;
+    color: #777777;
+    margin-top: 40px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main .mainContent .nav .current {
+    margin-top: 40px;
+    font-weight: 700;
+    font-family: 'Microsoft YaHei';
+}
+
+.main .mainContent .nav .current a {
+    color: #007768;
+    font-size: 22px;
+}
+
+.main .mainContent .formContent {
+    width: 78%;
+    min-height: 845px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F7F7F7;
+}
+.main .mainContent .formContent .con_1{
+    width: 94%;
+    min-height: 815px;
+    margin: 20px auto;
+}
+
+.main .mainContent .formContent .box_1{
+   width: 100%;
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+.box_1 .btn_1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.box_1 .child_1{
+    display: flex;
+    align-items: center;
+}
+.box_1 .child_1 h2{
+    color: #333333;
+    font-size: 24px;
+}
+.box_1 .child_1 img{
+    width: 36px;
+    height: 36px;
+    margin-left: 40px;
+}
+.box_1 .child_1 span{
+    color: #E00000;
+    font-size: 20px;
+    margin-left: 20px;
+}
+.box_1 .btn_1 .btn_time{
+    color: #777777;
+    font-size: 14px;
+    margin-right: 15px;
+}
+.box_1 .span_1{
+    margin-top: 15px;
+    color: #777777;
+    font-size: 16px;
+}
+.main .mainContent .formContent .box_2{
+    width: 100%;
+     background-color: #FFFFFF;
+     padding: 15px;
+     border-radius: 10px;
+    margin-top: 15px;
+
+ }
+ .box_2 ul{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+ }
+ .box_2 ul .liOne{
+    width: 100%;
+    padding: 15px 0px;
+    border-bottom: 1px solid #F1F1F1;
+ }
+ .box_2 ul .liOne .box_3{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+ .box_2 ul .liOne .box_3 >div{
+    display: flex;
+    align-items: center;
+ }
+ .box_2 ul .liOne .box_3 >div img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+ }
+ .box_2 ul .liOne .box_3 .btn_2{
+    margin-left: 15px;
+ }
+ .box_2 ul .liOne .box_3 .btn_2 p:nth-child(1){
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+ }
+ .box_2 ul .liOne .box_3 .btn_2 p:nth-child(1) span{
+    font-size: 16px;
+    color: #007768;
+    margin-left: 10px;
+ }
+ .box_2 ul .liOne .box_3 .btn_2 p:nth-child(2) span{
+    font-size: 16px;
+    color: #777777;
+    padding:2px 15px;
+    border-left: 1px solid #777777;
+ }
+ .box_2 ul .liOne .box_3 .btn_2 p:nth-child(2) .span_2{
+    padding:2px 15px 2px 0px;
+    border-left: 0px solid #777777;
+    margin-top: 15px;
+ }
+ .box_2 ul .liOne .box_3 .btn_3{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+ }
+ .box_2 ul .liOne .box_3 .btn_3 img{
+    width: 36px;
+    height: 36px;
+ }
+ .box_2 ul .liOne .box_3 .btn_3 span{
+    color: #E00000;
+    font-size: 20px;
+    margin-left: 20px;
+ }
+ .box_2 ul .liOne .textp{
+    font-size: 16px;
+    color: #777777;
+    line-height: 40px;
+    text-indent: 2rem;
+    margin-top: 15px;
+ }
+ .box_3>div .userName{
+    font-size: 20px;
+    color: #333333;
+    font-weight: 700;
+    margin-left: 15px;
+ }
+
+
+/* #region */
+.operation{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 355px;
+    margin-top: 15px;
+}
+.operation>div{
+    width: 100px;
+    font-size: 16px;
+    color: #A8A8A8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.operation>div img{
+    width: 24px;
+    height: 24px;
+}
+.page_box {
+    height: 50px;
+    font-size: 20px;
+    color: #007768;
+    display: flex;
+    align-items: center;
+}
+
+.page_box span {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.page_box button {
+    padding: 5px 10px;
+    border: 1px solid #007768;
+    vertical-align: middle;
+    font-size: 16px;
+    margin: 0 15px;
+}
+/* #endregion */

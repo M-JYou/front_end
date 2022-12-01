@@ -1,0 +1,45 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/study.css" /#} {#include file="public/search" /#}
+<div class="main mac-ico">
+  <div class="top mac-y">
+    <div class="breadcrumb"> <a href="/">籽虾云平台</a>免费学习 </div>
+    <div class="tabs">
+      <a href="{#:P(['type'=>null])#}" class="{#$type?'':'active'#}">全部</a>
+      {#volist name='types' id='v'#}
+      <a href="{#:P(['type'=>$v.id])#}" class="{#$type==$v.id?'active':''#}">{#$v.name#}</a>
+      {#/volist#}
+    </div>
+    <div class="tabs mac-mt1em">
+      <a href="{#:P(['finance'=>null])#}" class="{#$finance===null?'active':''#}">全部</a>
+      <a href="{#:P(['finance'=>0])#}" class="{#$finance===0?'active':''#}">人社学习</a>
+      <a href="{#:P(['finance'=>1])#}" class="{#$finance===1?'active':''#}">财税学习</a>
+    </div>
+  </div>
+  <div class="mainContent">
+    <div class="nav">
+      <h2>免费学习</h2>
+      <a href="{#:P(['video'=>null])#}" class="{#$video===null?'active':''#}">全部</a>
+      <a href="{#:P(['video'=>0])#}" class="{#$video===0?'active':''#}">图文</a>
+      <a href="{#:P(['video'=>1])#}" class="{#$video===1?'active':''#}">视频</a>
+    </div>
+    <div class="formContent">
+      {#volist name='data' id='v'#}
+      <div class="item">
+        <div class="videoTop"><img src="{#$v.cover#}" alt="" /></div>
+        <div class="videoBtm">
+          <h2>{#$v.name#}</h2>
+          <div class="mac-oh">{#$v.simple#}</div>
+          <div>
+            <div class="study_num"><i class="el-icon-view"></i><span>{#$v.history#}人学习</span></div>
+            <a class="btn" href="/study/{#$v.id#}.html">马上学习</a>
+          </div>
+          <div class="operation">
+            <div class="mac-btnss mac-ico-zhuanfa" model="Study" mid="{#$v.id#}">转发{#$data.info5.reprint#}</div>
+            <div class="mac-btnss mac-ico-tishi" model="Study" mid="{#$v.id#}">举报{#$data.info5.report#}</div>
+            <div class="mac-btnss mac-ico-dianzan" model="Study" mid="{#$v.id#}">点赞{#$data.info5.likes#}</div>
+          </div>
+        </div>
+      </div>
+      {#/volist#}
+    </div>
+  </div>
+</div>

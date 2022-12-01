@@ -1,0 +1,31 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/explain.css" /#}
+<div class="content_wrapper" id="app">
+    <div class="content clearfix">
+        <ul class="sidebar float">
+            <li class="sidebar_item active">
+                <ul class="hover_sidebarBox">
+                    {#volist name="nav" id="item"#}
+                    <li {#if condition="$item.id eq $Request.param.id"#}class="active"{#/if#}><a href="{#$item.link_url#}">{#$item.title#}</a></li>
+                    {#/volist#}
+                </ul>
+            </li>
+        </ul>
+        
+        <div class="right_con float" >
+            <div class="right_con_title">{#$info.title#}</div>
+            <div class="right_con_article editor-content-view">
+                 {#$info.content|default="暂无内容"#}
+                 {#if condition="count($info.attach) gt 0"#}
+                 <div style="margin-top:20px;" class="attach-list">
+                     <ul> 
+                         {#volist name="info.attach" id="vo"#}
+                         <li>附件【<a href="{#:url('index/download/index')#}?url={#:urlencode($vo.url)#}&name={#$vo.name#}" target="_blank">{#$i#}：{#$vo.name#}</a>】</li>
+                         {#/volist#}
+                     </ul>
+                 </div>
+                 {#/if#}
+            </div>
+        </div>
+    </div>
+</div>

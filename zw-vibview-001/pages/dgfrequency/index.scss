@@ -1,0 +1,160 @@
+.pages{
+	background-color: #262b41;
+	width: 100vw;
+	height:100vh;
+	.content{
+		width: 100%;
+ display: flex;
+ flex-direction: column;
+ margin-left:16px;
+	}
+}
+	.leave_cont {
+		width: 95%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 14px;
+			padding:2px 26px;
+		}
+		.leave_cont .ul  {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+		
+	.leave_cont .li{
+		display: flex;
+		flex-direction: row;
+
+	}
+		.leave_cont .ul .li text {
+			width: 50px;
+			font-size: 14px;
+			color: #AFDDFF;
+			background-color: #3e4558;
+			border: 1px solid #AFDDFF;
+			box-shadow: #161E35 0px 2px 5px 0px;
+			text-align: center;
+			padding: 2px;
+			margin:0 6px;
+			border-radius: 6px;
+		}
+	
+		.leave_cont .ul .li .flex1 {
+			color: #999993;
+			font-size: 14px;
+		}
+	
+		.date {
+
+		}	
+		
+		//右边
+		.headerrights{
+			display: flex;
+		font-size: 14px;
+		color: #AFDDFF;
+			.rights-lefts{
+				background-color: #3e4558;
+				border: 1px solid #AFDDFF;
+				box-shadow: #161E35 0px 2px 5px 0px;
+				text-align: center;
+				padding: 2px;
+				margin:0 6px;
+				border-radius: 6px;
+				.leftsimgs{
+					width: 18px;
+					height: 18px;
+					top: 4px;
+				}
+				
+			}
+			.rights-rights{
+				background-color: #3e4558;
+				border: 1px solid #AFDDFF;
+				box-shadow: #161E35 0px 2px 5px 0px;
+				text-align: center;
+				padding: 2px;
+				margin:0 6px;
+				border-radius: 6px;
+				.rightsimgs{
+					width: 18px;
+					height: 18px;
+					top: 4px;
+				}
+			}
+		}
+		
+		.botentm{
+			color:#AFDDFF;
+			font-size: 15px;
+			// text-align:center;
+			margin-top:15px;
+		}
+		
+		
+		// 转速位置
+		.speedsbox{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width:100%; 
+			margin-top: 2px;
+			color: #AFDDFF;
+			padding:0 10px 0 10px;
+			.speedsbox-content{
+				border-radius:4px;
+				font-size: 14px;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				align-items: center;
+				width:94%; 
+				background-color: #3e4558;
+				border: 0.5px solid #161E35;
+				box-shadow:#161E35 0px 2px 5px 0px;
+				
+			}
+		}
+		
+		.hadersbox{
+			color:#AFDDFF ;
+			font-size: 20px;
+			width: 100%;
+			height: 25px;
+			line-height:50px;
+			text-align: center;
+			background-color: #333333;
+			padding: 20px;
+			.haderscontent{
+				display: flex;
+				flex-direction:row;
+				.textcontent{
+					margin-left: 300px;
+				}
+			}
+		}
+		
+		// 自定义头部导航栏
+		.hadersboxs{
+		  width: 100%;
+		background-color: #333333;
+			padding:0 20px;
+		}
+		
+		.haderscontents{
+			color: #FFFFFF;
+			font-size: 18px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			padding: 20px;
+			.imgsss{
+				width: 18px;
+				height: 18px;
+			}
+		}

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "通知",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#141F31",
+  "usingComponents": {
+    "u-popup": "/components/u-popup/u-popup",
+    "page-tabpars": "/components/page-tabpars/page-tabpars"
+  }
+}

@@ -1,0 +1,226 @@
+{
+    //横屏设置
+    "orientation" : [
+        //竖屏正方向
+        "portrait-primary",
+        //竖屏反方向
+        "portrait-secondary",
+        //横屏正方向
+        "landscape-primary",
+        //横屏反方向
+        "landscape-secondary",
+        //自然方向
+        "default"
+    ],
+    "name" : "vibviewTest",
+    "appid" : "__UNI__E3110FD",
+    "description" : "卓微测试包",
+    "versionName" : "2.0",
+    "versionCode" : 105,
+    "transformPx" : false,
+    /* 5+App特有相关 */
+    "app-plus" : {
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : false,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "compatible" : {
+            "ignoreVersion" : true //true表示忽略版本检查提示框，HBuilderX1.9.0及以上版本支持  
+        },
+        "usingComponents" : true,
+        "nvueStyleCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        /* 模块配置 */
+        "modules" : {
+            "Maps" : {},
+            "Share" : {},
+            "Geolocation" : {},
+            "OAuth" : {},
+            "Push" : {},
+            "Contacts" : {},
+            "Bluetooth" : {}
+        },
+        /* 应用发布信息 */
+        "distribute" : {
+            /* android打包配置 */
+            "android" : {
+                "permissions" : [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_SURFACE_FLINGER\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ]
+            },
+            /* ios打包配置 */
+            "ios" : {
+                "dSYMs" : false
+            },
+            /* SDK配置 */
+            "sdkConfigs" : {
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "b3af3cee3215983661494fd2b7d2da6e",
+                        "appkey_android" : "306327148cf7d85291f017902009b53f"
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wxa9aea2e242c197b5",
+                        "UniversalLinks" : "https://zhs.admin.cpsdb.com/.well-known/"
+                    }
+                },
+                "geolocation" : {
+                    "amap" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "b3af3cee3215983661494fd2b7d2da6e",
+                        "appkey_android" : "306327148cf7d85291f017902009b53f"
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wxa9aea2e242c197b5",
+                        "appsecret" : "412317df268b7de7134c08309c86b7a7",
+                        "UniversalLinks" : "https://zhs.admin.cpsdb.com/.well-known/"
+                    }
+                },
+                "ad" : {},
+                "push" : {}
+            },
+            "splashscreen" : {
+                "androidStyle" : "common",
+                "iosStyle" : "common",
+                "android" : {
+                    "xhdpi" : "D:/工作/zhuowei/guide.png",
+                    "hdpi" : "D:/工作/zhuowei/guide.png",
+                    "xxhdpi" : "D:/工作/zhuowei/guide.png"
+                },
+                "useOriginalMsgbox" : false
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                },
+                "ios" : {
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                    }
+                }
+            }
+        },
+        // "screenOrientation" : [
+        //       "portrait-primary",
+        //       "landscape-primary",
+        //       "portrait-secondary",
+        //       "landscape-secondary"
+        //   ]
+        //ios底部自适应
+        "safearea" : {
+            "bottom" : {
+                "offset" : "none"
+            }
+        }
+    },
+    /* 快应用特有相关 */
+    "quickapp" : {},
+    /* 小程序特有相关 */
+    "mp-weixin" : {
+        "appid" : "\twx5933f303468df59d",
+        "setting" : {
+            "urlCheck" : false
+        },
+        "usingComponents" : true,
+        "unipush" : {
+            "enable" : true
+        }
+    },
+    "mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "uniStatistics" : {
+        "enable" : false
+    },
+    "vueVersion" : "2",
+    "h5" : {
+        "router" : {
+            "mode" : "hash",
+            "base" : "./h5/"
+        },
+        "title" : "卓微vibview",
+        "devServer" : {
+            "port" : 80,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/cc" : {
+                    "target" : "http://121.5.161.39:8008",
+                    "changeOrigin" : true,
+                    "secure" : false,
+                    "pathRewrite" : {
+                        "^/cc" : ""
+                    }
+                }
+            },
+            "https" : false
+        },
+        "domain" : "http://121.5.161.39:8008",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : false
+            }
+        },
+        "template" : "index.htnl",
+        "unipush" : {
+            "enable" : false
+        }
+    }
+}

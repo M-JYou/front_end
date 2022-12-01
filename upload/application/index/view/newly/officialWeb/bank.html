@@ -1,0 +1,101 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/bank.css" /#}
+<div class="wrap" id="app">
+    <div class="logoPart">
+        <div class="logo">
+            <a href=""><img src="/assets/images/home/logo_xiazi.png" alt=""></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="navigation">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>银行</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="mainContent">
+
+            <div class="contact">
+                <el-tooltip class="item" effect="dark" content="在线咨询" placement="right">
+                    <el-popover placement="left" trigger="click">
+                        <ul>
+                            <li v-for="item in bankList">{{item.name}}</li>
+                        </ul>
+                        <el-button slot="reference"><img src="/assets/images/process_book.png" alt=""></el-button>
+                    </el-popover>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="电话联系" placement="right">
+                    <el-popover placement="left" trigger="click">
+                        <ul>
+                            <li v-for="item in bankList">{{item.name}}</li>
+                        </ul>
+                        <el-button slot="reference"><img src="/assets/images/process_phone.png" alt=""></el-button>
+                    </el-popover>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="提交需求" placement="right">
+                    <el-popover placement="left" trigger="click">
+                        <ul>
+                            <li v-for="item in bankList">{{item.name}}</li>
+                        </ul>
+                        <el-button slot="reference"><img src="/assets/images/process_message.png" alt=""></el-button>
+                    </el-popover>
+                </el-tooltip>
+            </div>
+
+            <div class="bankName">
+                <div v-for="item in 4"><img src="/assets/images/home/h_pic.png" alt=""></div>
+            </div>
+            <div class="business">
+                <div>
+                    <img src="/assets/images/home/bank_01.png" alt="">
+                    <p>开户/销户/变更 <span>查询</span></p>
+                </div>
+                <div>
+                    <img src="/assets/images/home/bank_04.png" alt="">
+                    <p>信用卡/理财/贷款<span>查询</span></p>
+                </div>
+
+                <div>
+                    <img src="/assets/images/home/bank_02.png" alt="">
+                    <p>机构网点</p>
+                </div>
+                <div>
+                    <img src="/assets/images/home/bank_06.png" alt="">
+                    <p>其他<span>业务咨询</span></p>
+                </div>
+                <div>
+                    <img src="/assets/images/home/bank_05.png" alt="">
+                    <p>选择区县</p>
+                </div>
+                <div>
+                    <img src="/assets/images/home/bank_03.png" alt="">
+                    <p>需求详情<span>查询</span></p>
+                </div>
+            </div>
+            <div class="details">
+                <img src="/assets/images/home/bk_img.png" alt="">
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                bankList: [
+                    { id: 1, name: '中国银行' },
+                    { id: 2, name: '农业银行' },
+                    { id: 3, name: '建设银行' },
+                    { id: 4, name: '邮政银行' },
+                ]
+
+            }
+        }
+    });
+</script>

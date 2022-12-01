@@ -1,0 +1,162 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/exam/show.css" /#}
+<div class="content_wrapper mac-ycc" id="app">
+  <h1>{#$data.name#}</h1>
+  <el-form :key="key" ref="elForm" :model="select" :rules="rules" size="medium" label-width="100px">
+    {#volist name='data.content' id='v' key='index'#}
+    <el-form-item prop="{#$index-1#}" label="{#$index#}">
+      <h3>{#$v.title#}: {#$v.type#}(分数:{#$v.score#})</h3>
+      {#if $v.type=='单选题'#} {#volist name='v.options' id='o' key='ok'#}
+      <el-radio :label="1" v-model="select[{#$index-1#}][{#$ok-1#}]" @click.native.prevent="dan({#$index-1#},{#$ok-1#})"
+        >{#$o#}</el-radio
+      >
+      {#/volist#} {#elseif $v.type=='多选题'#} {#volist name='v.options' id='o' key='ok'#}
+      <el-radio :label="1" v-model="select[{#$index-1#}][{#$ok-1#}]" @click.native.prevent="duo({#$index-1#},{#$ok-1#})"
+        >{#$o#}</el-radio
+      >
+      {#/volist#} {#elseif $v.type=='排序题'#}<div
+        >{#volist name='v.options' id='o' key='ok'#}
+        <el-tag class="mac-btnss" @click="pai({#$index-1#},{#$ok-1#},1)">{#$o#}</el-tag>
+        {#/volist#}</div
+      ><div class="mac-y"
+        >您的答案为:<div
+          ><el-tag v-for="(i,ii) in select[{#$index-1#}]" :key="ii" closable @close="pai({#$index-1#},ii,0)"
+            >{{data[{#$index-1#}].options[i]}}</el-tag
+          ></div
+        ></div
+      >
+      {#elseif $v.type=='问答题'#} {#volist name='v.options' id='o' key='ok'#}
+      <el-radio :label="1">{#$o#}</el-radio>
+      {#/volist#}
+      <el-input v-model="select[{#$index-1#}]" placeholder="请输入答案"></el-input>
+      {#/if#}
+    </el-form-item>
+    {#/volist#}
+
+    <el-form-item size="large">
+      <el-button type="primary" @click="submitForm">提交</el-button>
+      <el-button @click="resetForm">重置</el-button>
+    </el-form-item>
+  </el-form>
+</div>
+<script>
+  new Vue({
+    el: "#app",
+    data: {
+      d: {
+        exam: "{#$data.id#}",
+        name: "{#$data.name#}",
+        content: [],
+        note: "",
+      },
+      select: [],
+      key: 0,
+      data:{#:show($data.content)#},
+      rules: [],
+    },
+    created() {this.init();},
+    methods: {
+      init() {
+        /** @type {any[]}*/
+        this.data.forEach((e) => {
+          let i = e.options.length;
+          this.d.content.push({ answer: "" });
+          this.rules.push({
+            required: true,
+            validator(rule, value, callback) {
+              switch (e.type) {
+                case "问答题":
+                  if (value) {
+                    callback();
+                  }
+                  break;
+                case "排序题":
+                  if (value.length) {
+                    callback();
+                  }
+                  break;
+
+                default:
+                  if (value.indexOf(1) >= 0) {
+                    callback();
+                  }
+                  break;
+              }
+              callback(new Error(`本题为【${e.type}】,请作答!`));
+            },
+          });
+
+          if (e.type == "问答题") {
+            return this.select.push("");
+          }
+          const r = [];
+          while (e.type != "排序题" && i-- > 0) {
+            r.push(0);
+          }
+          this.select.push(r);
+        });
+      },
+      submitForm() {
+        this.$refs["elForm"].validate((valid) => {
+          if (!valid) return;
+          // TODO 提交表单
+          this.select.forEach((e,i)=>{
+            let t;
+            switch (this.data[i].type) {
+              case "单选题":
+                t=[];
+                e.forEach((ee,eei)=>{if(ee){this.d.content[i].answer=eei;}})
+                break;
+              case "多选题":
+                t=[];
+                e.forEach((ee,eei)=>{if(ee){t.push(eei);}})
+                this.d.content[i].answer=t.join();
+                break;
+              case "排序题":
+                this.d.content[i].answer=e.join();
+                break;
+            
+              default:
+                this.d.content[i].answer=e;
+                break;
+            }
+          });
+          httppost("member/examAnswer/add",this.d)
+          .then(e=>window.ELEMENT.Message.success(e.message))
+          .catch(()=>{});
+        });
+      },
+      resetForm() {
+        this.$refs["elForm"].resetFields();
+        this.init();
+      },
+      dan(i, ii) {
+        const d = this.select[i];
+        for (let j = 0; j < d.length; j++) {
+          d[j] = j == ii && !d[j] ? 1 : 0;
+        }
+        this.key % 2 ? this.key++ : this.key--;
+      },
+      duo(i, ii) {
+        this.select[i][ii] ^= 1;
+        this.key % 2 ? this.key++ : this.key--;
+      },
+      pai(i, ii, add) {
+        if (add) {
+          this.select[i].push(ii);
+        } else {
+          this.select[i].splice(ii, 1);
+        }
+      },
+    },
+  });
+</script>
+<script>
+  const t = [
+    { title: "选出谁最帅", options: ["A:不知道", "B:谁知道", "C:我"], answer: "1", score: 12, type: "单选题" },
+    { title: "题目1", options: ["A:XXX", "B:XXXX", "C:XXXX"], answer: "1", score: 12, type: "多选题" },
+    { title: "题目1", options: ["A:XXX", "B:XXXX", "C:XXXX"], answer: "1", score: 12, type: "排序题" },
+    { title: "题目1", options: ["A:XXX", "B:XXXX", "C:XXXX"], answer: "1", score: 12, type: "问答题" },
+    { title: "题目1", options: ["A:XXX", "B:XXXX", "C:XXXX"], answer: "1", score: 12, type: "单选题" },
+    { title: "题目1", options: ["A:XXX", "B:XXXX", "C:XXXX"], answer: "1", score: 13, type: "单选题" },
+  ];
+</script>

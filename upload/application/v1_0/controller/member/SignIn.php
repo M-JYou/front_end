@@ -1,0 +1,49 @@
+<?php
+
+/** 签到 */
+
+namespace app\v1_0\controller\member;
+
+class SignIn extends \app\v1_0\controller\common\Base {
+    public function _initialize() {
+        parent::_initialize();
+        $this->checkLogin();
+        if ($this->userinfo->utype == 1) {
+            $this->interceptCompanyProfile();
+            $this->interceptCompanyAuth();
+        } else {
+            $this->interceptPersonalResume();
+        }
+    }
+    public function index() {
+        $map['uid'] = $this->userinfo->uid;
+        $map['addtime'] = strtotime('today');
+        $map['alias'] = 'sign_in';
+        $check_signin = model('TaskRecord')
+            ->where($map)
+            ->find();
+        if ($check_signin !== null) {
+            $this->ajaxReturn(500, '你今天已经签到了');
+        }
+        model('Task')->doTask(
+            $this->userinfo->uid,
+            $this->userinfo->utype,
+            'sign_in'
+        );
+        $this->writeMemberActionLog($this->userinfo->uid, '签到');
+        $this->ajaxReturn(200, '签到成功', ['points' => model('Member')->getMemberPoints($this->userinfo->uid)]);
+    }
+
+    //查询登录账号是否签到
+    public function userSignin() {
+        $uid = $this->userinfo->uid;
+        $time = strtotime(date('Y-m-d'));
+        $where = [
+            'uid' => $uid,
+            'alias' => 'sign_in',
+            'addtime' => ['egt', $time]
+        ];
+        $count = model('TaskRecord')->where($where)->count();
+        $this->ajaxReturn(200, '获取成功', $count);
+    }
+}

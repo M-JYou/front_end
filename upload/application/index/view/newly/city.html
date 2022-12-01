@@ -1,0 +1,36 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/logoLayout.css" /#} {#load
+href="__ROOT__/assets/css/city.css" /#} {#include file="public/search" /#}
+<div class="warp" id="app2">
+  <div class="main">
+    <div class="currentCity">
+      <div class="locationCity mac-pr">
+        <a class="mac-pa mac-ico mac-ico-d-l" href="{#:P(['id'=>$sj.id,'search'=>null])#}" style="top: 0.4em; left: 1em"
+          >返回上级-{#$sj.name#}</a
+        >
+        <h2><a href="javascript;">选择城市</a></h2>
+        <p><img src="/assets/images/location_02.png" alt="" />当前所选城市</p>
+        <span><a href="{#$returl#}">{#$weather.name#}</a></span>
+      </div>
+      <div class="cityPic mac-xcc mac-oh">
+        {#if $weather.img#}<img src="{#$weather.img#}" alt="" />{#else#}<img
+          src="/assets/images/home/bk_img.png"
+          alt=""
+        />{#/if#}
+      </div>
+    </div>
+    {#if $search#}<div class="popularCities">
+      <h2>搜索结果</h2>
+      {#volist name='result' id='v'#}<span><a title="{#$v.name#}" href="{#:P(['id'=>$v.id,'search'=>null])#}">{#$v.name#}</a></span
+      >{#/volist#} </div
+    >{#else#}<div class="popularCities">
+      <h2>下级地区</h2>
+      {#volist name='xj' id='v'#}<span><a title="{#$v.name#}" href="{#:P(['id'=>$v.id,'search'=>null])#}">{#$v.name#}</a></span
+      >{#/volist#}
+    </div>
+    <div class="popularCities">
+      <h2>周边地区</h2>
+      {#volist name='pj' id='v'#}<span><a title="{#$v.name#}" href="{#:P(['id'=>$v.id,'search'=>null])#}">{#$v.name#}</a></span
+      >{#/volist#} </div
+    >{#/if#}
+  </div>
+</div>

@@ -1,0 +1,186 @@
+
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    padding: 20px 0px;
+}
+
+.main .top {
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main .mainContent {
+    width: 100%;
+    background-color: #F7F7F7;
+    overflow: hidden;
+    padding: 20px 25px 40px 20px;
+}
+.main .mainContent .box_1{
+    width: 100%;
+    height: 67px;
+    display: flex;
+    align-items: center;
+}
+.main .mainContent .box_1 button{
+    width: 160px;
+    height: 35px;
+   background-color: #FFFFFF;
+   color: #666666;
+   font-size: 16px;
+   border-radius: 8px;
+   margin-left: 20px;
+}
+.main .mainContent .box_1 .active{
+    width: 160px;
+    height: 35px;
+   background-color: #C4DFDC;
+   color: #007768;
+   font-size: 16px;
+   border-radius: 8px;
+   margin-left: 20px;
+}
+
+
+.mainContent .listItem {
+    width: 100%;
+    height: 146px;
+    background-color: #FFFFFF;
+    display: flex;
+   border-radius: 5px;
+   justify-content: space-between;
+   align-items: center;
+    margin: 8px auto;
+    padding: 20px 45px 20px 20px;
+}
+
+.listItem .itemPosition {
+   height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.itemPosition h2 {
+    color: #333333;
+    font-size: 20px;
+    font-family: 'Microsoft YaHei';
+}
+
+.itemPosition h2 span {
+    margin-left: 15px;
+}
+
+.itemPosition p {
+    font-size: 24px;
+    color: #F35F49;
+    font-weight: 700;
+    font-family: "Microsoft YaHei";
+}
+
+.welfare .welfareBox {
+    height: 34px;
+    background-color: #F5F5F5;
+    padding: 0 10px;
+    color: #666666;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    float: left;
+    line-height: 34px;
+    margin-right: 10px;
+   border-radius: 3px;
+}
+
+.itemCompanyt {
+   height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.itemCompanyt .comInfo {
+    display: flex;
+    align-items: center;
+}
+
+.itemCompanyt .comInfo .comPic {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid #007768;
+   margin-right: 10px;
+   position: relative;
+}
+.itemCompanyt .comInfo .comPic .jia{
+    position: absolute;
+    left: 15px;
+    bottom: -13px;
+}
+
+.itemCompanyt .comInfo .comName {
+    color: #333333;
+    font-size: 18px;
+    font-family: "Microsoft YaHei";
+}
+
+.itemCompanyt .comInfo .comAdd {
+	display: flex;
+	align-items: center;
+ }
+
+ .itemCompanyt .comInfo .comAdd .span_1{
+ 	color: #1a1919;
+	font-weight: 600;
+ 	font-size: 18px;
+ 	margin-top: 10px;
+	 font-family: "Microsoft YaHei";
+ }
+ .itemCompanyt .comInfo .comAdd .actTime{
+	color: #CCCCCC;
+	font-size: 14px;
+	margin-top: 10px;
+	font-family: "Microsoft YaHei";
+	margin-left: 15px;
+}
+
+.listItem .apply {
+    width: 120px;
+    height: 36px;
+    background-color: #007768;
+    border-radius: 18px;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-family: "Microsoft YaHei";
+}
+.listItem .activity{
+   font-size: 16px;
+}
+.listItem .apply:hover{
+   background-color:#FAFE00 ;
+   font-size: 18px;
+   font-weight: 700;
+}
+.box_button{
+   width: 250px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    
+}
+.box_button button {
+width: 50px;
+height: 30px;
+border-radius: 8px;
+font-size: 14px;
+color: #007768;
+background-color: #C4DFDC;
+margin-inline-start: 10px;
+float: left;
+font-family: "微软雅黑";
+}
+

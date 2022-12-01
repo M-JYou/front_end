@@ -1,0 +1,317 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/companyBuy.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div>
+            <div class="logo">
+                <img src="/assets/images/home/logo_xiazi.png" alt="">
+                <span>打造财税生态链</span>
+            </div>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>企业求购</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="banner">
+            <el-carousel trigger="click" height="130px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                    <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+    </div>
+    <div class="main">
+        <div class="box_1">
+            <div class="child_1">
+                <div class="search">
+                    <div class="search-input">
+                        <div>
+                            <i class="el-icon-search"></i>
+                            <input type="text" v-mordel="input" placeholder="请输入关键字">
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                </div>
+                <div class="release">
+                    <button @click="fabu = true">我要发布</button>
+                    <el-dialog :visible.sync="fabu">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+                            class="demo-ruleForm">
+                            <el-form-item label="标题" prop="title">
+                                <el-input v-model="ruleForm.other.title" placeholder="请输入标题"></el-input>
+                            </el-form-item>
+                            <el-form-item label="成立年限" prop="reg_time">
+                                <el-date-picker v-model="ruleForm.reg_time" type="date" placeholder="成立年限">
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="注册资本" prop="regcap">
+                                <el-input v-model="ruleForm.regcap" placeholder="请输入注册资本"></el-input>
+                            </el-form-item>
+                            <el-form-item label="经营范围" prop="business">
+                                <el-input v-model="ruleForm.business" placeholder="请输入经营范围"></el-input>
+                            </el-form-item>
+                            <el-form-item label="纳税人类型" prop="taxpayer">
+                                <el-select v-model="ruleForm.taxpayer" placeholder="请选择纳税人类型">
+                                    <el-option label="一般纳税人" value="shanghai"></el-option>
+                                    <el-option label="小规模纳税人" value="beijing"></el-option>
+                                </el-select>
+                            </el-form-item>
+
+                            <el-form-item label="注册区域" prop="addr">
+                                <el-input v-model="ruleForm.addr" placeholder="请输入注册区域"></el-input>
+                            </el-form-item>
+                            <el-form-item label="其他要求">
+                                <el-input v-model="ruleForm.requirement" placeholder="请输入其他要求"></el-input>
+                            </el-form-item>
+                            <el-form-item label="预算费用" prop="points">
+                                <el-input v-model="ruleForm.points" placeholder="请输入转让价格"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系人" prop="people">
+                                <el-input v-model="ruleForm.other.people" placeholder="请输入联系人"></el-input>
+                            </el-form-item>
+                            <el-form-item label="手机号" prop="tel">
+                                <el-input v-model="ruleForm.tel" placeholder="请输入手机号"></el-input>
+                            </el-form-item>
+                            <el-form-item label="验证码" prop="code">
+                                <el-input v-model="ruleForm.code" placeholder="请输入验证码"></el-input>
+                                <el-button type="success" round>获取验证码</el-button>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+                                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-dialog>
+                </div>
+            </div>
+            <div class="child_2">
+                <span><a href="/company/companySell">企业转让信息</a></span>
+                <span class="active"><a href="/company/companyBuy">企业求购信息</a></span>
+                <span><a href="/company/trademarkSell">商标转让信息</a></span>
+                <span><a href="/company/trademarkBuy">商标求购信息</a></span>
+                <span><a href="/company/companyMy">我的</a></span>
+            </div>
+        </div>
+        <div class="box_2">
+            <div class="tuijian">
+                <img src="/assets/images/home/tuijian_02.png" alt="">
+            </div>
+            <div class="box_right">
+                <div class="line"></div>
+                <div class="child_1 box">
+                    <div class="top">1</div>
+                    <span class="other">上传合同</span>
+                </div>
+                <div class="child_2 box">
+                    <div class="top">2</div>
+                    <span>费用支付托管</span>
+                </div>
+                <div class="child_2 box">
+                    <div class="top">3</div>
+                    <span>
+                        <select name="" id="">
+                            <option value="" disabled selected style="display: none;">付款</option>
+                            <option value="">同意付款</option>
+                            <option value="">延期付款</option>
+                            <option value="">申请退款</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_3">
+            <!-- <div class="box_4">
+                <el-select v-model="value" placeholder="请选择" v-for="n in 9">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </div> -->
+
+            <div class="box_5">
+                <div class="list" v-for="(i,ii) in data" :key="ii" @click="goDetails(i.id)">
+                    <div class="child_1">
+                        <h2>{{i.title}}</h2>
+                        <div class="son_2">{{ft(i.addtime)}}<button><i class="el-icon-chat-dot-round"></i>马上联系</button>
+                        </div>
+                    </div>
+                    <div class="child_2">
+                        <div class="a_1">
+                            <span>{{i.addr}}</span>
+                            <span>{{i.taxpayer}}</span>
+                            <span>6年</span>
+                        </div>
+                        <div class="a_2">
+                            <p>建筑资质</p>
+                            <p>商标</p>
+                        </div>
+                    </div>
+                    <div class="child_3">
+                        <div class="compic">
+                            <img class="headPic" src="/assets/images/home/ask_01.png" alt="">
+                            <div class="jia">
+                                <img src="/assets/images/home/en_03.png" alt="">
+                            </div>
+                        </div>
+                        <p>两只老虎</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");//截取参数
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    }
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                ruleForm: {
+                    title: '',
+                    name: '',
+                    type: '',
+                    points: '',
+                    reg_time: '',
+                    use_time: '',
+                    business: '',
+                    taxpayer: '',
+                    licence: '',
+                    trademark: '',
+                    stock: '',
+                    tel: '',
+                    code: '',
+                    requirement:'',
+                    other: {
+                        title: '',
+                        licence: '',
+                        trademark: '',
+                        code: '',
+                        book: '',
+                        people: '',
+                    },
+                },
+                rules: {
+                    title: [
+                        { required: true, message: '请输入标题', trigger: 'blur' },
+                    ],
+                    name: [
+                        { required: true, message: '请输入转让企业名称', trigger: 'blur' },
+                    ],
+                    people: [
+                        { required: true, message: '请输入联系人', trigger: 'blur' }
+                    ],
+                    type: [
+                        { required: true, message: '请选择企业类型', trigger: 'change' }
+                    ],
+                    category: [
+                        { required: true, message: '请选择所属行业', trigger: 'change' }
+                    ],
+                    reg_time: [{
+                        required: true, message: '请选择成立时间', trigger: 'change'
+                    }],
+                    points: [
+                        { required: true, message: '请输入转让价格', trigger: 'blur' },
+                    ],
+                    use_time: [
+                        { required: true, message: '请输入经营年限', trigger: 'blur' }
+                    ],
+                    regcap: [
+                        { required: true, message: '请输入注册资本', trigger: 'blur' }
+                    ],
+                    business: [
+                        { required: true, message: '请输入经营范围', trigger: 'blur' }
+                    ],
+                    taxpayer: [
+                        { required: true, message: '请选择纳税人类型', trigger: 'change' }
+                    ],
+                    addr: [
+                        { required: true, message: '请输入注册区域', trigger: 'blur' }
+                    ],
+                    licence: [
+                        { required: true, message: '请输入资质/许可证详细信息', trigger: 'blur' }
+                    ],
+                    trademark: [
+                        { required: true, message: '请输入商标信息', trigger: 'blur' }
+                    ],
+                    stock: [
+                        { required: true, message: '请输入转让比例', trigger: 'blur' }
+                    ],
+
+                    tel: [
+                        { required: true, message: '请输入电话号码', trigger: 'blur' }
+                    ],
+                    code: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' }
+                    ]
+                },
+                radio1: '1',
+                radio2: '1',
+                fabu: false,
+                data: [],
+                input: '',
+                checked: true,
+            }
+        },
+        created() {
+            // this.itemIndex = GetQueryString('itemIndex')
+            this.getCompanyBuy()
+            // this.getCompanySave()
+        },
+        methods: {
+            // 上传照片
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt1M = file.size / 1024 / 1024 < 1;
+
+                if (!isJPG) {
+                    this.$message.error('上传图片只能是 JPG 格式!');
+                }
+                if (!isLt1M) {
+                    this.$message.error('上传头像图片大小不能超过 1MB!');
+                }
+                return isJPG && isLt2M;
+            },
+            // 提交
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            //   重置
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            ft: formatShortTime,
+            //公司求购
+            async getCompanyBuy() {
+                const res = await httppost('member/CompanyBuy/index');
+                this.data = res.data;
+                console.log(this.data);
+            },
+            goDetails(id) {
+                location.href = `/company/buyCompanyDet/${id}.html`;
+            },
+
+
+
+
+
+        }
+    })
+
+</script>

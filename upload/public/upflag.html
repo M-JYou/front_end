@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>在线升国旗</title>
+    <script src="assets/js/jquery.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body,
+      .main {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        background-image: url("/static/sgqbj.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
+      .main {
+        /* background-color: red; */
+        background-image: url("/static/background.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: contain;
+      }
+      .main > div,
+      .main > div > img {
+        position: absolute;
+      }
+      .main > div > img {
+        top: 100%;
+        opacity: 0;
+      }
+      @keyframes up {
+        0% {
+          top: 100%;
+        }
+        100% {
+          top: 0%;
+        }
+      }
+      @keyframes show {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      #upbtn {
+        display: none;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 5%;
+
+        border-radius: 1em;
+        background-color: #f4511e; /* Green */
+        border: none;
+        color: white;
+        padding: 1em 2em;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+      }
+      #upbtn:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      }
+    </style>
+    <script>
+      function aload() {
+        console.log(3);
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="main" class="main">
+      <div id="box">
+        <img id="flag" src="/static/flag.gif" alt="" />
+      </div>
+
+      <button id="upbtn">在线升国旗</button>
+    </div>
+  </body>
+  <script>
+    window.onresize = () => {
+      location.reload();
+    };
+    window.onload = () => {
+      const e = document.getElementById("main");
+      const top = (e.offsetHeight - e.offsetTop) / 8;
+      const ih = e.clientHeight / 14;
+      const bottom = e.offsetHeight - e.offsetTop - ih * 3.4;
+      const left = (e.offsetWidth - e.offsetLeft) / 2;
+
+      const border = e.children[0];
+      border.style.left = left + "px";
+      border.style.height = bottom - top + "px";
+      border.style.top = top + "px";
+      const img = border.children[0];
+      img.height = ih;
+
+      const audio = $(
+        '<audio preload="auto"><source src="/static/anthem.wav" /><source src="/static/anthem.ogg" /><source src="/static/anthem.mp3" /></audio>',
+      );
+      const btn = $("#upbtn");
+      audio.bind("canplay", () => {
+        btn.bind("click", () => {
+          btn.css("display", "");
+          img.style.animation = null;
+          audio[0].play();
+        });
+        btn.css("display", "inline-block");
+      });
+      audio.bind("play", () => {
+        img.style.animation = "up 45s linear forwards 3s,show 3s linear forwards";
+        btn.unbind();
+      });
+      $("#main").append(audio);
+    };
+  </script>
+</html>

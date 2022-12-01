@@ -1,0 +1,752 @@
+<?php
+
+namespace app\common\model;
+
+class Member extends \app\common\model\BaseModel {
+  protected $readonly = [
+    'uid',
+    'reg_time',
+    'reg_ip',
+    'reg_address',
+    'robot',
+  ];
+  protected $type = [
+    'uid' => 'integer',
+    'utype' => 'integer',
+    'reg_time' => 'integer',
+    'last_login_time' => 'integer',
+    'status' => 'integer',
+    'robot' => 'integer',
+  ];
+  protected $insert = [
+    'email' => '',
+    'reg_time',
+    'reg_ip',
+    'reg_address',
+    'last_login_time' => 0,
+    'last_login_ip' => '',
+    'last_login_address' => '',
+    'status' => 1,
+    'avatar' => '',
+    'robot' => 0,
+  ];
+
+  protected function setRegTimeAttr($value = null) {
+    return $value === null ? time() : $value;
+  }
+  protected function setRegIpAttr($value = null) {
+    return $value === null
+      ? get_client_ip() . ':' . get_client_port()
+      : $value;
+  }
+  protected function setRegAddressAttr($value = null) {
+    if ($value === null) {
+      $ip = get_client_ip();
+      return get_client_ipaddress($ip);
+    } else {
+      return $value;
+    }
+  }
+  public function getId($prefix = null) {
+    if (!isset($prefix) || !(intval($prefix) > 0) || strlen($prefix) < 4) {
+      $prefix = getCityByIp(get_client_ip(), 4);
+    } elseif (strlen($prefix) > 4) {
+      $prefix = substr($prefix, 0, 4);
+    }
+    $d = $this->where('uid', 'like', $prefix . '_____')->order('uid desc')->find();
+    $d = isset($d->uid) ? intval(substr($d->uid, 4)) : 1000;
+    $max = 90000;
+    while (++$d < $max) {
+      // 开始四连号检测
+      $continue = false;
+      $t = strval($d);
+      for ($i = 0; $i < 10; $i++) {
+        if (strpos($t, $i . $i . $i . $i) !== false) {
+          $continue = true;
+          break;
+        }
+      }
+      if ($continue) {
+        continue;
+      }
+      break;
+    }
+    if ($d >= $max) {
+      $this->error = 'id已分配完毕';
+      return false;
+    }
+    while (strlen($d) < 5) { // 向前补位
+      $d = '0' . $d;
+    }
+    return intval($prefix . substr($d, -5));
+  }
+  public function setStatus($uid, $status) {
+    $model = self::find($uid);
+    $model->status = $status;
+    if ($model->save()) {
+      if (!intval($status)) {
+        model('IdentityToken')->where(['uid' => $uid])->delete(); //锁定即删除token,
+      }
+      if ($model->utype == 1) {
+        model('Company')->setUserStatus($uid, $status);
+        $jobid_arr = model('Job')
+          ->where('uid', $uid)
+          ->column('id');
+        foreach ($jobid_arr as $key => $value) {
+          model('Job')->refreshSearch($value, $model);
+        }
+        model('Job')->setUserStatus($uid, $status);
+      } else {
+        model('Resume')->refreshSearch(0, $uid, $model);
+      }
+    } else {
+      $this->error = $model->getError();
+      return false;
+    }
+    return;
+  }
+  public function setIm($uid, $disable_im, $reason) {
+    $model = self::find($uid);
+    $model->disable_im = $disable_im;
+    if ($model->save()) {
+      if (!intval($disable_im)) {
+        model('ImForbid')->where(['uid' => $uid])->delete(); //解除禁聊即删除禁聊记录,
+      } else {
+        $data['uid'] = $uid;
+        $data['addtime'] = time();
+        $data['reason'] = $reason;
+        model('ImForbid')->insert($data);
+      }
+    } else {
+      $this->error = $model->getError();
+      return false;
+    }
+    return;
+  }
+  public function makePassword($password, $randstr) {
+    $encrypt_method =
+      API_LIB_PATH .
+      'encrypt_method/' .
+      config('sys.pwd_encrypt_method') .
+      '.php';
+    require $encrypt_method;
+    return $return;
+  }
+  /** 开通企业套餐
+   * $data = ['uid','setmeal_id','note'] */
+  public function setMemberSetmeal($data, $order_id = 0, $admin_id = 0) {
+    $setmeal_info = model('Setmeal')
+      ->where(['id' => ['eq', intval($data['setmeal_id'])]])
+      ->find();
+
+    $data['jobs_meanwhile'] = $setmeal_info['jobs_meanwhile'];
+    $data['refresh_jobs_free_perday'] =
+      $setmeal_info['refresh_jobs_free_perday'];
+    $data['download_resume_max_perday'] =
+      $setmeal_info['download_resume_max_perday'];
+    $data['im_max_perday'] = $setmeal_info['im_max_perday'];
+    $data['service_added_discount'] =
+      $setmeal_info['service_added_discount'];
+    $data['enable_video_interview'] =
+      $setmeal_info['enable_video_interview'];
+    $data['enable_poster'] = $setmeal_info['enable_poster'];
+    $data['show_apply_contact'] = $setmeal_info['show_apply_contact'];
+    $data['expired'] = 0;
+    $check_setmeal = model('MemberSetmeal')
+      ->where('uid', $data['uid'])
+      ->find();
+    if ($check_setmeal === null) {
+      $data['deadline'] =
+        $setmeal_info['days'] == 0
+        ? 0
+        : strtotime('+' . $setmeal_info['days'] . ' day');
+      $data['download_resume_point'] = $setmeal_info['download_resume_point'];
+      $data['im_total'] = $setmeal_info['im_total'];
+      model('MemberSetmeal')
+        ->allowField(true)
+        ->save($data);
+    } else {
+      if ($check_setmeal['deadline'] > time()) {
+
+        //-------------------没过期,时间叠加到原有套餐 ---------------------> 旧逻辑，已废弃，以下为新逻辑
+
+        //没过期，根据配置信息决定是否叠加时间
+        if ($setmeal_info['days'] == 0) {
+          $data['deadline'] = 0;
+        } else if (config('global_config.reopen_setmeal_deadline') == 1) {
+          $data['deadline'] = $check_setmeal['deadline'] + $setmeal_info['days'] * 3600 * 24;
+        } else {
+          $data['deadline'] = strtotime('+' . $setmeal_info['days'] . ' day');
+        }
+      } else {
+        //已过期或者之前是无限期的，从现在开始算起
+        $data['deadline'] =
+          $setmeal_info['days'] == 0
+          ? 0
+          : strtotime('+' . $setmeal_info['days'] . ' day');
+      }
+      //重开套餐资源处理
+      if (config('global_config.reopen_setmeal_resource') == 1) {
+        //叠加
+        $data['download_resume_point'] = $check_setmeal['download_resume_point'] + $setmeal_info['download_resume_point'];
+        $data['im_total'] = $check_setmeal['im_total'] + $setmeal_info['im_total'];
+      } else {
+        //不叠加
+        $data['download_resume_point'] = $setmeal_info['download_resume_point'];
+        $data['im_total'] = $setmeal_info['im_total'];
+      }
+
+      model('MemberSetmeal')
+        ->allowField(true)
+        ->save($data, ['uid' => $data['uid']]);
+    }
+
+    $log['uid'] = $data['uid'];
+    $log['content'] =
+      '开通【' . $setmeal_info['name'] . '】' . $data['note'];
+    $log['addtime'] = time();
+    model('MemberSetmealLog')
+      ->allowField(true)
+      ->save($log);
+    //开通日志
+    $openLogData = [
+      'uid' => $data['uid'],
+      'setmeal_id' => $setmeal_info['id'],
+      'setmeal_name' => $setmeal_info['name'],
+      'order_id' => $order_id,
+      'admin_id' => $admin_id
+    ];
+    model('MemberSetmealOpenLog')->record($openLogData);
+
+    $lognote = '';
+    //如果后台开通套餐时赠送了积分，备注为注册赠送
+    if (isset($data['points'])) {
+      if ($data['points'] > 0) {
+        $lognote = '注册赠送';
+      }
+      //如果后台开通套餐时赠送了积分，赠送积分总和为赠送积分+套餐内积分
+      $data['points'] =
+        intval($data['points']) + $setmeal_info['gift_point'];
+      if ($data['points'] > 0) {
+        //如果后台开通套餐时赠送了积分，备注为套餐内赠送+注册赠送
+        $lognote =
+          $lognote == '' ? '套餐内赠送' : $lognote . '+套餐内赠送';
+        $this->setMemberPoints([
+          'uid' => $data['uid'],
+          'points' => $data['points'],
+          'note' => $lognote . $data['note'],
+        ]);
+      }
+    } else if ($setmeal_info['gift_point'] > 0) {
+      $lognote = '套餐内赠送';
+      $this->setMemberPoints([
+        'uid' => $data['uid'],
+        'points' => $setmeal_info['gift_point'],
+        'note' => $lognote . $data['note'],
+      ]);
+    }
+    //将企业、职位中的套餐id改为新的
+    model('Job')
+      ->where('uid', $data['uid'])
+      ->setField('setmeal_id', $setmeal_info['id']);
+    model('JobSearchRtime')
+      ->where('uid', $data['uid'])
+      ->setField('setmeal_id', $setmeal_info['id']);
+    model('JobSearchKey')
+      ->where('uid', $data['uid'])
+      ->setField('setmeal_id', $setmeal_info['id']);
+    model('Company')
+      ->where('uid', $data['uid'])
+      ->setField('setmeal_id', $setmeal_info['id']);
+    //通知
+    model('NotifyRule')->notify($data['uid'], 1, 'new_setmeal', [
+      'setmeal_name' => $setmeal_info['name'],
+      'overtime' =>
+      $data['deadline'] == 0
+        ? '无限期'
+        : date('Y-m-d', $data['deadline']),
+    ]);
+  }
+  /** 设置积分
+   * $data = ['uid','points','note']
+   * $op = 1:增加; 2:减少 */
+  public function setMemberPoints($data, $op = 1, $logData = null) {
+    // return $data;
+    if (!$data['points']) {
+      return;
+    }
+    $changeRes = '。归零。';
+    $param_points = $data['points'];
+    $check_points = model('MemberPoints')
+      ->where('uid', $data['uid'])
+      ->find();
+    if ($check_points === null) {
+      if ($op == 2) {
+        $data['points'] = 0;
+      }
+      model('MemberPoints')
+        ->allowField(true)
+        ->save($data);
+      // $check_points
+    } else {
+      if ($op == 1) {
+        $data['points'] = $check_points['points'] + $data['points'];
+      } elseif ($op == 2) {
+        $data['points'] = $check_points['points'] - $data['points'];
+      }
+      if ($data['points'] < 0) {
+        throw new \Exception('积分不足,执行当前操作后积分为:' . $data['points']);
+        $data['points'] = 0;
+      } else {
+        $changeRes = '。变更。';
+      }
+
+      model('MemberPoints')
+        ->where(['uid' => $data['uid']])
+        ->update(['points' => $data['points']]);
+    }
+    // if ($data['points'] > 0) {
+    $note = '系统操作';
+    if (isset($data['note'])) {
+      $note = $data['note'];
+    } else {
+      if (isset($data['username'])) {
+        $note .= '【' . $data['username'] . '】';
+      }
+      $note .= '。备注:' . isset($data['explain']) ? $data['explain'] : '';
+    }
+    $log['uid'] = $data['uid'];
+    $log['op'] = $op;
+    $log['points'] = $param_points;
+    $log['content'] = $note . $changeRes;
+    $log['addtime'] = time();
+    model('MemberPointsLog')->insert($log);
+    // }
+    if (!isset($logData)) {
+      $logData = [];
+    }
+    if (isset($data['id']) && !isset($logData['id'])) {
+      $logData['id'] = $data['id'];
+    }
+    if (isset($data['username']) && !isset($logData['username'])) {
+      $logData['username'] = $data['username'];
+    }
+    if (isset($logData['id']) && isset($logData['username'])) {
+      model('AdminLog')->record(
+        '变更会员' . config('global_config.points_byname') . '。' . ($op == 1 ? '增加' : '减少') . '【' . $param_points . '】;会员UID【' . $data['uid'] . '】' . $changeRes,
+        null,
+        0,
+        $logData['id'],
+        $logData['username'],
+        isset($logData['ip']) ? $logData['ip'] : null,
+        isset($logData['port']) ? $logData['port'] : null,
+      );
+    }
+  }
+  /** 设置积分2
+   * @param array[['uid'=>int,'points'=>int,'note'=>string]] $param 成员 ['uid'=>int,'points'=>int,'note'=>string] 
+   */
+  public function setPoints($param) {
+    return model('MemberPoints')->setPoints($param);
+  }
+
+  /** 获取用户套餐内容 */
+  public function getMemberSetmeal($uid) {
+    $info = model('MemberSetmeal')
+      ->where(['uid' => ['eq', $uid]])
+      ->field('id,uid', true)
+      ->find();
+    if ($info['deadline'] != 0 && $info['deadline'] < time()) {
+      //如果过期，看配置参数中资源是保留还是清空
+      if (config('global_config.overtime_setmeal_resource') == 0) {
+        //清空
+        $info['download_resume_point'] = 0;
+      }
+      $overtime_config = config('global_config.setmeal_overtime_conf');
+      $info['jobs_meanwhile'] = $overtime_config['jobs_meanwhile'];
+      $info['refresh_jobs_free_perday'] =
+        $overtime_config['refresh_jobs_free_perday'];
+      $info['download_resume_max_perday'] =
+        $overtime_config['download_resume_max_perday'];
+      $info['im_max_perday'] =
+        $overtime_config['im_max_perday'];
+      $info['service_added_discount'] =
+        $overtime_config['service_added_discount'];
+      $info['enable_video_interview'] =
+        $overtime_config['enable_video_interview'];
+      $info['enable_poster'] = $overtime_config['enable_poster'];
+      $info['show_apply_contact'] =
+        $overtime_config['show_apply_contact'];
+      $info['overtime'] = 1;
+    } else {
+      $info['overtime'] = 0;
+    }
+    $setmeal = model('Setmeal')->where('id', $info['setmeal_id'])->find();
+    if ($setmeal === null) {
+      $info['name'] = '';
+    } else {
+      $info['name'] = $info['overtime'] == 1 ? ($setmeal['name'] . '已过期') : $setmeal['name'];
+    }
+    return $info;
+  }
+  /** 获取用户积分数 */
+  public function getMemberPoints($uid) {
+    $info = model('MemberPoints')
+      ->where('uid', $uid)
+      ->find();
+    if ($info === null) {
+      $return = 0;
+    } else {
+      $return = $info->points;
+    }
+    return $return;
+  }
+
+  /** 注册企业会员 */
+  public function regCompany($input_data) {
+    $uid = $this->getId();
+    if (!$uid) {
+      return false;
+    }
+    $insert_data_member = [
+      'uid' => $uid,
+      'username' => config('global_config.reg_prefix') . $input_data['mobile'],
+      'password' => isset($input_data['password'])
+        ? $input_data['password']
+        : '',
+      'mobile' => $input_data['mobile'],
+      'utype' => 1,
+      'platform' => config('platform'),
+    ];
+    if ($this->where('username', $insert_data_member['username'])->find()) {
+      $this->error = '用户名已注册';
+      return false;
+    }
+
+    \think\Db::startTrans();
+    try {
+      //新增到会员表
+      $insert_data_member['pwd_hash'] = randstr();
+      if ($insert_data_member['password'] != '') {
+        $insert_data_member['password'] = $this->makePassword(
+          $insert_data_member['password'],
+          $insert_data_member['pwd_hash']
+        );
+      }
+      if (false === $this->validate('Member.add')->allowField(true)->save($insert_data_member)) {
+        throw new \Exception($this->getError());
+      }
+      //新增到企业表
+      if (isset($input_data['companyname']) && $input_data['companyname'] != '') {
+        $insert_data_company['uid'] = $this->uid;
+        $insert_data_company['companyname'] = $input_data['companyname'];
+        $insert_data_company['short_name'] = '';
+        $insert_data_company['nature'] = 0;
+        $insert_data_company['trade'] = 0;
+        $insert_data_company['district1'] = 0;
+        $insert_data_company['district2'] = 0;
+        $insert_data_company['district3'] = 0;
+        $insert_data_company['district'] = 0;
+        $insert_data_company['scale'] = 0;
+        $insert_data_company['registered'] = 0;
+        $insert_data_company['currency'] = 0;
+        $insert_data_company['tag'] = '';
+        $insert_data_company['map_lat'] = 0.0;
+        $insert_data_company['map_lng'] = 0.0;
+        $insert_data_company['map_zoom'] = 0;
+        $insert_data_company['logo'] = 0;
+        $insert_data_company['addtime'] = time();
+        $insert_data_company['refreshtime'] =
+          $insert_data_company['addtime'];
+        $insert_data_company['cs_id'] = $this->distributionCustomerService();
+        $insert_data_company['platform'] = config('platform');
+        $insert_data_company['is_display'] = config(
+          'global_config.display_new_com'
+        );
+        $insert_data_company['audit'] = config(
+          'global_config.audit_new_com'
+        );
+
+        if (
+          false ===
+          model('Company')
+          ->allowField(true)
+          ->save($insert_data_company)
+        ) {
+          throw new \Exception(model('Company')->getError());
+        }
+        //新增到企业信息表
+        $insert_data_company_info['comid'] = model('Company')->id;
+        $insert_data_company_info['uid'] = $this->uid;
+        $insert_data_company_info['website'] = '';
+        $insert_data_company_info['short_desc'] = '';
+        $insert_data_company_info['content'] = '';
+        $insert_data_company_info['address'] = '';
+        if (
+          false ===
+          model('CompanyInfo')
+          ->allowField(true)
+          ->save($insert_data_company_info)
+        ) {
+          throw new \Exception(model('CompanyInfo')->getError());
+        }
+        if (isset($input_data['contact']) && $input_data['contact'] != '') {
+          //新增到企业联系方式表
+          $insert_data_company_contact['comid'] = model('Company')->id;
+          $insert_data_company_contact['uid'] = $this->uid;
+          $insert_data_company_contact['contact'] = $input_data['contact'];
+          $insert_data_company_contact['mobile'] = $input_data['mobile'];
+          $insert_data_company_contact['weixin'] = '';
+          $insert_data_company_contact['telephone'] = '';
+          $insert_data_company_contact['qq'] = '';
+          $insert_data_company_contact['email'] = '';
+          $insert_data_company_contact['address'] = '';
+          if (
+            false ===
+            model('CompanyContact')
+            ->allowField(true)
+            ->save($insert_data_company_contact)
+          ) {
+            throw new \Exception(model('CompanyContact')->getError());
+          }
+        }
+      }
+
+      //赠送套餐
+      $data_setmeal['uid'] = $this->uid;
+      $data_setmeal['note'] = '';
+      $data_setmeal['setmeal_id'] = config('global_config.reg_service');
+      $this->setMemberSetmeal($data_setmeal);
+      model('Task')->doTask($this->uid, 1, 'reg');
+      //赠送优惠券
+      $coupon_config = config('global_config.coupon_config');
+      if ($coupon_config['is_open'] == 1 && $coupon_config['is_reg_gift'] == 1 && count($coupon_config['reg_gift_list']) > 0) {
+        model('Coupon')->send(['setmeal_id' => -1, 'uid' => $this->uid, 'coupon_id' => $coupon_config['reg_gift_list'],]);
+      }
+      \think\Db::commit();
+    } catch (\Exception $e) {
+      \think\Db::rollBack();
+      $this->error = $e->getMessage();
+      return false;
+    }
+
+
+    if (isset($insert_data_company['cs_id'])) {
+      $customer_service = model('CustomerService')
+        ->where('id', $insert_data_company['cs_id'])
+        ->find();
+      model('NotifyRule')->notify($this->uid, 1, 'reg', [
+        'sitename' => config('global_config.sitename'),
+        'contact' => isset($customer_service['name'])
+          ? $customer_service['name']
+          : '',
+        'mobile' => isset($customer_service['mobile'])
+          ? $customer_service['mobile']
+          : '',
+        'weixin' => isset($customer_service['weixin'])
+          ? $customer_service['weixin']
+          : '',
+      ]);
+    }
+
+    return [
+      'uid' => $this->uid,
+      'utype' => 1,
+      'mobile' => $input_data['mobile'],
+    ];
+  }
+  /** 注册个人会员 */
+  public function regPersonal($input_data) {
+    $uid = $this->getId();
+    if (!$uid) {
+      return false;
+    }
+    $insert_data_member = [
+      'uid' => $uid,
+      'username' => config('global_config.reg_prefix') . $input_data['mobile'],
+      'password' => isset($input_data['password'])
+        ? $input_data['password']
+        : '',
+      'mobile' => $input_data['mobile'],
+      'utype' => 2,
+      'platform' => config('platform'),
+    ];
+    if ($this->where('username', $insert_data_member['username'])->find()) {
+      $this->error = '用户名已注册';
+      return false;
+    }
+
+    //新增到会员表
+    $insert_data_member['pwd_hash'] = randstr();
+    if ($insert_data_member['password'] != '') {
+      $insert_data_member['password'] = $this->makePassword(
+        $insert_data_member['password'],
+        $insert_data_member['pwd_hash']
+      );
+    } else {
+      $insert_data_member['password'] = '';
+    }
+    if (
+      false ===
+      $this->validate('Member.add')
+      ->allowField(true)
+      ->save($insert_data_member)
+    ) {
+      $this->error = $this->getError();
+      return false;
+    }
+    model('Task')->doTask($this->uid, 2, 'reg');
+    model('NotifyRule')->notify($this->uid, 2, 'reg', [
+      'sitename' => config('global_config.sitename'),
+      'mobile' => config('global_config.contact_tel'),
+    ]);
+    model('MemberInfo')->insert([
+      'id' => $uid,
+      'name' => $uid,
+      'photo' => '/upload/resource/empty_photo.png',
+      'addr' => [],
+    ]);
+    model('MemberPoints')->setPoints([
+      'uid' => $uid,
+      'points' => 0,
+      'note' => '注册,初始化'
+    ]);
+    return [
+      'uid' => $uid,
+      'utype' => 2,
+      'mobile' => $input_data['mobile'],
+    ];
+  }
+  /** 分配客服 */
+  public function distributionCustomerService() {
+    $idarr = model('CustomerService')
+      ->where('status', 1)
+      ->column('id');
+    if (!empty($idarr)) {
+      shuffle($idarr);
+      return $idarr[0];
+    }
+    return 0;
+  }
+  /** 根据uid删除会员相关的所有信息
+   * type $uid = array */
+  public function deleteMemberByUids($uid) {
+    model('Company')->where('uid', 'in', $uid)->delete();
+    model('CompanyAuth')->where('uid', 'in', $uid)->delete();
+    model('CompanyAuthLog')->where('uid', 'in', $uid)->delete();
+    model('CompanyContact')->where('uid', 'in', $uid)->delete();
+    model('CompanyDownResume')->where('uid', 'in', $uid)->delete();
+    model('CompanyImg')->where('uid', 'in', $uid)->delete();
+    model('CompanyInfo')->where('uid', 'in', $uid)->delete();
+    model('CompanyInterview')->where('uid', 'in', $uid)->delete();
+    model('CompanyInterviewVideo')->where('uid', 'in', $uid)->delete();
+    model('CompanyReport')->where('uid', 'in', $uid)->delete();
+    model('CouponRecord')->where('uid', 'in', $uid)->delete();
+    model('CustomerServiceComplaint')->where('uid', 'in', $uid)->delete();
+    model('Entrust')->where('uid', 'in', $uid)->delete();
+    model('FavJob')->where('company_uid', 'in', $uid)->delete();
+    model('FavJob')->where('personal_uid', 'in', $uid)->delete();
+    model('FavResume')->where('company_uid', 'in', $uid)->delete();
+    model('FavResume')->where('personal_uid', 'in', $uid)->delete();
+    model('Feedback')->where('uid', 'in', $uid)->delete();
+    model('JobApply')->where('company_uid', 'in', $uid)->delete();
+    model('JobApply')->where('personal_uid', 'in', $uid)->delete();
+    model('JobfairExhibitors')->where('uid', 'in', $uid)->delete();
+    model('MarketQueue')->where('uid', 'in', $uid)->delete();
+    model('Member')->where('uid', 'in', $uid)->delete();
+    model('MemberBind')->where('uid', 'in', $uid)->delete();
+    model('MemberActionLog')->where('uid', 'in', $uid)->delete();
+    model('MemberSetmeal')->where('uid', 'in', $uid)->delete();
+    model('MemberSetmealLog')->where('uid', 'in', $uid)->delete();
+    model('MemberPoints')->where('uid', 'in', $uid)->delete();
+    model('MemberPointsLog')->where('uid', 'in', $uid)->delete();
+    model('Message')->where('uid', 'in', $uid)->delete();
+    model('RefreshJobLog')->where('uid', 'in', $uid)->delete();
+    model('RefreshResumeLog')->where('uid', 'in', $uid)->delete();
+    model('RefreshjobQueue')->where('uid', 'in', $uid)->delete();
+    model('TaskRecord')->where('uid', 'in', $uid)->delete();
+    model('Resume')->where('uid', 'in', $uid)->delete();
+    model('ResumeAuditLog')->where('uid', 'in', $uid)->delete();
+    model('ResumeCertificate')->where('uid', 'in', $uid)->delete();
+    model('ResumeComplete')->where('uid', 'in', $uid)->delete();
+    model('ResumeContact')->where('uid', 'in', $uid)->delete();
+    model('ResumeEducation')->where('uid', 'in', $uid)->delete();
+    model('ResumeImg')->where('uid', 'in', $uid)->delete();
+    model('ResumeIntention')->where('uid', 'in', $uid)->delete();
+    model('ResumeLanguage')->where('uid', 'in', $uid)->delete();
+    model('ResumeProject')->where('uid', 'in', $uid)->delete();
+    model('ResumeSearchKey')->where('uid', 'in', $uid)->delete();
+    model('ResumeSearchRtime')->where('uid', 'in', $uid)->delete();
+    model('ResumeTraining')->where('uid', 'in', $uid)->delete();
+    model('ResumeWork')->where('uid', 'in', $uid)->delete();
+    model('Shield')->where('company_uid', 'in', $uid)->delete();
+    model('Shield')->where('personal_uid', 'in', $uid)->delete();
+    model('StatViewJob')->where('company_uid', 'in', $uid)->delete();
+    model('StatViewJob')->where('personal_uid', 'in', $uid)->delete();
+    model('SubscribeJob')->where('uid', 'in', $uid)->delete();
+    model('TaskRecord')->where('uid', 'in', $uid)->delete();
+    model('Tipoff')->where('uid', 'in', $uid)->delete();
+    model('ViewJob')->where('company_uid', 'in', $uid)->delete();
+    model('ViewJob')->where('personal_uid', 'in', $uid)->delete();
+    model('ViewResume')->where('company_uid', 'in', $uid)->delete();
+    model('ViewResume')
+      ->where('personal_uid', 'in', $uid)
+      ->delete();
+    model('Job')->deleteJobByUids($uid);
+    return;
+  }
+  // 绑定用户
+  public function bindRid(int $uid, int $rid) {
+    $this->save(['uid' => $uid, 'rid' => $rid]);
+    $ip = get_client_ip();
+    model('MemberActionLog')->save([
+      'utype' => 0,
+      'uid' => $uid,
+      'content' => '绑定用户:' . $rid,
+      'addtime' => time(),
+      'ip' => $ip . ':' . get_client_port(),
+      'ip_addr' => get_client_ipaddress($ip),
+      'platform' => config('platform'),
+      'is_login' => 0,
+    ]);
+  }
+  protected function getMasterAttr($v, $d = null) {
+    $ret = [
+      'reprint' => 0,
+      'favorites' => 0,
+      'likes' => 0,
+      'comment' => 0,
+      'report' => 0,
+      'sort' => 0,
+    ];
+    if ($d && isset($d['model']) && isset($d['id'])) {
+      $reprint = model('Reprint');
+      $favorites = model('Favorites');
+      $likes = model('Likes');
+      $comment = model('Comment');
+      $report = model('Report');
+      $m = model($d['model']);
+      $tj = decode($v);
+      $tj['create'] = $d['id'];
+
+      $w1 = ['model' => $d['model'], 'mid' => [
+        'in', $m
+          ->where($tj)
+          ->column('id')
+      ]];
+      $ret = [
+        'reprint' => $reprint->where($w1)->count(),
+        'favorites' => $favorites->where($w1)->count(),
+        'likes' => $likes->where($w1)->count(),
+        'comment' => $comment->where($w1)->count(),
+        'report' => $report->where($w1)->count() * -1,
+      ];
+      $sort = 0;
+      foreach ($ret as $v) {
+        $sort += $v;
+      }
+      $ret['sort'] = $sort;
+    }
+    return $ret;
+  }
+}

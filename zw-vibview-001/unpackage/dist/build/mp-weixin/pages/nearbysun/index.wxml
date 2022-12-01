@@ -1,0 +1,1 @@
+<view class="pages data-v-370f788e"><view class="main data-v-370f788e"><web-view class="webboxs data-v-370f788e" src="{{platformurl+'/SystemSecurity/Information/InfoDetail?keyValue='+keyValue}}"></web-view></view></view>

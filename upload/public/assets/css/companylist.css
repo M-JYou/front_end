@@ -1,0 +1,163 @@
+/* #region */
+.wapper_content {
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.main {
+  margin-top: 10px;
+}
+
+.main-top {
+  width: 1400px;
+  overflow: hidden;
+}
+
+.main-top .top-head {
+  width: 1400px;
+  font-family: "微软雅黑";
+  height: 48px;
+  border-bottom: 9px solid #007768;
+  display: flex;
+  align-items: flex-end;
+  margin-top: 7px;
+}
+
+.main-top .top-head>button {
+  width: 150px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666666;
+  font-family: "微软雅黑";
+  font-size: 16px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #E6E8E8;
+  margin-left: 10px;
+}
+
+.main-top .top-head .info {
+  width: 150px;
+  color: #FFFFFF;
+  font-weight: 700;
+  height: 45px;
+  display: flex;
+  padding: 0px;
+  background-color: #007768;
+  font-size: 16px;
+}
+
+.classification {
+  width: 1375px;
+  height: 370px;
+  border-radius: 10px;
+  background: #F7F7F7;
+  margin: 12px auto;
+  padding-left: 40px;
+  padding-top: 10px;
+}
+
+.classification p {
+  display: flex;
+  line-height: 50px;
+  margin-left: 15px;
+  align-items: center;
+}
+
+.classification p span {
+  display: block;
+  width: 160px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
+  font-family: "Microsoft YaHei";
+}
+
+.classification p a {
+  font-size: 14px;
+  color: #343434;
+  margin-left: 30px;
+  font-family: "Microsoft YaHei";
+}
+
+.classification p a:hover {
+  color: #343434;
+  font-weight: 700;
+
+  font-family: "Microsoft YaHei";
+}
+
+.classification p select {
+  padding: 0 10px;
+  font-size: 14px;
+  margin-left: 15px;
+  background-color: #F7F7F7;
+  font-family: "Microsoft YaHei";
+
+
+}
+
+.classification p a select option {
+  margin-top: 10px;
+  height: 30px;
+  border: 1px solid rgb(219, 218, 218);
+  font-size: 14px;
+  color: #666666;
+}
+
+.classification p .other {
+  width: 130px;
+  height: 35px;
+  background-color: #D6E5E3;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 35px;
+  margin: 0 15px;
+}
+
+/* #endregion */
+table {
+  width: 1375px;
+}
+
+table th {
+  height: 40px;
+  background-color: #EEEEEE;
+  font-family: "Microsoft YaHei";
+  color: #1A1A1A;
+  font-size: 16px;
+  font-weight: bold;
+  border-left: 1px solid #ffffff;
+}
+
+table tr {
+  height: 40px;
+  color: #1A1A1A;
+  font-size: 16px;
+  text-align: center;
+  font-family: "Microsoft YaHei";
+
+}
+
+table tr:hover {
+  background-color: #E6E8E8;
+}
+
+table tr td {
+  border-bottom: 1px solid #E6E6E6;
+
+}
+
+.paging {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.el-pagination {
+  width: 37%;
+  margin: 0 auto;
+  font-weight: 400;
+}

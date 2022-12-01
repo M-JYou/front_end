@@ -1,0 +1,70 @@
+.logoPart {
+    height: 85px;
+}
+
+.release p {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.release p a {
+    font-size: 20px;
+    color: #007768;
+    margin-left: 15px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    /* padding: 20px 0px; */
+}
+
+.main .el-breadcrumb {
+    margin: 0px 0px 12px 32px;
+
+}
+
+
+.main .mainContent {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    padding: 0 10px;
+    background-color: #FFFFFF;
+
+}
+
+.main .mainContent .formContent {
+    width: 100%;
+    min-height: 845px;
+    border-radius: 15px;
+    background-color: #F7F7F7;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formContent h2 {
+    font-size: 28px;
+    color: black;
+}
+
+.formContent .box_1 {
+    margin-top: 20px;
+    width: 50%;
+    display: flex;
+    font-size: 18px;
+    color: #777777;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.formContent .box_2 {
+    margin-top: 30px;
+    width: 100%;
+    min-height: 850px;
+}

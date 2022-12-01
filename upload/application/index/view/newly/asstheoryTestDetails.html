@@ -1,0 +1,100 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/asstheoryTest.css" /#}
+<div class="content_wrapper" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <a href=""><img src="/assets/images/home/logo_xiazi.png" alt=""></a>
+            <a href=""><span>打造财税生态链</span></a>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/assessment">人才测评</a></el-breadcrumb-item>
+                <el-breadcrumb-item>理论知识考试系统</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="box_2">
+            <!-- <div class="box_2_head">
+                <h1>{{textPaper.name}}</h1>
+                <div>
+                    <p>试卷总分：<span>{{textPaper.score}}</span></p>
+                    <p>考试时间：<span>2022-10-15 10:13:20</span></p>
+                    <p>考生姓名：<span>张三</span></p>
+                    <p>考试得分：<span></span></p>
+                </div>
+            </div> -->
+
+            <div class="box_2_content">
+                <div class="question" style="padding: 10px;border-bottom: 1px solid #ddd;" v-for="(item,index) in list" :key="index">
+                    <p class="title" style="margin-bottom: 10px;">
+                        <span class="order">{{index+1}}、</span>
+                        {{item.title}}
+                        <span class="score">({{item.score}}分)</span>
+                    </p>
+                    <div class="answerLIst" v-if="item.type==1">
+                        <el-radio-group v-model="arr[index]">
+                            <div style="margin-bottom: 10px;" v-for="(it,i) in item.options" :key="i">
+                                <el-radio :label="i">{{i+1}}.{{it}}</el-radio>
+                            </div>
+                          </el-radio-group>
+                    </div>
+                    <div class="answerLIst" v-else-if="item.type==2">
+                        <el-checkbox-group v-model="arr[index]">
+                            <div style="margin-bottom: 10px;" v-for="(it,i) in item.options" :key="i">
+                                <el-checkbox :label="i">{{i+1}}.{{it}}</el-checkbox>
+                            </div>
+                          </el-checkbox-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var strUrl = location.href;
+        var arrUrl = strUrl.split("/");
+        var strPage = arrUrl[arrUrl.length - 1];
+        var id = (strPage.replace(".html", "").replace(".htm", ""));
+        var app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    info:'',
+                    list:[],
+                    xxx:'',
+                    arr:[]
+                }
+            },
+            created() {
+                if(id){
+                    this.getPaperDetails()
+                }
+            },
+            methods: {
+                getPaperDetails() {
+                    httppost('member/exam/index',{id:id,}).then((res) => {
+                        this.info= res.data;
+                        this.list=this.info.content;
+                        this.list.forEach(e => {
+                            if(e.type==1){
+                                this.arr.push('')
+                            }else if(e.type==2){
+                                this.arr.push([])
+                            }
+                        });
+                        console.log(this.list);
+                    }).catch(() => { })
+                },
+            },
+        });
+    </script>
+    <style>
+        .pd{
+            padding: 10px;
+        }
+    </style>

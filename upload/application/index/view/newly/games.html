@@ -1,0 +1,87 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/games.css" /#}
+<div class="wrap" id="app">
+    <div class="logoPart">
+        <div class="logo">
+            <a href=""><img src="/assets/images/home/logo_xiazi.png" alt=""></a>
+        </div>
+    </div>
+    <div class="main">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+            <el-breadcrumb-item>财税游戏</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="gamelist" v-for="(i,ii) in gameList" ::key="ii">
+            <div class="top">
+                <img :src="i.cover" alt="">
+                <button @click="goGame">开始游戏</button>
+            </div>
+            <p>{{i.content}}
+            </p>
+            
+            <div class="operation">
+                <div class="shu_b" @click="reprintClick"><img src="/assets/images/home/operation_01.png" alt="">转发23</div>
+                <div class="shu_b" @click="likesClick"><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+            </div>
+        </div>
+
+        <!-- <div class="gamelist">
+            <div class="top">
+                <img src="/assets/images/home/game_011.png" alt="">
+                <button>开始游戏</button>
+            </div>
+            <p>财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容
+            </p>
+            <div class="operation">
+                <div><img src="/assets/images/home/operation_01.png" alt="">转发23</div>
+                <div><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+            </div>
+        </div>
+        <div class="gamelist">
+            <div class="top">
+                <img src="/assets/images/home/game_022.png" alt="">
+                <button>开始游戏</button>
+            </div>
+            <p>财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容财税游戏内容
+            </p>
+            <div class="operation">
+                <div><img src="/assets/images/home/operation_01.png" alt="">转发23</div>
+                <div><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+            </div>
+        </div> -->
+
+    </div>
+
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data() {
+           return{
+            data:[],
+            gameList :[],
+           }
+        },
+       async created() {
+         const res =await httppost('member/games/index');
+         this.gameList=res.data
+         console.log(this.gameList);
+        },
+        methods: {
+           async reprintClick(id){
+            const s=await httppost('member/games/reprint',{id});
+            const url = location.href;
+                alert(url);
+           },
+           async likesClick(id){
+            const s=await httppost('member/games/likes',{id});
+           console.log("111");
+           },
+           goGame(){
+            location.href=gameList.link
+           }
+        },
+    });
+
+</script>

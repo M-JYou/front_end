@@ -1,0 +1,465 @@
+<div class="brw_tip">
+  <div class="t_con">
+    系统检测到您的浏览器版本过低，无法获得最佳的使用体验，建议您更换其他浏览器或
+    <a href="https://www.google.cn/intl/zh-CN/chrome/" target="_blank">升级您的浏览器</a
+    >。(使用360浏览器访问请选择极速模式)
+    <div class="b_close J_bw_close">关闭</div>
+  </div>
+</div>
+<div class="headPart" id="headerContent">
+  <div class="local">
+    <a href="/city?returl={#:P([])#}" class="city">
+      <span class="icon">
+        <img src="/assets/images/home/dingwei.png" alt="" />
+      </span>
+      <span>{#$weather.name#}(切换)</span>
+    </a>
+
+    <a class="weather">
+      <span class="icon">
+        <img src="/assets/images/home/weather-icon.png" alt="" />
+      </span>
+      <span>{#$weather.weatherData.name#} {#$weather.weatherData.data#}</span>
+    </a>
+  </div>
+  <div class="set">
+    <a class="collect" href="javascript:;" @click="AddFavorite">收藏本站</a>
+    <div class="login-re">
+      <div>
+        {#if !$pageHeader.me.uid#}
+        <a class="login-btn" href="/member/login?returl=/" @click="handlerMemberCenter">登录</a>
+        <div>/</div>
+        <a href="/member/reg" class="register">注册</a>
+        {#else#}<a class="login-btn" href="javascript:;" @click="logout">退出登录</a>
+        {#/if#}
+      </div></div
+    >
+    <div class="head-nav">
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+        background-color="#007768"
+        text-color="#fff"
+        active-text-color="#fbff00"
+      >
+        <el-menu-item index="1"><a href="/" class="text-color">首页</a></el-menu-item>
+        <el-menu-item index="2" :plain="true"
+          ><a class="text-color" href="/member/login?utype=1">商家中心</a></el-menu-item
+        >
+        <el-menu-item index="3" :plain="true"
+          ><a class="text-color" href="/member/login?utype=2">个人中心</a></el-menu-item
+        >
+        <el-submenu index="4">
+          <template slot="title" :plain="true"><a>维权中心</a></template>
+          <el-menu-item index="4-1" :plain="true"><a class="text-color">投诉举报</a></el-menu-item>
+          <el-menu-item index="4-2" :plain="true"><a class="text-color">申诉复议</a></el-menu-item>
+        </el-submenu>
+        <el-submenu index="5">
+          <template slot="title"><a href="/zixiaAbout">关于籽虾</a></template>
+          <el-menu-item index="5-1"><a href="" class="text-color">了解籽虾</a></el-menu-item>
+          <el-submenu index="5-2">
+            <template slot="title">商务合作</template>
+            <el-menu-item index="5-2-1">在线对话框</el-menu-item>
+            <el-menu-item index="5-2-2">手机验证码提交申请</el-menu-item>
+            <el-menu-item index="5-2-3">
+              <el-button type="text" @click="open" class="text-color">一键拨打客服电话</el-button>
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu index="5-3">
+            <template slot="title">帮助中心</template>
+            <el-menu-item index="5-3-1"><a href="/questionList" class="text-color">常见问题列表</a></el-menu-item>
+            <el-menu-item index="5-3-2"><a href="" class="text-color">AI客服</a></el-menu-item>
+          </el-submenu>
+          <el-menu-item index="5-4"><a href="" class="text-color">加入籽虾</a></el-menu-item>
+        </el-submenu>
+        <el-submenu index="6">
+          <template slot="title"><a href="" class="text-color">联系客服</a></template>
+          <el-menu-item index="6-1"><a href="" class="text-color">在线联系</a></el-menu-item>
+          <el-menu-item index="6-2">
+            <el-button type="text" @click="open" class="text-color">拨打电话</el-button>
+          </el-menu-item>
+          <el-menu-item index="6-3"><a href="" class="text-color">在线留言</a></el-menu-item>
+        </el-submenu>
+      </el-menu>
+    </div>
+    <div class="tongzhi-icon">
+      <el-badge :value="sum">
+        <img @click.stop="sclick" class="mac-sbss" src="__ROOT__\assets\images\home\tongzhi.png" alt="" />
+      </el-badge>
+      <el-dialog title="消息列表" :visible.sync="show" width="70em" append-to-body :before-close="handleClose">
+        <div class="mac-x mac-oh mac-wf" style="height: 30em">
+          <div class="mac-y mac-oy mac-p04em mac-nbx mac-bx" style="width: 20em">
+            <div
+              @click.stop="userClick(i)"
+              v-for="(i,ii) in us"
+              :key="ii"
+              class="mac-x mac-jc mac-wf mac-bx mac-mt04em mac-sbss"
+              style="padding: 0.2em 1em"
+              :style="cu==i?'background-color:var(--mac-color-main2)':''"
+            >
+              <img :src="i.photo" class="mac-hf" style="width: 3em; height: 3em" alt="" />
+              <span class="mac-ml1em mac-fg1">{{i.nickname}}</span>
+              <el-badge :value="i.sum" />
+            </div>
+          </div>
+          <div ref="ybl" class="mac-y mac-fg1 mac-ml1em mac-oy mac-bx">
+            <div class="mac-ycc">
+              <div v-if="page<total_page" class="mac-sbss" @click.stop="history">点击读取历史记录</div>
+              <div v-else>没有更多了</div>
+            </div>
+            <div v-for="(i,ii) in msg" :class="['mac-wf mac-x mac-js mac-mt1em',i.c]">
+              <img v-if="i.target==me.uid" :src="i.u.photo" alt="" style="width: 3em; height: 3em; margin: 0 1em" />
+              <div v-if="i.create==me.uid" class="chat-tag">{{i.new?'发送':'已读'}}</div>
+              <el-input
+                v-if="i.type=='text'"
+                :value="i.content"
+                type="textarea"
+                :style="i.s"
+                class="chat-text"
+                autosize
+                readonly
+                resize="none"
+              ></el-input>
+              <img v-if="i.create==me.uid" :src="i.u.photo" alt="" style="width: 3em; height: 3em; margin: 0 1em" />
+            </div>
+          </div>
+        </div>
+        <div class="mac-x mac-mt1em">
+          <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="data" resize="none"></el-input>
+          <div class="mac-ycc">
+            <el-button :disabled="!cu" type="primary" @click.stop="send('text')" style="margin: 0 0 1em 10px"
+              >发 送</el-button
+            >
+            <el-button @click.stop="data=''" type="success">取 消</el-button>
+          </div>
+        </div>
+      </el-dialog>
+    </div>
+  </div>
+</div>
+
+<script>
+  function isJSON(str) {
+    if (typeof str === "string") {
+      try {
+        var obj = JSON.parse(str);
+        if (typeof obj === "object" && obj) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        return false;
+      }
+    }
+  }
+  $(document).ready(function () {
+    // 判断浏览器是否支持placeholder属性
+    function isSupportPlaceholder() {
+      var input = document.createElement("input");
+      return "placeholder" in input;
+    }
+    (function () {
+      //判断是否是IE浏览器，包括Edge浏览器
+      function IEVersion() {
+        //取得浏览器的userAgent字符串
+        var userAgent = navigator.userAgent;
+        //判断是否IE浏览器
+        var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
+        if (isIE) {
+          var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+          reIE.test(userAgent);
+          var fIEVersion = parseFloat(RegExp["$1"]);
+          if (fIEVersion <= 10 || !isSupportPlaceholder()) {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      }
+      window.onload = function () {
+        if (IEVersion()) {
+          $(".brw_tip").show();
+        }
+      };
+    })();
+    $(".J_bw_close").click(function () {
+      $(this).closest(".brw_tip").remove();
+    });
+  });
+
+  $(function () {
+    let footer = 1,
+      addtime = 0;
+    new Vue({
+      el: "#headerContent",
+      data: {
+        activeIndex: "1", //菜单
+
+        me: hd.me,
+        sum: hd.messageUnreadSum,
+        show: false,
+        data: "",
+        us: [],
+        msg: [],
+        page: 1,
+        total_page: 1,
+        pagesize: 10,
+        cu: undefined,
+        mc: "mac-ml1em",
+      },
+      async created() {
+        window.showChat = async (target) => {
+          await this.getAllChats(target);
+          this.show = true;
+        };
+        hd.msgClick = this.sclick;
+
+        if (hd.me.id) {
+          await this.getAllChats();
+          this.fetchData();
+          // await this.getAllChats();
+        }
+      },
+      methods: {
+        // 一键拨打客服电话
+        open() {
+          this.$alert("13818845158", "客服电话", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              this.$message({
+                type: "info",
+                // message: `action: ${ action }`
+                message: "拨打客服电话",
+              });
+            },
+          });
+        },
+        AddFavorite: function () {
+          var sURL = window.location;
+          var sTitle = document.title;
+          try {
+            window.external.addFavorite(sURL, sTitle);
+          } catch (e) {
+            try {
+              window.sidebar.addPanel(sTitle, sURL, "");
+            } catch (e) {
+              this.$confirm("加入收藏失败，请使用Ctrl+D进行添加", "提示", {
+                type: "warning",
+                showCancelButton: false,
+              })
+                .then(function () {})
+                .catch(function () {});
+            }
+          }
+        },
+        handlerMemberCenter: function () {
+          if (this.utype == 1) {
+            location.href = qscms.locationList.indexCompany;
+          } else {
+            location.href = qscms.locationList.indexPersonal;
+          }
+        },
+        setHome() {
+          const url = window.location.href,
+            obj = document.body;
+          try {
+            obj.style.behavior = "url(#default#homepage)";
+            obj.setHomePage(url);
+          } catch (e) {
+            if (window.netscape) {
+              try {
+                netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+              } catch (e) {
+                alert(
+                  "抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入“about:config”并回车\n\n然后将[signed.applets.codebase_principal_support]的值设置为true，双击即可。",
+                );
+              }
+              var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(
+                Components.interfaces.nsIPrefBranch,
+              );
+              prefs.setCharPref("browser.startup.homepage", url);
+            } else {
+              alert("抱歉，您所使用的浏览器无法完成此操作。\n\n您需要手动将【" + url + "】设置为首页。");
+            }
+          }
+        },
+        handleSelect(key, keyPath) {
+          //菜单栏
+          console.log(key, keyPath);
+        },
+
+        async getAllChats(target) {
+          let t = await httppost("/member/chat/listAll");
+          let i = t.data.length;
+          let d, ii;
+          while (i-- > 0) {
+            d = t.data[i];
+            ii = this.us.findIndex((e) => e.id == d.id);
+            if (ii >= 0) {
+              d = this.us.splice(ii, 1)[0];
+            }
+            if (!d.msg) d.msg = [];
+            this.us.unshift(d);
+          }
+          if (target) {
+            ii=this.us.find(e=>e.id==target);
+            if (ii) {
+              await this.userClick(ii);
+            }
+          }
+        },
+        fetchData() {
+          setTimeout(async () => {
+            let t, i, u, j;
+            if (this.cu) {
+              try {
+                t = await httppost("/member/chat/chats", { target: this.cu.id, addtime });
+                this.formatMsg(t.data.items);
+              } catch (_) {}
+            }
+            try {
+              t = await httppost("/member/chat/listUnread");
+              i = t.data.length;
+              while (i-- > 0) {
+                u = t.data[i];
+                j = this.us.findIndex((ue) => ue.id == u.id);
+                if (u.sum) {
+                  if (j < 0) {
+                    u.msg = [];
+                  } else {
+                    this.us[j].sum = u.sum;
+                    u = this.us[j];
+                    this.us.splice(j, 1);
+                  }
+                  this.us.unshift(u);
+                }
+              }
+              this.sum = 0;
+              this.us.forEach((e) => {
+                this.sum += e.sum;
+              });
+            } catch (_) {}
+
+            this.fetchData();
+          }, 5000);
+        },
+        sclick(a) {
+          if (hd.me.id) {
+            if (a.target.className.indexOf("sbss") > 0) {
+              this.show = !this.show;
+            }
+          } else {
+            this.$message.error("请先登录后再查看消息");
+          }
+        },
+        formatMsg(msg) {
+          if (this.cu) {
+            const p = this.cu;
+            msg.forEach((e) => {
+              if (this.msg.find((me) => me.id == e.id)) {
+                return;
+              }
+              if (e.create == p.id) {
+                e.u = p;
+                e.c = "mac-zs";
+              } else {
+                e.u = this.me;
+                e.c = "mac-ze";
+                e.s = "background-color:#ccffcc";
+              }
+              this.msg.push(e);
+            });
+            this.msg.sort((a, b) => a.addtime - b.addtime);
+          }
+        },
+        handleClose(done) {
+          this.show = false;
+          done();
+        },
+        async userClick(p) {
+          this.sum -= p.sum;
+          p.sum = 0;
+          this.msg = p.msg;
+          this.cu = p;
+          const { data } = await httppost("/member/chat/chats", { target: p.id, page: this.page });
+          this.formatMsg(data.items);
+          this.total_page = data.total_page;
+          this.page = data.current_page;
+          try {
+            addtime = this.msg[this.msg.length - 1].addtime;
+          } catch (_) {}
+        },
+        async send(type) {
+          if (this.cu) {
+            const { data } = await httppost("/member/chat/send", { type, target: this.cu.id, content: this.data });
+            this.data = "";
+            data.u = this.me;
+            data.c = "mac-ze";
+            data.s = "background-color:#ccffcc";
+            this.msg.push(data);
+          }
+        },
+        history() {
+          this.page++;
+          addtime = 0;
+          this.userClick(this.cu);
+        },
+        logout() {
+          httppost("member/login/logout").then((e) => {
+            window.ELEMENT.Message.success(e.message);
+            location.reload();
+          });
+        },
+      },
+      updated() {
+        if (footer) {
+          if (this.$refs.ybl) {
+            const e = this.$refs.ybl;
+            e.scrollTop += e.scrollHeight;
+          }
+        }
+      },
+      mounted() {
+        this.$nextTick(() => {
+          if (this.$refs.ybl) {
+            this.$refs.ybl.addEventListener("scroll", (ev) => {
+              const { scrollTop, clientHeight, scrollHeight } = ev.target;
+              footer = (scrollTop + clientHeight) / scrollHeight > 0.9;
+            });
+          }
+        });
+      },
+    });
+  });
+
+  async function setWeather(param) {
+    const r = (
+        await httpget("/method/geturl", {
+          url: "http://t.weather.sojson.com/api/weather/city/" + (param.id ? param.id : param),
+        })
+      ).data.forecast[0],
+      d = new Date();
+    $("#weather").text(
+      `${r.type} / ${r.low.substring(3, r.low.length - 1)}-${r.high.substring(3)} / ${
+        d.getMonth() + 1
+      }月${d.getDate()}日 / ${r.week}`,
+    );
+  }
+  async function getLocalIP() {
+    return new Promise((resolve) => {
+      if (window.ipData) {
+        delete window.IPCallBack;
+        resolve(window.ipData.cityCode);
+        delete window.ipData;
+      } else {
+        window.IPCallBack = function (r) {
+          delete window.IPCallBack;
+          resolve(r.cityCode);
+        };
+      }
+    });
+  }
+</script>

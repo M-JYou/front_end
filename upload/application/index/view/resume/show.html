@@ -1,0 +1,214 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/resumeshowList.css" /#}
+
+
+<div class="content_wrapper" id="app">
+  <div class="logoPart">
+    <div class="logo">
+      <img src="/assets/images/home/logo_xiazi.png" alt="">
+      <span>打造财税生态链</span>
+    </div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="">免费招聘</a></el-breadcrumb-item>
+        <el-breadcrumb-item>求职者简历</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="p_main">
+      <div class="box_1">
+        <div class="box_1_top">
+          <div class="p_left">
+            <h1>{#$return.base_info.fullname#}</i></h1>
+            <div class="child_1">
+              <span>{#$return.base_info.experience_text#}</span>
+              <span>{#$return.base_info.education_text#}</span>
+              <span>{#$return.base_info.age#}岁</span>
+              <span>{#$return.base_info.current_text#}</span>
+            </div>
+            <div class="child_2">
+              <span>{#$return.base_info.sex_text#}</span>
+              <span>财务经理</span>
+              <span>{#$return.base_info.current_text#}</span>
+              <span>{{contactData.contact_info.mobile}}</span>
+              <span v-if="contactData.field_rule.email.is_display==1">{{contactData.contact_info.email}}</span>
+            </div>
+          </div>
+          <div class="p_right">
+            <div class="child_3">
+              <div class="comPic">
+                <img src="{#$return.base_info.photo_img_src#}" alt="" />
+                <div class="jia">
+                  <img src="/assets/images/home/en_03.png" alt="" />
+                </div>
+              </div>
+              <span>今日活跃</span>
+            
+            </div>
+            <div class="child_4">
+              <button @click="handlerDownPdf">导出简历</button>
+              <button>预览简历</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="operation">
+          <div>
+            <img src="/assets/images/home/operation_01.png" alt="" />转发23
+          </div>
+          <div>
+            <img src="/assets/images/home/operation_05.png" alt="" />收藏23
+          </div>
+          <div>
+            <img src="/assets/images/home/operation_04.png" alt="" />评论23
+          </div>
+          <div>
+            <img src="/assets/images/home/operation_02.png" alt="" />举报
+          </div>
+          <div>
+            <img src="/assets/images/home/operation_03.png" alt="" />点赞15
+          </div>
+        </div>
+      </div>
+      <div class="box_2">
+        <span>期望职位</span>
+        <div class="child_1">
+          {#volist name="return.intention_list" id="vo"#}
+          <div>
+            <span>{#$vo.category_text#}</span>
+            <p>{#$vo.wage_text#}/月</p>
+            <div><span>{#$vo.district_text#}</span><span>{#$vo.nature_text#}</span></div>
+          </div>
+          {#/volist#}
+
+        </div>
+      </div>
+      <div class="box_4">
+        <div class="child_2">
+          <h1>个人优势</h1>
+          <ul class="tag_list">
+            {#volist name="return.base_info.tag_text_arr" id="vo"#}
+            <li>{#$vo#}</li>
+            {#/volist#}
+          </ul>
+          <p>{#$return.base_info.specialty#}</p>
+        </div>
+      </div>
+      <div class="box_3">
+        <h1>工作经历</h1>
+        <p class="title_1">青海公司名称有限公司 <span>2019.10-至今</span></p>
+        <div class="child_1">
+          <span>财务经理</span>
+          <p>1、负责协助公司领导层对公司的经营问题作出决策；</p>
+          <p>2、负责协助公司领导层对公司的经营问题作出决策；</p>
+          <p>3、负责协助公司领导层对公司的经营问题作出决策；</p>
+          <p>4、负责协助公司领导层对公司的经营问题作出决策；</p>
+          <p>5、负责协助公司领导层对公司的经营问题作出决策；</p>
+        </div>
+      </div>
+      <div class="box_4">
+        <h1>培训经历</i></h1>
+        {#volist name="return.training_list" id="vo"#}
+        <div class="child_1">
+            <!-- {#:show($vo)#} -->
+
+          <div class="child_1_left">
+            <p>{#$vo.agency#}</p>
+            <span>{#$vo.description#}</span>
+          </div>
+        <span>{#:date('Y-m',$vo.starttime)#}{#if condition="$vo.todate==1"#}
+          至今{#else#} 至 {#:date('Y-m',$vo.endtime)#}{#/if#}</span>
+        </div>
+        {#/volist#}
+      </div>
+
+      <div class="box_4">
+        <h1>教育经历</h1>
+        {#volist name="return.education_list" id="vo"#}
+        <div class="child_1">
+          <div class="child_1_left">
+            <!-- {#:show($vo)#} -->
+            <p>{#$vo.school#}</p>
+            <span>{#$vo.education_text#}
+              {#$vo.major#}</span>
+          </div>
+          <span>{#:date('Y-m',$vo.starttime)#}{#if condition="$vo.todate==1"#}
+            至今{#else#} 至 {#:date('Y-m',$vo.endtime)#}{#/if#}</span>
+        </div>
+        {#/volist#}
+      </div>
+      <div class="box_4">
+        <h1>项目经历</h1>
+        {#volist name="return.project_list" id="vo"#}
+        <div class="child_1">
+          <div class="child_1_left">
+            <p>{#$vo.projectname#}</p>
+            <span>{#$vo.description#}</span>
+          </div>
+        <span>{#:date('Y-m',$vo.starttime)#}{#if condition="$vo.todate==1"#}
+          至今{#else#} 至 {#:date('Y-m',$vo.endtime)#}{#/if#}</span>
+        </div>
+        {#/volist#}
+      </div>
+      <div class="box_3">
+        <h1>语言能力</h1>
+        <div class="child_2">
+          {#volist name="return.language_list" id="vo"#}
+            <!-- {#:show($vo)#} -->
+
+          <button>{#$vo.language_text#}</button>
+          {#/volist#}
+        </div>
+      </div>
+      <div class="box_3">
+        <h1>资格证书</h1>
+        <div class="child_2">
+          {#volist name="return.certificate_list" id="vo"#}
+          <button>{#$vo.name#}</button>
+          {#/volist#}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  var id = parseInt("{#$return.base_info.id#}");
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        contactData: {
+          contact_info: {},
+          field_rule: {
+            email: {},
+          }
+
+      }
+      }},
+    created(){
+      this.getContact();
+    },
+    methods: {
+      getContact() {
+        const that = this;
+        httpget(qscms.apiList.resumeContact, { id: id }).then((res) => {
+
+          that.contactData = res.data;
+        }).catch(() => { });
+      },
+      handlerDownPdf() {
+        window.open(qscms.sitedir + qscms.memberDirname + "/resume_save/" + id);
+      },
+
+    },
+
+  })
+  </script>

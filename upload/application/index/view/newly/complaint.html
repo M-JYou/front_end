@@ -1,0 +1,239 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/complaint.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+    </div>
+    <div class="main">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+            <el-breadcrumb-item>维权中心</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="mainContent">
+            <div class="nav">
+                <h2>维权中心</h2>
+                <span class="current"><a href="/complaint">投诉举报</a></span>
+                <span class="other"><a href="/appeal">申诉复议</a></span>
+
+            </div>
+            <div class="formContent">
+                <div class="form">
+                    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                        <el-form-item label="投诉举报内容" prop="content">
+                            <el-input type="textarea" v-model="ruleForm.content"></el-input>
+                        </el-form-item>
+                        <el-form-item label="投诉举报原因"  prop="reason">
+                            <el-input type="textarea" v-model="ruleForm.reason"></el-input>
+                        </el-form-item>
+                        <el-form-item label="投诉举报人"  prop="people">
+                            <el-input v-model="ruleForm.people"></el-input>
+                        </el-form-item>
+                        <el-form-item label="举报手机号"  prop="phone">
+                            <el-input v-model="ruleForm.phone"></el-input>
+                        </el-form-item>
+                        <el-form-item label="验证码"  prop="code">
+                            <el-input v-model="ruleForm.code"></el-input><button>获取验证码</button>
+                        </el-form-item>
+                        <el-form-item label="上传证据" >
+                            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
+                                :show-file-list="false" :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </el-form-item>
+                    </el-form>
+                    <div>
+                        <button class="uploadBtn" type="primary" @click="submitForm('ruleForm')">提交</button>
+                        <el-button type="text" @click="dialogTableVisible = true" class="seeBtn">查看以往投诉举报</el-button>
+
+                        <el-dialog title="以往投诉记录" :visible.sync="dialogTableVisible">
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <h1>举报相关违举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为举报相关违法行为法行为</h1>
+                                    <span>2022-9-14</span>
+                                </div>
+                                <p>财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...财税免费学习下载文档财税免费学习下载文档财税文财税免费学习下载文档财税免费学习下载文档财税文...</p>
+                            </div>
+                        </el-dialog>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    // const fileUploader = document.getElementById('file-uploader');
+    // fileUploader.addEventListener('change', (event) => {
+    //     const files = event.target.files;
+    //     console.log('files', files);
+    // })
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                checked: false,
+                input: '',
+                imageUrl: '',
+                dialogTableVisible: false,
+                ruleForm: {
+                    people:'',
+                    phone: '',
+                    num: '',
+                    desc_1: '',
+                    desc_2: '',
+                },
+                rules: {
+                    content: [
+                        { required: true, message: '请输入聚宝内容', trigger: 'blur' },
+                        { min: 0, max: 1000, message: '长度在 0 到 1000 个字符', trigger: 'blur' }
+                    ],
+                    reason: [
+                        { required: true, message: '举报投诉原因', trigger: 'blur' },
+                        { min: 0, max: 1000, message: '长度在 0 到 1000 个字符', trigger: 'blur' }
+                    ],
+                    phone: [
+                        { required: true, message: '请输入手机号', trigger: 'blur' }
+                    ],
+                    people: [
+                        { required: true, message: '请输入投诉举报人', trigger: 'blur' }
+                    ],
+                    code: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' },
+                        { min:6, max: 6, message: '长度为6个字符', trigger: 'blur' }
+                    ],
+
+                }
+            }
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            // resetForm(formName) {
+            //     this.$refs[formName].resetFields();
+            // },
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            }
+
+        }
+    })
+
+</script>

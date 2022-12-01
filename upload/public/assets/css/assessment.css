@@ -1,0 +1,159 @@
+.logoPart {
+	height: 85px;
+}
+
+.main {
+	width: 100%;
+	overflow: hidden;
+}
+
+.main .top {
+	padding: 15px 60px;
+	background-color: #FFFFFF;
+}
+.box_3{
+	width: 1320px;
+	margin: 10px auto;
+ 	border-radius: 5px;
+ 	background-color: #F7F7F7;
+ 	padding: 15px 30px;
+ }
+ .box_3 button{
+	width: 170px;
+	height: 36px;
+	border-radius: 4px;
+	font-size: 20px;
+	background-color: #FFFFFF;
+	color: #007768;
+	margin-left: 15px;
+	/* margin-right: 30px;
+	background-color: #4eac9f; */
+	/* color: #FFFFFF; */
+	
+ }
+ .box_3 [class*=" el-icon-"], [class^=el-icon-]{
+	margin-right: 5px;
+ }
+ .box_3 button:hover{
+	background-color: #4eac9f;
+	color: #FFFFFF;
+	font-weight: 700;
+ }
+
+ 
+ .box_2 {
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin:25px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+.box_2 .box_right{
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin:25px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    position: relative;
+}
+
+.box_2 .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+
+}
+
+.box_2 .box .top {
+    width: 149px;
+    height: 61px;
+    background-image: url(../images/home/green_2.png);
+    text-align: center;
+    /* line-height: 61px; */
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.box_2 .child_1 .top {
+    background-image: url(../images/home/green_2.png);
+}
+
+.box_2 .child_2 .top {
+    background-image: url(../images/home/green_1.png);
+}
+
+.box_2 .box span {
+    font-size: 28px;
+    color: #666666;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.box_2 .box .other {
+    font-size: 28px;
+    color: #F3B058;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.box_2 .box select{
+    font-size: 28px;
+    color: #666666;
+    font-weight: 700;
+    /* margin-top: 30px; */
+    font-family: '微软雅黑';
+}
+
+.line {
+    width: 80%;
+    border: 3px dashed #CDE2DE;
+    position: absolute;
+    top: 48px;
+    left: 130px;
+    z-index: 1;
+}
+
+
+
+.content {
+	width: 1296px;
+	min-height: 927px;
+	background-color: #FFFFFF;
+	margin: 25px auto;
+	border-radius: 8px;
+}
+.content>img{
+	width: 100%;
+	height: 100%;
+}
+
+.content .contact img{
+	width: 30px;
+	height: 30px;
+}
+.content .contact {
+	width: 47px;
+	height: 220px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: fixed;
+	top: 150px;
+	right: 40px;
+    z-index: 6;
+}
+.formCode{
+    display: flex;
+    align-items: center;
+}
+.el-select {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}

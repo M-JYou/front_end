@@ -1,0 +1,444 @@
+{#layout name="public/campus/campus_layout" /#}
+{#load href="__ROOT__/assets/css/campus/campus_electionlist.css" /#}
+<div class="s_content" id="app">
+  <!-- 搜索 -->
+  <div class="search_min w1200">
+    <div class="search clearfix">
+      <div class="left ipt">
+        <input type="text" v-model="keyword" @keyup.enter="handlerSearch" placeholder="请输入关键词">
+      </div>
+      <div class="right btn" @click="handlerSearch">
+        <button>搜一搜</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 筛选 -->
+  <div class="w1200">
+    <div class="campus_filter_combo ">
+
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">宣讲地区：</div>
+        <div class="left line_item clearfix">
+          <a class="left f_item {#if condition='!$Request.param.d1'#}f_item_ac{#/if#}" href="{#:P(['d1'=>null,'d2'=>null,'d3'=>null])#}" >不限</a>
+          <a href="javascript:;" class="left f_item classifyReturn" data-type="cityReturn" style="display: none">上级</a>
+          <span id="cityLinkArea">
+            {#volist name="options_district" id="vo"#}
+            <a href="{#$vo.url#}" class="f_item schoolLink {#if condition='$Request.param.d3==$vo.id'#}f_item_ac{#/if#}">{#$vo.text#}</a>
+            {#/volist#}
+          </span>
+          <a class="f_more toggleMore" href="javascript:;" style="display: none"  data-type="schoolLink">
+            <span>更多</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">全部学校：</div>
+        <div class="left line_item clearfix">
+          <a href="{#:P(['school_id'=>null])#}" class="left f_item {#if condition='!$Request.param.school_id'#}f_item_ac{#/if#}">不限</a>
+          <span  class="cityLinkArea">
+            {#volist name="school_list" id="vo" #}
+            <a href="{#:P(['school_id'=>$vo.id])#}" class="f_item cityLink {#if condition='$Request.param.school_id==$vo.id'#}f_item_ac{#/if#}">{#$vo.name#}</a>
+            {#/volist#}
+          </span>
+          <a class="f_more toggleMore" style="display: none"  href="javascript:;" data-type="cityLink">
+            <span>更多</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">举办时间：</div>
+        <div class="left line_item clearfix">
+          <a href="{#:P(['timecase'=>null])#}" class="left f_item {#if condition='$Request.param.timecase==null'#}f_item_ac{#/if#}">不限</a>
+          <span class="cityLinkArea">
+            <a href="{#:P(['timecase'=>1])#}" class="f_item {#if condition='$Request.param.timecase==1'#}f_item_ac{#/if#}">今天 </a>
+            <a href="{#:P(['timecase'=>2])#}" class="f_item {#if condition='$Request.param.timecase==2'#}f_item_ac{#/if#}">明天</a>
+            <a href="{#:P(['timecase'=>3])#}" class="f_item {#if condition='$Request.param.timecase==3'#}f_item_ac{#/if#}">一周内</a>
+            <a href="{#:P(['timecase'=>4])#}" class="f_item {#if condition='$Request.param.timecase==4'#}f_item_ac{#/if#}">一个月内</a>
+            <a href="{#:P(['timecase'=>5])#}" class="f_item {#if condition='$Request.param.timecase==5'#}f_item_ac{#/if#}">三个月内</a>
+            <a href="{#:P(['timecase'=>6])#}" class="f_item {#if condition='$Request.param.timecase==6'#}f_item_ac{#/if#}">已举办</a>
+            <a href="{#:P(['timecase'=>7])#}" class="f_item {#if condition='$Request.param.timecase==7'#}f_item_ac{#/if#}">即将举办</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="filter_selected clearfix" v-if="showSelected">
+        <div class="campus_filter_line filter_combo_mgb clearfix">
+          <div class="line_title left">已选条件：</div>
+          <div class="left fse_group clearfix">
+            <a href="{#:P(['d1'=>null,'d2'=>null,'d3'=>null])#}" class="tag left" v-if="d1">{{citySelectedText}}</a>
+            <a href="{#:P(['timecase'=>null])#}" class="tag left" v-if="time">{{currentTimeText}}</a>
+            <a href="{#:P(['school_id'=>null])#}" class="tag left" v-if="school_id">{{currentSchoolText}}</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- 双选会列表 -->
+  <div class="w1200">
+    <div class="double_meet clearfix">
+      {#if condition="count($list) gt 0"#}
+      {#volist name="list" id="vo"#}
+      <div class="double_meet_it left {#if condition="($key+1)%4 eq 0"#}no_mr{#/if#}" onclick="javascript:window.open('{#:url(\'index/campus/election_show\',[\'id\'=>$vo.id])#}');">
+        <div class="school_meet_info">
+          <img src="" alt="">
+          <div class="meet_info_min">
+            <h2 class="meet_text_1">{#$vo.school_name#}</h2>
+            <h3 class="meet_text_2">{#$vo.subject#}</h3>
+          </div>
+        </div>
+        <div class="school_bot">
+          <p class="bot_text_1 clearfix">
+            <span class="time substring left">{#$vo.starttime#} 至 {#$vo.endtime#}</span>
+            {#if condition="$vo.score eq 0"#}
+            <span class="state right state_1">已结束</span>
+            {#/if#}
+            {#if condition="$vo.score eq 1"#}
+            <span class="state right state_2">即将开始</span>
+            {#/if#}
+            {#if condition="$vo.score  eq 2"#}
+            <span class="state right state_3">进行中</span>
+            {#/if#}
+          </p>
+          <p class="bot_text_2">
+            <span class="com_text substring">
+              单位:
+              <span>{#$vo.company_count#}</span>
+            </span>
+            <span class="job_txt substring">
+              毕业生:
+              <span>{#$vo.graduate_count#}</span>
+            </span>
+          </p>
+        </div>
+      </div>
+      {#/volist#}
+      {#else#}
+      <div class="list_empty">
+        <div class="emp_text">暂时没有数据哦</div>
+      </div>
+      {#/if#}
+    </div>
+    {#$pagerHtml#}
+  </div>
+</div>
+
+<script>
+$(document).ready(function () {
+  $(function(){
+    var cityList = {};
+    var d1 = 0, d2 = 0, d3 = 0;
+    var c1 = 0, c2 = 0, c3 = 0;
+    var cityLevel = parseInt('{#$district_level#}');
+    var displayWordWidth = 850;
+    // 筛选条件显示数量控制
+    handleFilterConditionDisplay('cityLink');
+    handleFilterConditionDisplay('schoolLink');
+    function handleFilterConditionDisplay(className) {
+      var showWidth = 0, $filterLink = $('.' + className);
+      $filterLink.each(function (index, value) {
+        if (showWidth > displayWordWidth) {
+          $(this).hide();
+          $('[data-type=' + className + ']').show();
+        } else {
+          $(this).addClass('sw');
+          if (className === 'tagLink') {
+            showWidth += (value.clientWidth + 5);
+          } else {
+            showWidth += value.clientWidth;
+          }
+        }
+      });
+    }
+    // ajax获取分类数据
+    getClassify('citycategory');
+    // 返回上一级
+    $('.classifyReturn').click(function () {
+      var thisType = $(this).data('type');
+      if (thisType === 'cityReturn') {
+        if (cityLevel === 3) {
+          // 三级分类
+          var returnArray = cityList.filter(function (item) {
+            if (parseInt(item.value) === d1) {
+              return item
+            }
+          })[0].children;
+          $('#cityLinkArea').html(generateList(returnArray, 2, thisType));
+        } else {
+          $('#cityLinkArea').html(generateList(cityList, 1, thisType));
+          $('[data-type=cityReturn]').hide();
+        }
+        cityLevel = cityLevel - 1;
+        handleFilterConditionDisplay('cityLink');
+      } else {
+        if (categoryLevel === 3) {
+          // 三级分类
+          var returnArray = categoryList.filter(function (item) {
+            if (parseInt(item.value) === c1) {
+              return item
+            }
+          })[0].children;
+          $('#categoryLinkArea').html(generateList(returnArray, 2, thisType));
+        } else {
+          $('#categoryLinkArea').html(generateList(categoryList, 1, thisType));
+          $('[data-type=categoryReturn]').hide();
+        }
+        categoryLevel = categoryLevel - 1;
+        handleFilterConditionDisplay('jobLink');
+      }
+    });
+
+    // 返回上一级生成列表
+    function generateList(data, level, type) {
+      var listHtml = '';
+      Object.values(data).forEach(function (item) {
+        var listUrl = '';
+        if (type === 'cityReturn') {
+          if (level === 2) {
+            listUrl = '{#:P([\'d1\'=>\'_d1_\',\'d2\'=>\'_d2_\',\'d3\'=>null])#}';
+            listUrl = listUrl.replace('_d1_', d1);
+            listUrl = listUrl.replace('_d2_', item.value);
+          } else {
+            listUrl = '{#:P([\'d1\'=>\'_d1_\',\'d2\'=>null,\'d3\'=>null])#}';
+            listUrl = listUrl.replace('_d1_', item.value);
+          }
+          listHtml += '<a href="' + listUrl + '" class="f_item cityLink">' + item.label + '</a>';
+        } else {
+          if (level === 2) {
+            listUrl = '{#:P([\'c1\'=>\'_c1_\',\'c2\'=>\'_c2_\',\'c3\'=>null])#}';
+            listUrl = listUrl.replace('_c1_', c1);
+            listUrl = listUrl.replace('_c2_', item.value);
+          } else {
+            listUrl = '{#:P([\'c1\'=>\'_c1_\',\'c2\'=>null,\'c3\'=>null])#}';
+            listUrl = listUrl.replace('_c1_', item.value);
+          }
+          listHtml += '<a href="' + listUrl + '" class="f_item jobLink">' + item.label + '</a>';
+        }
+      });
+      return listHtml;
+    }
+
+    // 显示和收起更多分类
+    $('.toggleMore').click(function () {
+      var className = $(this).data('type');
+      if ($(this).hasClass('open')) {
+        $(this).removeClass('open').find('span').html('更多');
+        toggleClassify(className, true);
+      } else {
+        $(this).addClass('open').find('span').html('收起');
+        toggleClassify(className, false);
+      }
+    });
+
+    /**
+     * 显示和隐藏操作节点的公用方法
+     * @param className 节点类名
+     * @param num 可以显示的数量
+     * @param status 区分显示还是隐藏 true->需要隐藏
+     */
+    function toggleClassify(className, status) {
+      var num = $('.' + className + '.sw').length;
+      $('.' + className).each(function (index) {
+        $(this).show();
+        if (status) {
+          if (index > (num - 1)) {
+            $(this).hide();
+          }
+        }
+      });
+    }
+
+    // 获取分类数据
+    function getClassify(type) {
+      httpget(qscms.apiList.classify + '?type=' + type, {}).then(function (res) {
+        if (res.code === 200) {
+          if (type === 'citycategory') {
+            cityList = res.data;
+            d1 = parseInt('{#$Request.param.d1#}');
+            d2 = parseInt('{#$Request.param.d2#}');
+            d3 = parseInt('{#$Request.param.d3#}');
+            if (cityLevel !== 1) {
+              $('[data-type=cityReturn]').show();
+            }
+          } else if (type === 'jobcategory') {
+            categoryList = res.data;
+            c1 = parseInt('{#$Request.param.c1#}');
+            c2 = parseInt('{#$Request.param.c2#}');
+            c3 = parseInt('{#$Request.param.c3#}');
+            if (categoryLevel !== 1) {
+              $('[data-type=categoryReturn]').show();
+            }
+          }
+        } else {
+          console.log(res.message);
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+
+    // 设置双选会列表背景图
+    var doubleMeetImg = ['school_tow_meet_1', 'school_tow_meet_2', 'school_tow_meet_3', 'school_tow_meet_4', 'school_tow_meet_5', 'school_tow_meet_6']
+    var idx = -1
+    $('.double_meet .double_meet_it').each(function () {
+      idx++
+      if(idx >= 6){
+        idx = 0
+      }
+      $(this).children('.school_meet_info').children('img').attr('src','__ROOT__/assets/images/campus/'+doubleMeetImg[idx]+'.png')
+    })
+  })
+})
+var vm = new Vue({
+    el:'#app',
+    data:{
+      keyword: '',
+      searchAlias: 'election',
+      showSelected: false,
+      timeDate:[
+        {
+          name:'不限',
+          id: null
+        },
+        {
+          name:'今天',
+          id: 1
+        },
+        {
+          name:'明天',
+          id: 2
+        },
+        {
+          name:'一周内',
+          id: 3
+        },
+        {
+          name:'一个月内',
+          id: 4
+        },
+        {
+          name:'三个月内',
+          id:5
+        },
+        {
+          name:'已举办',
+          id:6
+        },
+        {
+          name:'即将举办',
+          id:7
+        },
+      ],
+      d1: parseInt('{#$Request.param.d1#}'),
+      d2: parseInt('{#$Request.param.d2#}'),
+      d3: parseInt('{#$Request.param.d3#}'),
+      cityLevel: parseInt('{#$district_level#}'),
+      citySelectedText: '',
+      time: parseInt('{#$Request.param.timecase#}'),
+      currentTimeText:'',
+      school_id: parseInt('{#$Request.param.school_id#}'),
+      currentSchoolText: ''
+    },
+    mounted: function() {
+      if (this.d1) {
+        this.getClassify('citycategory'); // 地区
+      }
+      if (this.time) {
+        this.getCurrentTime() //举办时间
+      }
+      if (this.school_id) {
+        this.getSchool() //学校
+      }
+
+      if (this.keyword || this.d1 || this.time || this.school_id) {
+      this.showSelected = true;
+    }
+    },
+    created: function () {
+      this.keyword = "{#$Request.param.keyword#}"
+    },
+    methods: {
+      // 获取选中城市
+      getClassify: function (type) {
+        var _this = this;
+        httpget(qscms.apiList.classify + '?type=' + type, {}).then(function (res) {
+          // console.log(res);
+          if (res.code === 200) {
+            if (type === 'citycategory') {
+              var cityList = res.data
+              if (_this.d1) {
+                if(_this.cityLevel === 2) {
+                  // 地区为二级
+                  _this.citySelectedText = cityList.filter(function (item) {
+                    if (parseInt(item.value) === _this.d1) {
+                      return item
+                    }
+                  })[0].label;
+                }
+
+                if (_this.cityLevel === 3) {
+                  // 地区为三级
+                  var levelTwoList = cityList.filter(function (item) {
+                    if (parseInt(item.value) === _this.d1) {
+                      return item
+                    }
+                  })[0].children;
+                  if (_this.d3) {
+                    var levelThreeList = levelTwoList.filter(function (item) {
+                      if (parseInt(item.value) === _this.d2) {
+                        return item
+                      }
+                    })[0].children;
+                    _this.citySelectedText = levelThreeList.filter(function (item) {
+                      if (parseInt(item.value) === _this.d3) {
+                        return item
+                      }
+                    })[0].label;
+                  } else {
+                    _this.citySelectedText = levelTwoList.filter(function (item) {
+                      if (parseInt(item.value) === _this.d2) {
+                        return item
+                      }
+                    })[0].label;
+                  }
+                }
+              }
+            }
+          }
+        })
+      },
+      // 获取选中时间
+      getCurrentTime: function () {
+        var _this = this
+        this.timeDate.filter(function (item) {
+          if (item.id === _this.time) {
+            _this.currentTimeText = item.name
+          }
+        })
+      },
+      handlerSearch: function () {
+        var that = this
+        httpget(qscms.apiList.searchCampusLocation, { alias: that.searchAlias, keyword: that.keyword }).then(function (res) {
+          location.href = res.data
+        }).catch(function () { })
+      },
+      // 获取选中的院校
+      getSchool: function () {
+        var _this = this
+        httpget(qscms.apiList.getSchool).then(function (res) {
+          var schoolList = res.data
+          if (_this.school_id) {
+            schoolList.filter(function (item) {
+              if (item.id === _this.school_id) {
+                _this.currentSchoolText = item.name
+              }
+            })
+          }
+        })
+      }
+    }
+  })
+</script>

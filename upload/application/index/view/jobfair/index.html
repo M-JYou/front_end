@@ -1,0 +1,47 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/jobfair.css" /#}
+<div>
+  <div class="banner">
+    <div class="banner_con">
+      <div class="banner_text">
+        <p class="banner_title1">乘风破浪 <span></span></p>
+        <p class="banner_title2">大型<span>招聘会</span></p>
+        <button class="banner_button">寻找会发光的你</button>
+      </div>
+    </div>
+  </div>
+  <div class="content_wrapper" id="app">
+    <div class="content">
+      <div>
+        {#volist name="list" id="vo"#}
+        <div class="jobFair_list clearfix">
+          <div class="jobFair_img float">
+            <a href="{#:url('index/jobfair/show',['id'=>$vo.id])#}" target="_blank">
+              <img src="{#$vo.thumb#}" />
+            </a>
+          </div>
+          <div class="jobFair_list_con float">
+            <p class="title"><a href="{#:url('index/jobfair/show',['id'=>$vo.id])#}" target="_blank">{#$vo.title#}</a></p>
+            <p class="Sponsor">主办方：{#$vo.sponsor#}</p>
+            <p class="time">举办时间：{#:date('Y-m-d H:i:s',$vo.holddate_start)#} 至 {#:date('Y-m-d H:i:s',$vo.holddate_end)#}</p>
+            <p class="place">举办地点：{#$vo.address#}</p>
+            <p class="reserve_status status{#$vo.friendly_tips#}">{#$vo.friendly_tips_text#}</p>
+          </div>
+          <div class="jobFair_btn">
+            {#if condition="$vo['predetermined'] eq 1"#}
+            <a class="btn_bg1 btn" href="{#:url('index/jobfair/reserve',['id'=>$vo.id])#}" target="_blank">企业预定</a><br />
+            <a class="btn_bg2 btn" href="{#:url('index/jobfair/comlist',['id'=>$vo.id])#}" target="_blank">参会企业</a>
+            {#else#}
+            <a class="btn_bg2 btn bt_one" href="{#:url('index/jobfair/show',['id'=>$vo.id])#}" target="_blank">查看详情</a>
+            {#/if#}
+          </div>
+          {#switch name="$vo['holddate']"#} {#case value="0"#}<img class="reserve_img" src="__ROOT__/assets/images/JobFair_img0.png" />{#/case#} {#case value="1"#}<img
+            class="reserve_img"
+            src="__ROOT__/assets/images/JobFair_img1.png"
+          />{#/case#} {#case value="2"#}<img class="reserve_img" src="__ROOT__/assets/images/JobFair_img2.png" />{#/case#} {#/switch#}
+        </div>
+        {#/volist#}
+      </div>
+    </div>
+    {#$pagerHtml#}
+  </div>
+</div>

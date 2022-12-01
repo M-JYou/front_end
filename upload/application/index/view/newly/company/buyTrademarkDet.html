@@ -1,0 +1,273 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/sellTrademarkDet.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div>
+            <div class="logo">
+                <img src="/assets/images/home/logo_xiazi.png" alt="">
+                <span>打造财税生态链</span>
+            </div>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/company/trademarkBuy">商标求购</a></el-breadcrumb-item>
+                <el-breadcrumb-item>商标求购详情页</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="banner">
+            <el-carousel trigger="click" height="130px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                    <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+
+
+    </div>
+    <div class="main">
+        <div class="tubiao">
+            <el-tooltip class="item" effect="dark" content="在线聊天" placement="left">
+                <img src="/assets/images/home/comp_01.png" alt="">
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="电话联系" placement="left">
+                <img src="/assets/images/home/comp_02.png" alt="">
+            </el-tooltip>
+        </div>
+
+
+
+        <div class="box_1">
+            <div class="child_1">
+                <div class="search">
+                    <div class="search-input">
+                        <div>
+                            <i class="el-icon-search"></i>
+                            <input type="text" v-mordel="input" placeholder="请输入商品名称">
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                </div>
+                <div class="release">
+                    <button>我要发布</button>
+                </div>
+            </div>
+            <div class="child_2">
+                <span><a href="/company/companySell">企业转让信息</a></span>
+                <span><a href="/company/companyBuy">企业求购信息</a></span>
+                <span><a href="/company/trademarkSell">商标转让信息</a></span>
+                <span class="active"><a href="/company/trademarkBuy">商标求购信息</a></span>
+                <span><a href="/company/companyMy">我的</a></span>
+            </div>
+        </div>
+        <div class="box_2">
+            <div class="tuijian">
+                <img src="/assets/images/home/tuijian_02.png" alt="">
+            </div>
+            <div class="box_right">
+                <div class="line"></div>
+                <div class="child_1 box">
+                    <div class="top">1</div>
+                    <span class="other">上传合同</span>
+                </div>
+                <div class="child_2 box">
+                    <div class="top">2</div>
+                    <span>费用支付托管</span>
+                </div>
+                <div class="child_2 box">
+                    <div class="top">3</div>
+                    <span>
+                        <select name="" id="">
+                            <option value="" disabled selected style="display: none;">付款</option>
+                            <option value="">同意付款</option>
+                            <option value="">延期付款</option>
+                            <option value="">申请退款</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="box_3">
+            <div>
+                <div class="left">
+                    <img src="/assets/images/home/comp_shangbiao.png" alt="">
+                </div>
+                <div class="right">
+                    <h1>{{data.name}}</h1>
+                    <div class="child_1">
+                        <span>更新时间：{{ft(data.change_time)}}</span>
+                        <span>浏览：{{data.click}}次</span>
+                    </div>
+                    <div class="child_2">转让价格：<span>¥{{data.max}}</span> 元</div>
+    
+                </div>
+            </div>
+            <div class="operation">
+                <div @click.stop="clickReprint" class="shu_b"><img src="/assets/images/home/operation_01.png"
+                        alt="">分享{{num}}</div>
+                <div @click.once="clickFavorites" class="shu_b"><img src="/assets/images/home/operation_05.png"
+                        alt="">收藏{{num1}}</div>
+                <div  @click="clickComment" class="shu_b"><img src="/assets/images/home/operation_04.png" alt="">评论23</div>
+                <div @click="clickReport" class="shu_b"><img src="/assets/images/home/operation_02.png" alt="">举报
+                </div>
+                <div @click.once="clickLikes" class="shu_b"><img src="/assets/images/home/operation_03.png"
+                        alt="">点赞{{num3}}
+                </div>
+            </div>
+            <div class="box_8" v-show="showComment">
+                <input type="text" placeholder="评论">
+                <div @click="showEmoji"><img src="/assets/images/home/en_05.png" alt=""></div>
+                <button>发送</button>
+            </div>
+            <div class="report" v-show="reportList">
+                <input type="text" v-model="jubaoContent" placeholder="请输入举报原因">
+                <button @click="jubao">提交</button>
+            </div>
+            <div class="emoji" v-show="emojiList">
+                <span class="shu_b" v-for="(i,ii) in emoji" :key="ii">{{i}}</span>
+            </div>
+            
+        </div>
+        <div class="box_5">
+            <h1>商标信息</h1>
+            <div class="box_4">
+                <div class="li">
+                    <span>商标类型</span>
+                    <p>{{data.type}}</p>
+                </div>
+                <div class="li">
+                    <span>注册类别</span>
+                    <p>{{data.tra_type}}</p>
+                </div>
+               
+                <div class="li">
+                    <span>预算金额</span>
+                    <p  class="span_1">
+                       {{data.min}}
+                        -
+                       {{data.max}}
+                       
+                    </p>
+                </div>
+                
+
+                
+
+                <div class="li">
+                    <span>其他说明</span>
+                    <p>{{data.content}}</p>
+                </div>
+                <div class="li_3 li">
+                    <span>联系人</span>
+                    <p class="span_2">
+                        {{data.contacts}}
+                    </p>
+                </div>
+
+                <div class="li">
+                    <span>手机号</span>
+                    <p>{{data.tel}}</p>
+                </div>
+                
+            </div>
+           
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+<script>
+ var strUrl = location.href;
+    var arrUrl = strUrl.split("/");
+    var strPage = arrUrl[arrUrl.length - 1];
+    var id = (strPage.replace(".html", "").replace(".htm", ""));
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                input: '',
+                jubaoContent: '',
+                reportList: false,
+                emojiList: false,
+                data: {},
+                showComment:false,
+                emoji: [
+                    "😀", "😁", "😂", "😃", "😄", "😅", "😆", "😉", "😊", "😋", "😎", "😍", "😘", "😗", "😙", "😚", "😇", "😐", "😑", "😶", "😏", "😣", "😥", "😮", "😯", "😪", "😫", "😴", "😌", "😛", "😜", "😝", "😒", "😓", "😔", "😕", "😲", "😷", "😖", "😞", "😟", "😤", "😢", "😭", "😦", "😧", "😨", "😬", "😰", "😱", "😳", "😵", "😡", "😠", "💘", "❤", "💓", "💔", "💕", "💖", "💗", "💙", "💚", "💛", "💜", "💝", "💞", "💟", "❣", "💪", "👈", "👉", "☝", "👆", "👇", "✌", "✋", "👌", "👍", "👎", "✊", "👊", "👋", "👏", "👐", "✍", "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🍎", "🍏", "🍐",
+                    "🍑", "🍒", "🍓", "🍅", "🍆", "🌽", "🍄", "🌰", "🍞", "🍖", "🍗", "🍔", "🍟", "🍕", "🍳", "🍲", "🍱", "🍘", "🍙", "🍚", "🍛", "🍜", "🍝", "🍠", "🍢", "🍣", "🍤", "🍥", "🍡", "🍦", "🍧", "🍨", "🍩", "🍪", "🎂", "🍰", "🍫", "🍬", "🍭", "🍮", "🍯", "🍼", "☕", "🍵", "🍶", "🍷", "🍸", "🍹", "🍺", "🍻", "🍴", "🌹", "🍀", "🍎", "💰", "📱", "🌙", "🍁", "🍂", "🍃", "🌷", "💎", "🔪", "🔫", "🏀", "⚽", "⚡", "👄", "👍", "🔥", "🙈", "🙉", "🙊", "🐵", "🐒", "🐶", "🐕", "🐩", "🐺", "🐱", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🐈", "🐯", "🐅", "🐆", "🐴", "🐎", "🐮",
+                    "🐂", "🐃", "🐄", "🐷", "🐖", "🐗", "🐽", "🐏", "🐑", "🐐", "🐪", "🐫", "🐘", "🐭", "🐁", "🐀", "🐹", "🐰", "🐇", "🐻", "🐨", "🐼", "🐾", "🐔", "🐓", "🐣", "🐤", "🐥", "🐦", "🐧", "🐸", "🐊", "🐢", "🐍", "🐲", "🐉", "🐳", "🐋", "🐬", "🐟", "🐠", "🐡", "🐙", "🐚", "🐌", "🐛", "🐜", "🐝", "🐞", "🦋", "😈", "👿", "👹", "👺", "💀", "☠", "👻", "👽", "👾", "💣"],
+                num: 0,
+                num1: 0,
+                num3: 0,
+
+            }
+        },
+        created() {
+            if (id) {
+                this.getTrademarkBuy()
+            }
+        },
+        methods: {
+            async getTrademarkBuy() {
+                const res = await httppost('member/TrademarkBuy/index',{id});
+                this.data = res.data;
+                console.log(this.data);
+
+            },
+            ft: formatShortTime,
+            // 转发
+            async clickReprint() {
+                const r = await httppost('/member/CompanyTransfer/reprint', { id });
+                const url = location.href
+                alert(url)
+                this.num++
+            },
+            // 收藏
+            async clickFavorites() {
+                const r = await httppost('/member/CompanyTransfer/favorites', { id });
+                this.num1++
+            },
+            // 点赞
+            async clickLikes() {
+                const r = await httppost('/member/CompanyTransfer/likes', { id });
+                this.num3++
+            },
+            // 举报
+            async clickReport() {
+                this.reportList = true
+                // this.reportList =false
+                // const r = await httppost('/member/CompanyTransfer/report', { id });
+                // this.num3++
+            },
+            jubao() {
+                if (this.jubaoContent == '') {
+                    this.$message('请输入举报原因')
+                } else {
+                    this.$message('已提交');
+                    console.log(this.jubaoContent);
+                    this.reportList = false
+                }
+            },
+            
+            showEmoji() {
+                this.emojiList = !this.emojiList
+            },
+            // 评论
+            clickComment(){
+                this.showComment = !this.showComment
+            }
+
+        }
+    })
+
+</script>

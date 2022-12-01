@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#F6F6F6",
+  "disableScroll": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-popup": "/components/u-popup/u-popup",
+    "page-tabpars": "/components/page-tabpars/page-tabpars"
+  }
+}

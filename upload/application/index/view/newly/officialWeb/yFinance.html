@@ -1,0 +1,99 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/logoLayout.css" /#} {#load
+href="__ROOT__/assets/css/yFinance.css" /#}
+<div class="wrap" id="app">
+  <div class="logoPart">
+    <div class="logo">
+      <a href=""><img src="/assets/images/home/logo_xiazi.png" alt="" /></a>
+    </div>
+    <div class="banner">
+      <div class="block">
+        <el-carousel height="150px">
+          <el-carousel-item v-for="item in list" :key="item">
+            <h3 class="small"><img :src="item.url" alt="" /></h3>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item>应用中心</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="mainContent">
+      <div class="box_1">
+        <p>
+          <a href="">
+            <img src="/assets/images/home/y_05.png" alt="" />
+            <span>籽虾记往来账</span>
+          </a>
+        </p>
+        <div class="box_2"><a href=""> 籽虾记往来账</a></div>
+      </div>
+      <div class="box_1">
+        <p>
+          <a href="">
+            <img src="/assets/images/home/y_01.png" alt="" />
+            <span>云开票</span>
+          </a>
+        </p>
+        <div class="box_2"><a href="" v-for="list in list1">{{list}}</a></div>
+      </div>
+      <div class="box_1">
+        <p>
+          <a href="">
+            <img src="/assets/images/home/y_02.png" alt="" />
+            <span>云记账</span>
+          </a>
+        </p>
+        <div class="box_2"><a href="" v-for="list in list2">{{list}}</a></div>
+      </div>
+      <div class="box_1">
+        <p>
+          <a href="">
+            <img src="/assets/images/home/y_03.png" alt="" />
+            <span>云库管</span>
+          </a>
+        </p>
+        <div class="box_2"><a href="" v-for="list in list3">{{list}}</a></div>
+      </div>
+      <div class="box_1">
+        <p>
+          <a href="">
+            <img src="/assets/images/home/y_04.png" alt="" />
+            <span>云审计</span>
+          </a>
+        </p>
+        <div class="box_2"><a href="" v-for="list in list4">{{list}}</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        list1: ["税务UKey", "金税盘（航信）", "税控盘（百旺）"],
+        list2: ["金蝶", "用友", "柠檬", "诺诺云", "好会计"],
+        list3: ["库管通软件", "库管王软件", "库管易软件"],
+        list4: ["鼎信诺审计软件", "E审通审计软件", "中普审计软件", "Ecpa审计软件", "新纪元计软件"],
+        list: [{
+            url: "https://img1.baidu.com/it/u=1966616150,2146512490&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1663693200&t=e9095f80ce3ae7307bc698d49c1bcd08"
+          },
+          {
+            src: "https://img1.baidu.com/it/u=1966616150,2146512490&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1663693200&t=e9095f80ce3ae7307bc698d49c1bcd08"
+          },
+          {
+            url: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic345.nipic.com%2Ffile%2F20201122%2F710996_113719685080_2.jpg&refer=http%3A%2F%2Fpic345.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666148256&t=020170c72d470104f6f89b9971eb91c9",
+          },
+          {
+            url: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic163.nipic.com%2Ffile%2F20180507%2F25119406_083757974000_2.jpg&refer=http%3A%2F%2Fpic163.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666148256&t=e0ec68e2f299369a96171eb375d7c91c",
+          },
+        ],
+      };
+    },
+  });
+</script>

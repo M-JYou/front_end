@@ -1,0 +1,193 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/shopCart.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="search">
+            <div class="search-input">
+                <div>
+                    <input type="text" placeholder="请输入商品/店铺名称" class="shopInput">
+                </div>
+                <button>搜商品</button>
+                <button>搜店铺</button>
+            </div>
+        </div>
+        <div class="release">
+            <p><img src="/assets/images/home/myWord.png" alt=""><a href="">我的</a></p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="mainCenter">
+            <div class="cartHead">
+                <div class="box_1">购物车<span>(全部1230)</span></div>
+                <div class="box_2">
+                    <span>已选商品（不含运费）</span>
+                    <p>合计总价：<span>￥24000</span></p>
+                    <button>立即下单</button>
+                </div>
+            </div>
+            <div class="proInfo">
+                <ul>
+                    <li class="li_1"><input type="checkbox">全选</li>
+                    <li class="li_2">商品信息</li>
+                    <li class="li_3">单价</li>
+                    <li class="li_4">数量</li>
+                    <li class="li_5">金额</li>
+                    <li class="li_6">操作</li>
+                </ul>
+            </div>
+            <div class="cartItem" v-for="n in 1">
+                <div class="box_3"><input type="checkbox" name="" id="">店铺名称：<a href="">柚子小铺</a><a href=""><img
+                            src="/assets/images/home/ask_01.png" alt=""><span>尼古丁·凯奇</span></a></div>
+                <div class="proInfo text_a" v-for="n in 1">
+                    <ul v-for="n in 2">
+                        <li class="li_1"><input type="checkbox" name="" id=""></li>
+                        <li class="li_2">
+                            <a href="/officialWeb/shopDetails">
+                                <img src="/assets/images/home/shopcard_01.png" alt="">
+                                <div>
+                                    <h2>得力经济型凭证装订机财务装订机</h2>
+                                    <span>颜色：蓝色</span>
+                                    <span>型号：X-2015</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="li_3">250.00</li>
+                        <li class="li_4">
+                            <el-input-number size="mini" v-model="num4" :min="1"></el-input-number>
+                        </li>
+                        <li class="li_5">160.00</li>
+                        <li class="li_6">
+                            <button class="btn" @click="open2">收藏</button>
+                            <button class="btn" @click="deletePro">删除</button>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+            <div class="cartHead box_a">
+                <div class="box_7"><input type="checkbox">全选 <button class="btn" @click="deleteOne">删除</button><button
+                        class="btn" @click="dialogTableVisible = true">我收藏的商品</button><button class="btn"
+                        @click="deleteAll">清理购物车</button></div>
+                <!-- 收藏商品列表 -->
+                <el-dialog title="我的收藏" :visible.sync="dialogTableVisible">
+                    <div class="mainRight">
+                        <div class="item" v-for="n in 10">
+                            <div class="box_2">
+                                <img src="/assets/images/home/shop_03.png" alt="">
+                            </div>
+                            <div class="itemBtm">
+                                <div class="box_3">
+                                    <div class="price">
+                                        <div class="newPrice">￥<span>1669</span></div>
+                                        <div class="oddPrice">￥1300</div>
+                                    </div>
+                                    <p class="num">已售13525</p>
+                                </div>
+                                <div class="box_4">得力经济型凭证装订机财务装订机自动得力经济型凭证装订机财务装订机自动</div>
+                                <div class="box_5">
+                                    <div class="shopName"><img src="/assets/images/home/shop_04.png" alt="">得力官方旗舰店
+                                    </div>
+                                    <div class="addCart"><i class="el-icon-plus"></i><img
+                                            src="/assets/images/home/shop_05.png" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </el-dialog>
+                <!--  -->
+                <div class="box_2">
+                    <p>已选商品<span>2</span>件
+                        <i class="el-icon-caret-top" @click="showPic()"></i>
+                    </p>
+                    <!--购物车图片链接  -->
+                    <div class="imgBox" v-if="imgIndex">
+                        <a href="/officialWeb/shopDetails" v-for="n in 160"><img src="/assets/images/home/shopcard_01.png" alt=""></a>
+                    </div>
+                    <!--  -->
+                    <p>合计总价：<span>￥24000</span></p>
+                    <button>立即下单</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                activeName: 'first',
+                input: '',
+                expert: true,
+                num4: 1,
+                dialogTableVisible: false,
+                imgIndex: false,
+
+            }
+        },
+        methods: {
+            deletePro() {
+                this.$confirm('确定删除该商品吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            open2() {
+                this.$message({
+                    message: '商品收藏成功',
+                    type: 'success'
+                });
+            },
+            deleteAll() {
+                this.$confirm('确定清理全部商品吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '清理成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            deleteOne() {
+                alert('请选择要删除的商品')
+            },
+            showPic(index) {
+                this.imgIndex =! this.imgIndex
+                // alert('wwww')
+
+            }
+
+        }
+    })
+
+</script>

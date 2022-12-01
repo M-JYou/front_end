@@ -1,0 +1,92 @@
+.pages{
+	background-color: #FFFFFF;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	.content{
+		padding: 42px 32px 50px;
+		.title{
+			font-size: 30px;
+			font-weight: bold;
+			color: #000000;
+			margin-left: 14px;
+		}
+		.tips{
+			font-size: 14px;
+			color: #A3A3A3;
+			margin-left: 14px;
+			margin-top: 8px;
+		}
+		.form{
+			margin-top: 70px;
+			.formitem{
+				.lable{
+					font-size: 14px;
+					font-weight: bold;
+					color: #333333;
+				}
+				.lable.action{
+					color: #666666;
+				}
+				.item{
+					margin-top: 16px;
+					height: 64px;
+					background: #F6F6F6;
+					border-radius: 30px;
+					padding: 0 10px 0 36px;
+					justify-content: space-between;
+					.btn-code{
+						width: 93px;
+						text-align: center;
+						height: 36px;
+						background: #FFFFFF;
+						border-radius: 30px;
+						line-height: 36px;
+						font-size: 13px;
+						color: #157CF2;
+					}
+					.telitem{
+						font-weight: bold;
+					}
+					/deep/.uni-easyinput__placeholder-class{
+						color: #C4C4C4;
+						font-size: 26rpx;
+					}
+					/deep/.uni-easyinput__content{
+						border: 0;
+						font-size: 13px;
+					}
+					/deep/.uni-input-input,
+					/deep/.uni-textarea-textarea{
+						font-size: 13px;
+						color: #333333;
+					}
+					/deep/.uni-easyinput__content-input{
+						padding: 0!important;
+					}
+					
+				}
+				
+			}
+			
+			.btnli{
+				box-shadow: 0px 0px 100px 1px rgba(0, 0, 0, 0.08);
+				border-radius: 22px;
+				width: 100%;
+				height: 44px;
+				line-height: 44px;
+				font-weight: bold;
+				font-size: 17px;
+				text-align: center;
+				margin-top: 19px;
+			}
+			.btnli.btn-login{
+				margin-top: 40px;
+				background-color: #157CF2;
+				color: #FFFFFF;
+			}
+			
+		}
+	}
+	
+}

@@ -1,0 +1,36 @@
+.pages{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #FFFFFF;
+	/deep/.uni-nav-bar-right-text{
+		color: #157CF2!important;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	/deep/.uni-nav-bar-text{
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.content{
+		.form{
+			padding: 0 16px;
+			/deep/.uni-easyinput__content{
+				border: 0;
+				border-bottom: 1px solid #EBEDF1;
+				padding: 14px 0;
+				font-size: 16px;
+				font-weight: bold;
+				border-radius: 0;
+			}
+			/deep/.uni-forms-item__inner{
+				padding-bottom: 0;
+			}
+			.tips{
+				margin-top: 7px;
+				font-size: 12px;
+				color: #999999;
+			}
+		}
+	}
+}

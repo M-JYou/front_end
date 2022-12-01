@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "iconfont";
+  /* Project id 3632143 */
+  /* src: url('iconfont.woff?t=1665735627925') format('woff'), */
+  src: url('/static/anquan&fawu.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-anquan:before {
+  content: "\e8ab";
+}
+
+.icon-fawu:before {
+  content: "\e60b";
+}

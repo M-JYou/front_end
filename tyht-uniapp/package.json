@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@vant/weapp": "^1.10.5",
+    "echarts": "^5.3.3",
+    "moment": "^2.29.4",
+    "mpvue-echarts": "^0.3.2"
+  }
+}

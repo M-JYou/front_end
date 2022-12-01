@@ -1,0 +1,354 @@
+.logoPart {
+    height: 130px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+/* #region   轮播 */
+.el-breadcrumb {
+    margin-top: 10px;
+}
+
+.banner {
+    width: 70%;
+    height: 100%;
+    margin-left: 30px;
+}
+
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 130px;
+    margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+}
+
+/* #endregion   */
+
+
+.main {
+    width: 1400px;
+    min-height: 850px;
+    background-color: #F7F7F7;
+    padding: 20px 0px;
+}
+
+
+/* #region  搜索 */
+.search {
+    margin-left: 0px;
+}
+
+.el-icon-search {
+    font-size: 22px;
+    color: #007768;
+    margin-left: 15px;
+}
+
+.release {
+    /* width: 100%; */
+    display: flex;
+    margin-top: 35px;
+    margin-right: 20px;
+}
+
+.release>button {
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #007768;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+  }
+  .avatar {
+    width: 100px;
+    height: 100px;
+    display: block;
+  }
+  .el-form-item {
+    width: 100%;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+}.el-form-item__label{
+    width: 150px !important;
+}
+.el-form-item__content {
+    margin-left: 20px !important;
+    width: 100%;
+    line-height: 40px;
+    position: relative;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+.el-select {
+    width: 100%;
+    margin-left:0px;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+    width: 100%;
+}
+/* #endregion */
+.box_1 .child_1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.box_1 .child_2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.box_1 .child_2 span {
+    font-size: 20px;
+    color: #777777;
+    margin-right: 25px;
+    padding: 10px;
+}
+
+.box_1 .child_2 .active {
+    font-size: 20px;
+    color: #007768;
+    font-weight: 700;
+    border-bottom: 4px solid #007768;
+}
+
+
+
+.box_2 {
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin:25px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+.box_2 .box_right{
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin:25px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    position: relative;
+}
+
+.box_2 .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 99;
+
+}
+
+.box_2 .box .top {
+    width: 149px;
+    height: 61px;
+    background-image: url(../images/home/green_2.png);
+    text-align: center;
+    line-height: 61px;
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.box_2 .child_1 .top {
+    background-image: url(../images/home/green_2.png);
+}
+
+.box_2 .child_2 .top {
+    background-image: url(../images/home/green_1.png);
+}
+
+.box_2 .box span {
+    font-size: 28px;
+    color: #666666;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.box_2 .box .other {
+    font-size: 28px;
+    color: #F3B058;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.box_2 .box select{
+    font-size: 28px;
+    color: #666666;
+    font-weight: 700;
+    /* margin-top: 30px; */
+    font-family: '微软雅黑';
+}
+
+.line {
+    width: 80%;
+    border: 3px dashed #CDE2DE;
+    position: absolute;
+    top: 48px;
+    left: 130px;
+}
+
+
+
+
+.box_3 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.box_4 {
+    display: flex;
+    align-items: center;
+    margin: 20px 13px;
+}
+
+.box_4 .el-select {
+    width: 120px;
+    margin-left: 15px;
+}
+.box_5 {
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+}
+/* #region  公司转让 */
+
+.list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: 1px solid #E9E9E9;
+    padding: 20px 0px;
+}
+.list .child_1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list .child_1 div{
+    display: flex;
+    align-items: center;
+}
+.list .child_1 .son_1 img{
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+
+}
+.list .child_1 .son_1 h2{
+    font-size:24px ;
+    color:#666666;
+    margin-right: 10px;
+}
+.list .child_1 .son_1 span{
+    font-size:24px ;
+    color:#F58429;
+}
+.list .child_1 .son_2 {
+    font-size:18px ;
+    color:#AEAEAE;
+}
+
+.list .child_1 .son_2 button{
+    width: 124px;
+    height: 30px;
+    background-color: #C4DFDC;
+    font-size:16px ;
+    border-radius: 15px;
+    color:#007768;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 15px;
+}
+.list .child_2{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.list .child_2>div p{
+    width: 173px;
+    height: 30px;
+    background-color: #F7F7F7;
+    line-height: 30px;
+    text-align: center;
+    color: #333333;
+    font-size: 14px;
+}
+.list .child_2>div span{
+    display: block;
+    width: 173px;
+    height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 30px;
+    text-align: center;
+    color: #333333;
+    font-size: 18px;
+    margin-top: 20px;
+}
+.operation{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 600px;
+    margin-top: 15px;
+}
+.operation>div{
+    width: 100px;
+    font-size: 16px;
+    color: #A8A8A8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.operation>div img{
+    width: 24px;
+    height: 24px;
+}
+/* #endregion */
+

@@ -1,0 +1,115 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/entertain.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="banner" >
+            <el-carousel trigger="click" height="150px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                  <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+              </el-carousel>
+        </div>
+    </div>
+    <div class="main">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+            <el-breadcrumb-item>戏说财税</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="mainContent">
+            <div class="nav">
+                <div class="userPic">
+                    <img :src="hd.me.photo" alt="">
+                </div>
+                <h2>{{hd.me.name}}</h2>
+                <div>
+                    <span>关注9999</span>
+                    <span>粉丝3626</span>
+                </div>
+            </div>
+            <div class="formContent">
+                <div class="shijian">
+                    <div class="s_left">
+                        <button>时间</button>
+                        <button>热度</button>
+                    </div>
+                    <div class="s_right">
+                        <p><img src="/assets/images/home/process_04.png" alt=""><span>我也说说</span></p>
+                        <p><img src="/assets/images/home/myWord.png" alt=""><span>我的</span></p>
+                    </div>
+                </div>
+                <div class="item" v-for="(i,ii) in entertainList" ::key="ii">
+                    <div class="box_1">
+                        <div class="userPic">
+                            <img :src="i.user.photo" alt="">
+                            <div class="jia">
+                                <img src="/assets/images/home/en_03.png" alt="">
+                            </div>
+                        </div>
+                        <div class="userInfo">
+                            <h2>{{i.user.nickname}}</h2>
+                            <span>2022-08-30 18:30</span>
+                        </div>
+                    </div>
+                    <div class="box_2">
+                        <p>{{i.content}}
+                        </p><span>全文</span>
+                    </div>
+
+                    <div class="box_3">
+                        <div v-for="(item, ii) in i.other.imgs" :key="ii" ><img :src="item.url" alt=""></div>
+                        
+                    </div>
+                    <div class="box_4">
+                        <input type="text">
+                        <div class="express">
+                            <img src="/assets/images/home/en_05.png" alt="">
+                        </div>
+                        <button>发送</button>
+                    </div>
+                    <div class="operation">
+                        <div><img src="/assets/images/home/operation_01.png" alt="">转发23</div>
+                        <div><img src="/assets/images/home/operation_05.png" alt="">收藏15</div>
+                        <div><img src="/assets/images/home/operation_04.png" alt="">评论15</div>
+                        <div><img src="/assets/images/home/operation_02.png" alt="">举报26</div>
+                        <div><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+                    </div>
+                </div>
+                
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                entertainList:[],
+                imgs:[],
+
+            }
+        },
+       async created() {
+        const res = await httppost('member/entertain/index');
+        this.entertainList=res.data
+   
+        console.log(this.entertainList);
+       
+            
+        },
+        methods: {
+            
+        },
+    })
+
+</script>

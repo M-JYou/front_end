@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <script src="./vue.js"></script>
+
+    <style>
+        table {
+            margin: 50px auto;
+            text-align: center;
+            width: 50%;
+            height: 500px;
+            border: 2px solid;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 2px solid;
+        }
+
+        .bgc {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in students" :class="index%2==0?'bgc':''">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.age}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        // 三种写法
+        // 1.函数式写法
+        /* data: function() {
+                return {
+                    students: [{
+                        id: 1,
+                        name: '小明',
+                        age: 18
+                    }, {
+                        id: 2,
+                        name: '小王',
+                        age: 22
+                    }, {
+                        id: 3,
+                        name: '小李',
+                        age: 20
+                    }, {
+                        id: 4,
+                        name: '小张',
+                        age: 18
+                    }, {
+                        id: 5,
+                        name: '小赵',
+                        age: 25
+                    }, ],
+                }
+            } */
+        // 2.函数式简写
+        /* data() {
+            return {
+                students: [{
+                    id: 1,
+                    name: '小明',
+                    age: 18
+                }, {
+                    id: 2,
+                    name: '小王',
+                    age: 22
+                }, {
+                    id: 3,
+                    name: '小李',
+                    age: 20
+                }, {
+                    id: 4,
+                    name: '小张',
+                    age: 18
+                }, {
+                    id: 5,
+                    name: '小赵',
+                    age: 25
+                }, ],
+            }
+        }, */
+        // 3.对象式写法
+        data: {
+            students: [{
+                id: 1,
+                name: '小明',
+                age: 18
+            }, {
+                id: 2,
+                name: '小王',
+                age: 22
+            }, {
+                id: 3,
+                name: '小李',
+                age: 20
+            }, {
+                id: 4,
+                name: '小张',
+                age: 18
+            }, {
+                id: 5,
+                name: '小赵',
+                age: 25
+            },],
+        }
+    })
+</script>
+
+</html>

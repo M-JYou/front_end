@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "测点个数",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar"
+  }
+}

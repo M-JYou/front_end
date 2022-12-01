@@ -1,0 +1,31 @@
+/* 公共内边距 */
+page{
+  height: 100%;
+}
+/*单行溢出*/
+.showone{
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	white-space: normal !important;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+.shoTwo{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
+
+.divflex{
+	display: flex;
+	align-items: center;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+/deep/image,/deep/img,/deep/video{
+	max-width: 100% !important;
+}

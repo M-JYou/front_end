@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间过滤器</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>当前时间:{{time | timeFor}}</h1>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                time: Date.now()
+            },
+            filters: {
+                timeFor(val, str = "/") {
+                    let time = new Date(val);
+                    let y = time.getFullYear();
+                    let m = (time.getMonth() + 1).toString().padStart('2', '0');
+                    let d = time.getDate().toString().padStart('2', '0');
+                    let h = time.getHours().toString().padStart('2', "0");
+                    let mm = (time.getMinutes() + '').padStart('2', '0');
+                    let s = (time.getSeconds() + '').padStart('2', '0');
+                    return `${y}${str}${m}${str}${d} ${h}:${mm}:${s}`
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

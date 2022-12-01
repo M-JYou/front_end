@@ -1,0 +1,72 @@
+.logoPart {
+    background-color: #FFFFFF;
+    height: 85px;
+}
+
+.main {
+    width: 1400px;
+    padding: 0px 40px;
+    background-color: #FFFFFF;
+}
+.el-breadcrumb__inner a, .el-breadcrumb__inner.is-link{
+    font-size: 18px;
+    font-weight: 400;
+    color: #A8A8A8;
+}
+.el-breadcrumb__inner {
+    color: #A8A8A8;
+    font-size: 18px;
+    font-weight: 400;
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
+    font-weight: 400;
+    color: #A8A8A8;
+    cursor: text;
+}
+.el-breadcrumb__separator[class*=icon] {
+    margin: 0px 6px;
+    font-weight: 400;
+    font-size: 20px;
+}
+.main .gamelist{
+    width: 100%;
+    border-bottom: 1px solid #E9E9E9;
+    padding: 20px;
+}
+.main .gamelist .top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.main .gamelist .top button{
+    width: 158px;
+    height: 45px;
+    border-radius: 24px;
+    background-color: #007768;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+.main .gamelist p{
+    font-size: 20px;
+    color: #333333;
+    margin-top: 30px;
+    line-height: 34px;
+}
+.main .gamelist .operation{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.main .gamelist .operation>div{
+    padding: 5px 20px;
+    font-size: 16px;
+    color: #A8A8A8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.main .gamelist .operation>div img{
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}

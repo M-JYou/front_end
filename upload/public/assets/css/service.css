@@ -1,0 +1,168 @@
+.logoPart {
+    height: 85px;
+    background-color: #FFFFFF;
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+}
+
+.main .mainContent {
+    width: 100%;
+    padding: 30px;
+    background-color: #F7F7F7;
+    margin-top: 30px;
+    position: relative;
+}
+
+.main .mainContent .adverName {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main .mainContent .adverName>div {
+    width: 318px;
+    height: 200px;
+    border-radius: 15px;
+    border: 1px solid #000;
+}
+
+.main .mainContent .business {
+    width: 1183px;
+    overflow: hidden;
+   
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin-top: 30px;
+    padding: 15px 40px;
+
+}
+
+.main .mainContent .business a {
+    display: block;
+    height: 100px;
+    width: 125px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 14px;
+    text-align: center;
+}
+.main .mainContent .business a:hover{
+    background-color: #F7F7F7;
+}
+
+.main .mainContent .business a:nth-child(1) {
+    margin-left: 0px;
+}
+
+.main .mainContent .business a:nth-child(9) {
+    margin-left: 0px;
+}
+
+.main .mainContent .business a span {
+    display: block;
+    font-size: 20px;
+    color: #333333;
+    margin-top: 20px;
+}
+
+.main .mainContent .details {
+    width: 1183px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    margin-top: 30px;
+}
+
+.main .mainContent .contact {
+    width: 47px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 280px;
+    right: 70px;
+}
+.box_2 {
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin:25px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+.box_2 .box_right{
+    width: 96%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    margin:25px auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    position: relative;
+}
+
+.box_2 .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 99;
+
+}
+
+.box_2 .box .top {
+    width: 149px;
+    height: 61px;
+    background-image: url(../images/home/green_2.png);
+    text-align: center;
+    line-height: 61px;
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.box_2 .child_1 .top {
+    background-image: url(../images/home/green_2.png);
+}
+
+.box_2 .child_2 .top {
+    background-image: url(../images/home/green_1.png);
+}
+
+.box_2 .box span {
+    font-size: 28px;
+    color: #666666;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.box_2 .box .other {
+    font-size: 28px;
+    color: #F3B058;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.box_2 .box select{
+    font-size: 28px;
+    color: #666666;
+    font-weight: 700;
+    /* margin-top: 30px; */
+    font-family: '微软雅黑';
+}
+
+.line {
+    width: 80%;
+    border: 3px dashed #CDE2DE;
+    position: absolute;
+    top: 48px;
+    left: 130px;
+}
+.details .detailsCon{
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}

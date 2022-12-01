@@ -1,0 +1,365 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/academic.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="search">
+            <div class="search-input">
+                <div>
+                    <i class="el-icon-search"></i>
+                    <input type="text" v-mordel="input" placeholder="请输入关键字">
+                </div>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="release">
+            <button>发布学术文章</button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>学术研究</el-breadcrumb-item>
+            </el-breadcrumb>
+            <div class="tabs">
+                <span :class="{active:itemIndex==1}" @click="clickTab(1)">申请成为专家学者</span>
+                <span :class="{active:itemIndex==2}" @click="clickTab(2)">部分专家学者风采</span>
+                <span :class="{active:itemIndex==3}" @click="clickTab(3)">学术文章</span>
+                <span :class="{active:itemIndex==4}" @click="clickTab(4)">我的</span>
+            </div>
+        </div>
+        <el-dialog v-if="itemIndex===1" title="您提交的资料仅用于专家认证，我们会对您提供的信息实施加密保护！" :visible.sync="dialogTableVisible"
+            class="con_1">
+            <form action="">
+                <ul>
+                    <li><span>申请人</span>
+                        <div>
+                            <el-input v-model="inputName" placeholder="请输入姓名"></el-input>
+                        </div>
+                    </li>
+                    <li>
+                        <span>头像</span>
+                        <div>
+                            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
+                                :show-file-list="false" :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </div>
+
+                    </li>
+                    <li><span>职称</span>
+                        <div><select name="" id="">
+                                <option value="vue1">特级职称</option>
+                                <option value="vue2">高级职称</option>
+                                <option value="vue3">中级职称</option>
+                                <option value="vue4">初级职称</option>
+                                <option value="vue5">一般职称</option>
+                            </select></div>
+                    </li>
+                    <li><span>学历</span>
+                        <div>
+                            <select name="" id="">
+                                <option value="vue1">研究生及以上</option>
+                                <option value="vue2">本科</option>
+                                <option value="vue3">大专</option>
+                                <option value="vue4">中专或高中</option>
+                                <option value="vue5">初中及以下</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li><span>头衔称谓</span>
+                        <div>
+                            <el-input v-model="inputChengwei" placeholder="请输入头衔称谓">
+                        </div>
+                    </li>
+                    <li><span>工作年限</span>
+                        <div><select name="" id="">
+                                <option value="vue1">10年以上</option>
+                                <option value="vue2">6-10年</option>
+                                <option value="vue3">4-5年</option>
+                                <option value="vue4">2-3年</option>
+                                <option value="vue5">1年以内（含1年）</option>
+                            </select></div>
+                    </li>
+                    <li><span>个人介绍</span>
+                        <div>
+                            <el-input v-model="inputText" placeholder="请输入个人介绍">
+                        </div>
+                    </li>
+                    <li><span>证明材料</span>
+                        <div class="upload">
+                            <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-change="handleChange" :file-list="fileList">
+                                <el-input v-model="inputType" placeholder="请上传证明材料">
+                            </el-upload>
+                        </div>
+                    </li>
+                    <li><span>手机号</span>
+                        <div>
+                            <el-input v-model="inputPhone" placeholder="请输入手机号">
+                        </div>
+                    </li>
+                    <li><span>验证码</span>
+                        <div>
+                            <el-input v-model="inputNum" placeholder="请输入验证码">
+                        </div>
+                        <button>获取验证码</button>
+                    </li>
+                    <li><button>提交申请</button></li>
+                </ul>
+            </form>
+        </el-dialog>
+        <div class="mainContent" v-if="itemIndex===2">
+            <div class="formContent">
+                <div class="con_2">
+                    <div class="box_con">
+                        <div class="itempeo" v-for="n in 20">
+                            <div class="itemtop">
+                                <img src="/assets/images/home/academic_01.png" alt="">
+                            </div>
+                            <div class="itemBtm">
+                                <div class="box_3">
+                                    <div class="nameinfo">
+                                        <div class="img">
+                                            <img src="/assets/images/home/ask_01.png" alt="">
+                                            <input type="checkbox" v-model="checked1" name="" id="">
+                                        </div>
+                                        <span>专家昵称专家昵称专家昵称专家昵称</span>
+                                    </div>
+                                </div>
+                                <div class="box_1">
+                                    <h2>王晓辉</h2>
+                                    <span>法律专家</span>
+                                </div>
+                                <div class="box_2">
+                                    <span>高级律师<i class="el-icon-edit"></i></span>
+                                    <span>10年</span>
+                                </div>
+                                <div class="box_4">
+                                    <button class="btn_pay" @click="follow">关注</button>
+                                    <button type="text" @click="dialogTableVisible = true" class="btn_pay">付费咨询</button>
+                                </div>
+
+
+                                <!-- #region -->
+                                <el-dialog title="付费咨询" :visible.sync="dialogTableVisible">
+                                    <ul>
+                                        <li>付费金额 <span>￥10.00元</span></li>
+                                        <li>虾币 <span>100</span></li>
+                                        <li>
+                                            <el-checkbox v-model="checked">
+                                                <el-popover placement="right" width="400" trigger="click">
+                                                    <span>支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议</span>
+                                                    <el-button slot="reference">支付协议</el-button>
+                                                </el-popover>
+                                            </el-checkbox>
+                                        </li>
+                                        <li><button>确认支付</button></li>
+                                    </ul>
+                                </el-dialog>
+                                <!-- #endregion -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page_box"><span>上一页</span><button>111</button><span>下一页</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainContent" v-if="itemIndex===3">
+
+            <div class="formContent">
+                <div class="con_3">
+                    <div class="box_con">
+                        <div class="box_11">
+                            <select name="" id="">
+                                <option value="opt1">时间不限</option>
+                                <option value="opt2">1天内</option>
+                                <option value="opt3">3天内</option>
+                                <option value="opt4">一周内</option>
+                            </select>
+                        </div>
+                        <div class="box_bot">
+                            <div class="itemText" v-for="n in 7">
+                                <div class="tTop">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="iBot">
+                                    <div class="botDiv_1">
+                                        <h1>管理科学学术文章</h1>
+                                        <img src="/assets/images/home/en_3.png" alt="">
+                                    </div>
+                                    <p>学术文章介绍学术文章介绍...</p>
+                                    <div class="botDiv_2">
+                                        <div class="name">王骁辉 </div>
+                                        <div class="time">2022-9-27</div>
+                                    </div>
+                                    <div class="botDiv_3">
+                                        <button>下载</button>
+                                        <button>收藏</button>
+                                    </div>
+                                    <div>
+                                        <el-checkbox v-model="checked3">下载声明</el-checkbox>
+                                    </div>
+                                    <div class="operation">
+                                        <div><img src="/assets/images/home/operation_01.png" alt="">分享23</div>
+                                        <div><img src="/assets/images/home/operation_04.png" alt="">评论23</div>
+                                        <div><img src="/assets/images/home/operation_02.png" alt="">举报</div>
+                                        <div><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page_box"><span>上一页</span><button>111</button><span>下一页</span></div>
+                </div>
+            </div>
+            <div class="formContent" v-else>
+                回答
+            </div>
+        </div>
+
+        <div class="mainContent" v-if="itemIndex===4">
+
+            <div class="formContent">
+                <div class="con_4">
+                    <div class="box_11">
+                        <button  :class="{btnAct:btnitemIndex==1}" @click="btnclickTab(1)">我的上传</button>
+                        <button  :class="{btnAct:btnitemIndex==2}" @click="btnclickTab(2)">我的下载</button>
+                    </div>
+                    <div class="box_bot_1">
+                       <table border="0" cellspacing="0" v-if="btnitemIndex===1">
+                        <tr>
+                            <th width="150px">文章标题</th>
+                            <th width="350px">文章简介</th>
+                            <th width="150px">平台奖励积分</th>
+                            <th width="150px">文章销售单价</th>
+                            <th width="150px">文章销售积分</th>
+                            <th width="150px">上传时间</th>
+                            <th width="150px">操作</th>
+                        </tr>
+                        <tr>
+                            <td>钢铁是怎样炼成的</td>
+                            <td>钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的</td>
+                            <td>30</td>
+                            <td>3</td>
+                            <td>60</td>
+                            <td>2016-05-02</td>
+                            <td><button>查看详情</button></td>
+                        </tr>
+                       </table>
+                       <table border="0" cellspacing="0" v-if="btnitemIndex===2">
+                        <tr>
+                            <th width="150px">文章标题</th>
+                            <th width="350px">文章简介</th>
+                            <th width="150px">下载时间</th>
+                            <th width="150px">消费积分</th>
+                            <th width="150px">操作</th>
+                        </tr>
+                        <tr>
+                            <td>钢铁是怎样炼成的</td>
+                            <td>钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的钢铁是怎样炼成的</td>
+                            <td>2016-05-02</td>
+                            <td>60</td>
+                            <td><button>查看详情</button></td>
+                        </tr>
+                       </table>
+
+
+
+
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                btnitemIndex:1,
+                input: '',
+                inputName: '',
+                inputChengwei: '',
+                inputText: '',
+                inputType: '',
+                inputPhone: '',
+                inputNum: '',
+                itemIndex: 2,
+                dialogTableVisible: false,
+                checked1: false,
+                payment: false,
+                itemIndex3: 1,
+                checked: false,
+                imageUrl: '',
+                fileList: '',
+                checked3: false,
+            }
+
+        },
+        methods: {
+            clickTab(index) {
+                this.itemIndex = index
+                if (index != 3) {
+                    this.itemIndex3 = 1;
+                }
+                if (index == 1) {
+                    this.dialogTableVisible = true
+                }
+            },
+            btnclickTab(index) {
+                this.btnitemIndex = index
+            },
+            clickItem3(e) {
+                this.itemIndex3 = e;
+            },
+            follow() {
+                this.$message({
+                    message: '关注成功',
+                    type: 'success'
+                });
+
+            },
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                // const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                // if (!isJPG) {
+                //     this.$message.error('上传头像图片只能是 JPG 格式!');
+                // }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                // return isJPG && isLt2M;
+                return isLt2M
+            },
+            handleChange(file, fileList) {
+                this.fileList = fileList.slice(-3);
+            }
+
+        }
+    })
+
+</script>

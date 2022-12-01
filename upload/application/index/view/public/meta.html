@@ -1,0 +1,558 @@
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit" />
+<title>{#$pageHeader.title#}</title>
+<meta name="keywords" content="{#$pageHeader.keywords#}" />
+<meta name="description" content="{#$pageHeader.description#}" />
+<meta property="og:type" content="{#$pageHeader.og.type#}" />
+<meta property="og:title" content="{#$pageHeader.og.title#}" />
+<meta property="og:url" content="{#$pageHeader.og.url#}" />
+<meta property="og:site_name" content="{#$pageHeader.og.site_name#}" />
+<meta property="og:description" content="{#$pageHeader.og.description#}" />
+<meta name="author" content="骑士CMS" />
+<meta name="copyright" content="74cms.com" />
+<link rel="shortcut icon" href="__ROOT__/favicon.ico" />
+{#load href="__ROOT__/assets/js/polyfill.7.11.5.min.js" /#} {#load href="__ROOT__/assets/js/vue.js" /#} {#load
+href="__ROOT__/assets/js/axios.min.js" /#} {#load href="__ROOT__/assets/css/element-ui.css" /#} {#load
+href="__ROOT__/assets/js/element-ui.js" /#} {#load href="__ROOT__/assets/js/jquery.min.js" /#} {#load
+href="__ROOT__/assets/js/jquery.dropdown.js" /#} {#load href="__ROOT__/assets/js/jquery.listitem.js" /#} {#load
+href="__ROOT__/assets/js/utils.js" /#} {#load href="__ROOT__/assets/js/js.cookie.min.js" /#} {#load
+href="__ROOT__/assets/js/qrcode.min.js" /#} {#include file="public/backTop" /#} {#load
+href="__ROOT__/assets/js/iconfont.js" /#} {#load href="__ROOT__/assets/css/iconfont.css" /#}
+<script>
+  var qscms = {
+    subsiteid: "{#$subsiteid#}",
+    sitedomain: "{#$global_config.sitedomain#}",
+    sitedir: "{#$global_config.sitedir#}",
+    mobiledomain: "{#$global_config.mobile_domain#}",
+    memberDirname: "{#$global_config.member_dirname#}",
+    apiUrl: "{#$global_config.sitedomain#}{#$global_config.sitedir#}v1_0",
+    apiUrlBase: "{#$global_config.sitedomain#}{#$global_config.sitedir#}",
+    apiList: {
+      getLoginCode: "/member/sendsms/login", //获取登录验证码
+      userinfo: "/home/config/userinfo", //获取用户信息,用于查询用户登录状态
+      qrcode: "/home/qrcode/index", //获取推广二维码
+      jobContact: "/home/job/getContact", //获取职位联系方式
+      jobClick: "/home/job/click", //职位点击量加1
+
+      jobapply: "/member/index/jobApplyAdd", //申请职位,
+
+      jobFavCheck: "/home/job/checkFav", //查询职位是否已被收藏
+      jobFav: "/member/index/favJobAdd", //收藏职位
+      jobFavCancel: "/member/index/favJobCancel", //取消收藏职位
+      searchLocation: "/home/index/ajaxSearchLocation", //搜索时ajax跳转
+      resumeRefresh: "/personal/resume/refresh", //刷新简历
+      companyJobRefreshBatch: "/company/job/refreshBatch", // 企业刷新职位-批量
+      companyCheckJobaddNum: "/company/job/checkJobaddNumber", // 查询可发布职位数
+      resumeContact: "/home/resume/getContact", //获取简历联系方式
+      resumeFavCheck: "/home/resume/checkFav", //获取简历是否已被收藏
+      resumeFav: "/member/index/favResumeAdd", //收藏简历
+      resumeFavCancel: "/member/index/favResumeCancel", //取消收藏简历
+      resumeClick: "/home/resume/click", //简历点击量加1
+      resumeDownload: "/member/index/downResumeAdd", //下载简历
+      jobSupplementary: "/home/job/supplementary", //职位详情补充资料
+      companySupplementary: "/home/company/supplementary", //企业详情补充资料
+      resumeSupplementary: "/home/resume/supplementary", //简历详情补充资料
+      companyAttention: "/member/index/attentionCompanyAdd", // 关注企业
+      companyAttentionCancel: "/member/index/attentionCompanyCancel", // 取消关注企业
+      companyClick: "/home/company/click", //企业点击量加1
+      companyJoblist: "/home/job/index", //获取企业在招职位列表
+      company_published_jobslist: "/company/index/joball", // 获取企业在招职位面试邀请
+      interview_add: "/member/index/interviewAdd", // 邀请面试
+      member_setmeal: "/company/service/mysetmeal", // 我的套餐
+      classify: "/home/classify/index", // 获取枚举类数据
+      articleClick: "/home/article/click", //资讯点击量加1
+      noticeClick: "/home/notice/click", //公告点击量加1
+      jobContrast: "/home/contrast/job", //职位对比
+      resumeContrast: "/home/contrast/resume", //简历对比
+      mapsearch: "/home/job/map", //地图搜索
+      loginByPwd: "/member/login/password", //账号密码登录
+      loginChange: "/member/login/change", // 登录角色转变
+      loginByCode: "/member/login/code", //验证码登录
+      loginOut: "/member/login/logout", // 退出登录接口
+      agreementAndPrivacy: "/home/config/agreementAndPrivacy", //注册协议和隐私政策
+      statAfterLogin: "/member/index/statAfterLogin", //获取登录后统计信息
+      tipoff: "/member/info/tipoff", //举报
+
+      captchaPicture: "/home/captcha/picture", //图片验证码
+
+      cronRun: "/home/cron/index", //计划任务
+      jobfairRetrospect: "/home/jobfair/retrospect", //获取招聘会精彩回顾
+      jobfairRecommend: "/home/jobfair/recommend", //获取招聘会推荐企业
+      jobfairCompanylist: "/home/jobfair/comlist", //获取招聘会参会企业
+      jobfairPosition: "/home/jobfair/position", //获取招聘会展位信息
+      jobfairReserve: "/company/jobfair/reserve", //报名
+      jobfairolCompanyList: "/home/jobfairol/comlist", //获取网络招聘会参会企业
+      jobfairolJobList: "/home/jobfairol/joblist", //获取网络招聘会参会职位
+      jobfairolResList: "/home/jobfairol/resumelist", //获取网络招聘会参会个人
+      jobfairol_addlog: "/home/jobfairol/logAdd", //添加网络招聘会查看日志
+      jobfairolApply: "/home/jobfairol/apply", //报名
+      recruitmentCompanyList: "/home/recruitment/comlist", //获取今日招聘参会企业
+      secretPhone: "/member/index/secretPhone", //号码保护接口
+      campusAdList: "/home/campus/ad_list", //校园招聘广告位
+      schoolElection: "/home/campus/school_election", //院校双选会
+      schoolPreach: "/home/campus/school_preach", //院校宣讲会
+      getTypeCategory: "/home/campus/get_type_category", //院校类型
+      getLevelCategory: "/home/campus/get_level_category", //院校层次
+      getSchool: "/home/campus/get_school", //获取院校分类
+      searchCampusLocation: "/home/campus/ajaxSearchLocation", //校园招聘搜索时ajax跳转
+      freelanceContactPay: "/member/freelance/order_pay", // 查看联系方式支付
+      config: "/home/config/index", //获取网站配置信息
+      serviceOl: "/home/serviceol/index", //获取网站配置信息
+      sendsms_auth_mobile_nocheck: "/member/sendsms/authMobileNoCheck", //获取验证码
+      authMobileCheck: "/home/city_info/authMobileCheck", //验证码验证
+      get_experience: "/home/classify/index", //工作经验
+      get_tpl_list: "/home/poster/index", //生成海报
+      get_tplindexList: "/home/poster/getTplindexList", //海报索引列表
+      fast_jobdetail: "/home/fast/fast_job_info", // 快速招聘-详情
+      fast_jobrefresh: "/home/fast/fast_job_refresh", // 快速招聘-刷新
+      fast_jobdelete: "/home/fast/fast_job_del", // 快速招聘-删除
+      fast_jobedit: "/home/fast/fast_job_addsave", // 快速招聘-发布
+      fast_jobpwd: "/home/fast/fast_job_pwd",
+      fast_resumedetail: "/home/fast/fast_resume_info", // 快速求职-详情
+      fast_resumerefresh: "/home/fast/fast_resume_refresh", // 快速求职-刷新
+      fast_resumedelete: "/home/fast/fast_resume_del", // 快速求职-删除
+      fast_resumeedit: "/home/fast/fast_resume_addsave", // 快速求职-发布
+      fast_resumepwd: "/home/fast/fast_resume_pwd",
+      getRegQuickCode: "/member/sendsms/regResumeQuick", //获取快速注册简历验证码
+      regResumeQuick: "/member/reg/personalQuick", //快速注册简历
+      interviewAddPre: "/member/index/interviewAddPre", //面试邀请预加载数据
+      company_list_by_trade: "/home/company/listByTrade", // 企业列表
+      imGlobal: "/member/im/imWindowGlobal", //聊天初始化配置读取
+      imGetToken: "/member/im/getToken", //获取聊天token
+      imStart: "/member/im/startConversation", //发起聊天
+      imJoblist: "/member/im/joblist", //获取聊天有效职位列表
+      imChatlist: "/member/im/chatList", //获取会话列表
+      imCheckBind: "/member/im/imCheckBind", //即时通讯检查绑定状态
+      saveRegisterData: "/home/job/saveRegisterData", //保存职位登记信息
+      recruitmentTodayList: "/home/recruitment/comlist", //获取今日招聘参会企业
+      recruitmentTodayJobList: "/home/recruitment/joblist", //获取今日招聘参会企业职位
+      company_pay_direct_service: "/company/service/pay_direct_service", // 企业下订单（快捷支付）
+      liveList: "/home/live/pageList", //获取直播列表
+    },
+    isLogin: false,
+    loginUtype: 0,
+    userToken: "",
+    platform: "web",
+    imToken: "",
+    reConnectTime: 0,
+    websocketOk: false,
+  };
+
+  var locationUrl = qscms.sitedir + qscms.memberDirname;
+  qscms.locationList = {
+    helpCenter: locationUrl + "/help",
+    indexCompany: locationUrl + "/company",
+    indexPersonal: locationUrl + "/personal",
+    loginCompany: locationUrl + "/login/company",
+    loginPersonal: locationUrl + "/login/personal",
+    regCompany: locationUrl + "/reg/company",
+    regPersonal: locationUrl + "/reg/personal",
+    reg: locationUrl + "/reg",
+    createResume: locationUrl + "/personal/resume/add_resume_step1",
+    recommendResume: locationUrl + "/company/recommend",
+    recommendJob: locationUrl + "/personal/recommend",
+    companyPassword: locationUrl + "/company/account/safety",
+    companyService: locationUrl + "/company/service/setmeal",
+    companyJobApplyList: locationUrl + "/company/resume/jobapply",
+    companyInterviewList: locationUrl + "/company/resume/interview",
+    personalJobApplyList: locationUrl + "/personal/job/jobapply",
+    personalInterviewList: locationUrl + "/personal/job/interview",
+    companyViewList: locationUrl + "/company/resume/browsing",
+    personalViewList: locationUrl + "/personal/job/viewjob",
+    companyJobAdd: locationUrl + "/company/jobadd",
+    companySetmealAdd: locationUrl + "/company/service/setmeal",
+    companyJoblist: locationUrl + "/company/joblist",
+    personalService: locationUrl + "/personal/service/stick",
+    personalPassword: locationUrl + "/personal/account/safety",
+    personalResume: locationUrl + "/personal/resume",
+    forget: locationUrl + "/forget/1",
+    appeal: locationUrl + "/appeal",
+    freelanceAddSubject: locationUrl + "/freelance/release",
+    freelanceAddResume: locationUrl + "/freelance/resume",
+    freelanceHandler: locationUrl + "/freelance",
+    wxpay: locationUrl + "/wxpay",
+    oauthQq: locationUrl + "/oauth/qq/login",
+    personalIm: locationUrl + "/personal/im", // 我的职聊
+    companyIm: locationUrl + "/company/im",
+    companyServiceIm: locationUrl + "/company/service/increment/add/im",
+    companyServiceDownloadResume: locationUrl + "/company/service/increment/add/resume_package",
+    companyServiceIncrement: locationUrl + "/company/service/increment",
+
+    companyTransfer: locationUrl + "/company/Transfer", // 转让公司
+    companyAcquiring: locationUrl + "/company/Acquiring", // 收购公司
+  };
+  //获取列表中已选择的项目
+  qscms.getSelItemArr = function () {
+    var idArr = [];
+    var listArray = $(".J_allListBox .J_allList:checked");
+    $.each(listArray, function (index, val) {
+      idArr.push(val.value);
+    });
+    return idArr;
+  };
+
+  var visitor = Cookies.get("qscms_visitor");
+  if (visitor !== undefined && visitor !== null) {
+    visitor = JSON.parse(visitor);
+    qscms.userToken = visitor.token;
+    qscms.isLogin = true;
+    qscms.loginUtype = visitor.utype;
+  }
+  function pre0(p, len = 2) {
+    let ret = p + "";
+    while (ret.length < len) {
+      ret = "0" + ret;
+    }
+    return ret;
+  }
+  function formatShortTime(p) {
+    const t = new Date(p * 1000);
+    // return `${t.getFullYear()}-${pre0(t.getMonth() + 1)}-${pre0(t.getDate())} ${pre0(t.getHours())}:${pre0(t.getMinutes())}:${pre0(t.getSeconds())}`;
+    return `${t.getFullYear()}-${pre0(t.getMonth() + 1)}-${pre0(t.getDate())}`;
+  }
+  const payment_rate = parseInt("{#$pageHeader.config.payment_rate#}");
+  function p2m(p) {
+    return p / payment_rate;
+  }
+  function m2p(p) {
+    return p * payment_rate;
+  }
+  // @ts-ignore
+  // @ts-nocheck
+  const hd={#:show($pageHeader)#};
+  if (!hd.me) {
+    hd.me = {};
+  }
+  function reprint(p) {
+    alert("您的转发网址是:\n" + p);
+  }
+  function favorites(p) {
+    alert("您收藏了:\n" + p);
+  }
+  function comment(p) {
+    alert("您评论了:\n" + p);
+  }
+  function report(p) {
+    alert("您举报了:\n" + p);
+  }
+  function likes(p) {
+    alert("您点赞了:\n" + p);
+  }
+</script>
+<script>
+  /** @param {JQueryEventObject} e */
+  function getFm(e) {
+    const el = $(e.target);
+    return { model: el.attr("model"), id: el.attr("mid") };
+  }
+  function fastLogin(param) {
+    return new Promise((resolve, reject) => {
+      if (qscms.userToken) {
+        return resolve(hd.me);
+      }
+      const u = $(`<input placeholder="输入用户名或手机号" />`),
+        p = $(`<input type="password" placeholder="输入密码" />`),
+        l = $(`<div>登录</div>`),
+        dt = $(`<div>${param && param.title ? param.title : "快捷登录"}</div>`),
+        main = $(`<div class="fastLogin">`),
+        mask = $(`<div class="mask">`),
+        login = () => {
+          if (l.text() == "登录") {
+            if (!param || typeof param != "object" || Object.keys(param).length < 1) {
+              param = {};
+            }
+            const d = Object.assign(param, { username: u.val(), password: p.val() });
+            if (d.username.length < 6 || d.username.length > 30) {
+              return window.ELEMENT.Message.error("请输入正确的用户名或手机号");
+            } else if (d.password.length < 6 || d.password.length > 15) {
+              return window.ELEMENT.Message.error("请输入正确的密码");
+            }
+            l.text("正在登录中!请稍后...");
+            l.css("cursor", "no-drop");
+            httppost("member/login/password", d)
+              .then((r) => {
+                if (r.code == 200) {
+                  qscms.userToken = r.data.token;
+                  qscms.isLogin = true;
+                  qscms.loginUtype = r.data.utype;
+                  httppost("member/memberInfo/me")
+                    .then((r) => {
+                      hd.me = r.data;
+                      mask.click();
+                      resolve(r.data);
+                    })
+                    .catch((e) => {
+                      mask.click();
+                      resolve();
+                    });
+                }
+              })
+              .catch(() => {
+                l.text("登录");
+                l.css("cursor");
+              });
+          }
+        };
+      if (param) {
+        if (param.username) {
+          u.val(param.username);
+        }
+        if (param.password) {
+          p.val(param.password);
+        }
+      }
+      l.bind("click", login);
+      main.bind("click", (ev) => ev.stopPropagation());
+      mask.bind("click", (ev) => {
+        ev.stopPropagation();
+        $(ev.target).remove();
+        reject();
+      });
+      $("body").append(mask.append(main.append(dt, $("<div>").append($("<div>").append(u), $("<div>").append(p), l))));
+    });
+  }
+  $(document).ready(function () {
+    // 转发
+    $(".mac-ico-zhuanfa").click((e) => {
+      e.stopPropagation();
+      const d = getFm(e),
+        p = $("body"),
+        el = $(`<div class="mask"></div>`),
+        c = $(`<div><img src="/qr?model=${d.model}&mid=${d.id}" alt="" >请使用微信扫一扫</div>`);
+      c.bind("click", (ev) => ev.stopPropagation());
+      el.append(c);
+      el.bind("click", (ev) => {
+        ev.stopPropagation();
+        $(ev.target).remove();
+      });
+      p.append(el);
+      if (qscms.userToken) {
+        httppost(`member/${d.model}/reprint`, d).catch(() => {});
+      }
+    });
+    // 评论
+    $(".mac-ico-pinglun").click((e) => {
+      fastLogin()
+        .then(() => {
+          const d = getFm(e),
+            p = $("body"),
+            el = $(`<div class="mask"></div>`),
+            c = $(`<div><h2>请文明评论</h2><textarea id="pinglun"></textarea></div>`),
+            btn = $(`<div class="mac-btn" style="margin-top:0.4em">确定</div>`);
+          c.append(btn);
+          btn.bind("click", () => {
+            d.content = edit.html();
+            httppost(`member/${d.model}/comment`, d).catch(() => {});
+            el.click();
+          });
+          c.bind("click", (ev) => ev.stopPropagation());
+          el.append(c);
+          el.bind("click", (ev) => {
+            ev.stopPropagation();
+            edit.remove();
+            $(ev.target).remove();
+          });
+          p.append(el);
+          const edit = createEdit("#pinglun", { resizeType: 0, height: "280px" });
+        })
+        .catch(() => {
+          window.ELEMENT.Message.error("请登录后再评论");
+        });
+    });
+    // 举报
+    $(".mac-ico-tishi").click((e) => {
+      fastLogin()
+        .then(() => {
+          const d = getFm(e),
+            p = $("body"),
+            el = $(`<div class="mask"></div>`),
+            c = $(`<div><h2>请文输入举报原因</h2><textarea id="pinglun"></textarea></div>`),
+            btn = $(`<div class="mac-btn" style="margin-top:0.4em">确定</div>`);
+          c.append(btn);
+          btn.bind("click", () => {
+            d.content = edit.html();
+            httppost(`member/${d.model}/report`, d).catch(() => {});
+            el.click();
+          });
+          c.bind("click", (ev) => ev.stopPropagation());
+          el.append(c);
+          el.bind("click", (ev) => {
+            ev.stopPropagation();
+            edit.remove();
+            $(ev.target).remove();
+          });
+          p.append(el);
+          const edit = createEdit("#pinglun", { resizeType: 0, height: "280px" });
+        })
+        .catch(() => {
+          window.ELEMENT.Message.error("本操作需要登录后才能继续");
+        });
+    });
+    // 点赞
+    $(".mac-ico-dianzan").click(async (e) => {
+      fastLogin()
+        .then(() => {
+          const d = getFm(e);
+          httppost(`member/${d.model}/likes`, d)
+            .then((r) => {
+              window.ELEMENT.Message.success(r.message);
+            })
+            .catch(() => {});
+        })
+        .catch(() => {
+          window.ELEMENT.Message.error("本操作需要登录后才能继续");
+        });
+    });
+    // 收藏
+    $(".mac-ico-favor").click(async (e) => {
+      fastLogin()
+        .then(() => {
+          const d = getFm(e);
+          httppost(`member/${d.model}/favorites`, d)
+            .then((r) => {
+              window.ELEMENT.Message.success(r.message);
+            })
+            .catch(() => {});
+        })
+        .catch(() => {
+          window.ELEMENT.Message.error("本操作需要登录后才能继续");
+        });
+    });
+    // 购物车
+    $(".mac-ico-add_cart").click(async (e) => {
+      fastLogin()
+        .then(() => {
+          const d = getFm(e);
+          if (d.id > 0) {
+            httppost(`member/cart/add`, { id: d.id, sum: 1 })
+              .then((r) => {
+                if (d.model) {
+                  location.href = "/cart";
+                } else {
+                  window.ELEMENT.Message.success(r.message);
+                }
+              })
+              .catch(() => {});
+          } else {
+            window.ELEMENT.Message.error("数据错误,请联系管理员!");
+          }
+        })
+        .catch(() => {
+          window.ELEMENT.Message.error("本操作需要登录后才能继续");
+        });
+    });
+
+    // 补齐grid
+    $(".listGrid").each(function () {
+      const c = this.children[0];
+      if (c) {
+        const e = `<${c.localName} class="${c.className} mac-vh">`,
+          p = $(this),
+          s = p.attr("sum") || 0;
+        let i = this.children.length > s ? s - (this.children.length % s) : s - this.children.length;
+        while (i-- > 0) {
+          p.append(e);
+        }
+      }
+    });
+    // 拨打电话
+    $(".el-icon-phone-outline").click((e) => {
+      const d = getFm(e);
+      const u = $(`<input placeholder="手机号" value="${d.id}" />`),
+        dt = $("<div>请记录</div>"),
+        main = $(`<div class="fastLogin">`),
+        mask = $(`<div class="mask">`);
+
+      main.bind("click", (ev) => ev.stopPropagation());
+      mask.bind("click", (ev) => {
+        ev.stopPropagation();
+        $(ev.target).remove();
+      });
+      $("body").append(mask.append(main.append(dt, $("<div>").append($("<div>").append(u)))));
+    });
+    // 在线沟通
+    $(".el-icon-chat-dot-round").click((e) => {
+      const d = getFm(e);
+      if (d.id) {
+        fastLogin()
+          .then(() => showChat(d.id))
+          .catch(() => {});
+      }
+    });
+    // 投递简历
+    $(".el-icon-s-promotion").click((e) => {
+      const el = $(e.target),
+        id = el.attr("mid"),
+        run = () => {
+          httppost(qscms.apiList.jobapply, { jobid: job.id })
+            .then(function (res) {
+              that.$message({ type: "success", message: res.message });
+              location.reload();
+            })
+            .catch(function () {});
+        };
+
+      if (id) {
+        console.log(el.text(), el.text() == "投递");
+        if (el.text() == "投递") {
+          if (hd.me?.utype == 2) {
+            run();
+          } else {
+            fastLogin({ title: "本操作需要以求职者身份登录" })
+              .then(run)
+              .catch(() => {});
+          }
+        } else {
+          window.ELEMENT.Message.error("请勿重复投递简历");
+        }
+      }
+    });
+    // 添加头像按钮
+    const headerAdd = $("<div>");
+    $("img.imgheader").each(function () {
+      const t = $(this),
+        d = Object.assign({ w: t.outerWidth(), h: t.outerHeight() }, t.offset()),
+        e = $(
+          `<i class="imgheader-add" style="font-size:${d.h / 2}px;left:${d.left + d.w / 4}px;top:${
+            d.top + d.h * (t.attr("h") || 0.6)
+          }px;" />`,
+        );
+      e.bind("click", (e) => {
+        e.stopPropagation();
+        fastLogin()
+          .then(() => {
+            httppost("member/favorites/add", { model: "Member", mid: this.attributes.uid.value })
+              .then(() => ELEMENT.Message.success("收藏用户成功"))
+              .catch(() => {});
+          })
+          .catch(() => {
+            window.ELEMENT.Message.error("本操作需要登录后才能继续");
+          });
+      });
+      headerAdd.append(e);
+    });
+    $("body").append(headerAdd);
+
+    $(".J_allSelected").click(function () {
+      var isChecked = $(this).is(":checked");
+      var listArray = $(".J_allListBox .J_allList");
+      $.each(listArray, function (index, val) {
+        $(this).prop("checked", isChecked);
+      });
+    });
+    $(".J_allList").click(function () {
+      var isChecked = $(this).is(":checked");
+      if (isChecked) {
+        var listArray = $(".J_allListBox .J_allList");
+        var listCheckedArray = $(".J_allListBox .J_allList:checked");
+        if (listArray.length == listCheckedArray.length) {
+          $(".J_allSelected").prop("checked", isChecked);
+        }
+      } else {
+        $(".J_allSelected").prop("checked", isChecked);
+      }
+    });
+  });
+</script>
+{#load href="__ROOT__/assets/js/error.js" /#} {#load href="__ROOT__/assets/js/http.js" /#}

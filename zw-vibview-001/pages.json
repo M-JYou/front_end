@@ -1,0 +1,385 @@
+{
+
+
+	//横屏设置
+	// "globalStyle": {
+	// 	// ...
+	// 	"pageOrientation": "auto"
+	// },
+
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+
+
+
+		{
+			"path": "pages/index/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"false"
+				},
+				"navigationBarTitleText": "首页",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				// "disableScroll": true,
+				"navigationStyle": "custom",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO",
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				}
+			}
+		},
+
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "欢迎登录卓微科技",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+
+
+			}
+		},
+
+		{
+			"path": "pages/nearby/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"false"
+				},
+				"navigationBarTitleText": "资讯",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/informs/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"true"
+				},
+				"navigationBarTitleText": "通知",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#141F31"
+			}
+		},
+
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#F6F6F6",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/nickname/index",
+			"style": {
+				"navigationBarTitleText": "更改昵称",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/deviceListfist/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"true"
+				},
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#333333",
+				"navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/password/index",
+			"style": {
+				"navigationBarTitleText": "重置密码",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#3e4558",
+				"disableScroll":true
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/perfection/index",
+			"style": {
+				"navigationBarTitleText": "资料完善",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#3e4558",
+				"disableScroll":true
+				// "navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/passwordForget/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
+		},
+		{
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/police/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"true"
+				},
+				"navigationBarTitleText": "异 常 设 备 列 表",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#333333"
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/statused/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"true"
+				},
+				"navigationBarTitleText": "状 态 列 表",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/nearbysun/index",
+			"style": {
+				"navigationBarTitleText": "资讯详情",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF"
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/deviceList/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"true"
+				},
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#333333",
+				"navigationStyle": "custom"
+			}
+
+		},
+
+		{
+			"path": "pages/measursNmber/index",
+			"style": {
+				"navigationBarTitleText": "测点个数",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/projectDevie/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none",
+					"titleNView":"true"
+				},
+				"navigationBarTitleText": "测点详情",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+
+		{
+			"path": "pages/TrendChart/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/trenddt/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+
+			}
+		},
+		{
+			"path": "pages/frequency/index",
+			"style": {
+				"navigationBarTitleText": " 时 频 谱",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+
+			}
+		},
+		{
+			"path": "pages/dgfrequency/index",
+			"style": {
+				"navigationBarTitleText": " 时 频 谱dg",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/trendmy/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/trendoil/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/trendprocess/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/transtreds/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		
+		{
+			"path": "pages/dgtrenddt/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/dgtranstreds/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/dgtrendoil/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图-5",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/dgtrendmy/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图-0",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/dgtrendprocess/index",
+			"style": {
+				"navigationBarTitleText": "趋 势 图-8多",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"disableScroll":true,
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"tabBar": {
+		"color": "#FFFFFF",
+		"selectedColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "white",
+		"height": "0px",
+		"list": [{
+				"pagePath": "pages/index/index"
+			},
+			{
+				"pagePath": "pages/nearby/index"
+			},
+			{
+				"pagePath": "pages/informs/index"
+			},
+			{
+				"pagePath": "pages/mine/index"
+			}
+		]
+	},
+	"globalStyle": {
+		 "pageOrientation": "portrait",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+		// "pageOrientation": "auto"
+	},
+	"easycom": {
+		"custom": {
+			"lb-tabbar-item": "@/components/lb-tabbar/lb-tabbar-item.vue"
+		}
+	}
+}

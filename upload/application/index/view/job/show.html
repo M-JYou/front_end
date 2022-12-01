@@ -1,0 +1,222 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/logoLayout.css" /#} {#load
+href="__ROOT__/assets/css/positionDet.css" /#}
+<div class="wapper_content" id="app">
+  <!-- #region -->
+  <div class="logoPart">
+    <div class="logo">
+      <img src="/assets/images/home/logo_xiazi.png" alt="" />
+      <span>打造财税生态链</span>
+    </div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/job">免费招聘</a></el-breadcrumb-item>
+        <el-breadcrumb-item>职位介绍</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="main_bot">
+      <div class="left1">
+        <div class="box_1">
+          <div class="child_1">
+            <h1>{#$data.jobname#}</h1>
+            <p>{#$data.wage_text#} {#eq name="data.negotiable" value="0"#}<span>/月</span>{#/eq#} </p>
+
+            <span>{#$data.refreshtime#}</span>
+          </div>
+          <div class="child_2">
+            <div class="child_21">
+              <p><img src="/assets/images/home/xiangq_1.png" alt="" />{#$data.amount_text#}</p>
+              <p><img src="/assets/images/home/xiangq_2.png" alt="" />{#$data.experience_text#}</p>
+              <p><img src="/assets/images/home/xiangq_3.png" alt="" />{#$data.education_text#}</p>
+            </div>
+            <div class="child_22">
+              {#volist name="data.tag_" id="vo"#}
+              <span>{#$vo#}</span>
+              {#/volist#}
+            </div>
+          </div>
+          <div class="child_3">
+            <div class="child_31">
+              <button class="el-icon-s-promotion mac-sbss" mid="{#$data.id#}">{#$data.apply_text#}</button>
+              <button class="mac-sbss el-icon-chat-dot-round" mid="{#$data.company.id#}">在线沟通</button>
+              <div class="mac-sbss el-icon-phone-outline" mid="{#$data.company.mobile#}">拨打电话</div>
+            </div>
+            <div class="operation">
+              <div class="mac-btnss mac-ico-zhuanfa" model="Job" mid="{#$data.id#}">分享{#$data.info5.reprint#}</div>
+              <div class="mac-btnss mac-ico-pinglun" model="Job" mid="{#$data.id#}"
+                >评论{#:count($data.info5.comment)#}</div
+              >
+              <div class="mac-btnss mac-ico-tishi" model="Job" mid="{#$data.id#}">举报</div>
+              <div class="mac-btnss mac-ico-dianzan" model="Job" mid="{#$data.id#}">点赞{#$data.info5.likes#}</div>
+            </div>
+          </div>
+        </div>
+        <div class="comContent">
+          <div class="box_2">
+            <div class="list">
+              <h1>职位描述</h1>
+              <p>{#$data.content#}</p>
+            </div>
+          </div>
+          <div class="box_3">
+            <div class="list">
+              <div class="left1">
+                <h1>公司信息</h1>
+                <div class="child_1">
+                  <h2>{#$data.company.companyname#}</h2>
+                  <span>{#$data.company.nature#}</span>
+                  <span>{#$data.company.scale#}</span>
+                  <span>{#$data.company.trade#}</span>
+                </div>
+                <div class="child_2" style="min-height: 1.2em">
+                  <div class="mac-mr1em">认证信息:</div>
+                  {#volist name='data.company.auth' id='d'#}<span>{#$d#}</span>{#/volist#}
+                </div>
+              </div>
+              <div class="right1">
+                <img src="{#$data.company.user.photo#}" alt="" />
+                <div class="child_3">
+                  <p>{#$data.company.contact?$data.company.contact:$data.company.user.nickname#}</p>
+                  <p>招聘联系人 <span>{#$data.company.hy#}</span></p>
+                </div>
+              </div>
+            </div>
+            <div class="list1">
+              <h1>公司介绍</h1>
+              <p>{#$data.company.content#}</p>
+            </div>
+            <div class="list2">
+              <h1>工商信息</h1>
+              <div class="child_1">
+                <div>
+                  <p>公司名称</p>
+                  <span>{#$data.company.companyname#}</span>
+                </div>
+                <div>
+                  <p>法定代表人</p>
+                  <span>{#$data.company.legal_person#}</span>
+                </div>
+                <div>
+                  <p>成立时间</p>
+                  <span>{#$data.company.addtime#}</span>
+                </div>
+                <div>
+                  <p>企业类型</p>
+                  <span>股份有限公司</span>
+                </div>
+                <div>
+                  <p>经营状态</p>
+                  <span>{#$data.company.user_status#}</span>
+                </div>
+                <div>
+                  <p>注册资金</p>
+                  <span>{#$data.company.registered#}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box_3">
+            <div class="list1">
+              <h1>公司地址</h1>
+              <div class="mac-mt1em">
+                <img style="margin-right: 1em" src="__ROOT__/assets/images/address_icon.png" />
+                {#$data.company.address#}
+              </div>
+              {#if condition="$data.company.map_lat gt 0 && $data.company.map_lng gt 0"#}
+              <div class="map">
+                <div id="bdMap" style="width: 100%; height: 300px"></div>
+              </div>
+              {#/if#}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right2">
+        <div class="people_1">
+          <div class="comPic">
+            <img uid="{#$data.company.user.id#}" h="1.1" class="imgheader" src="{#$data.company.user.photo#}" alt="" />
+          </div>
+          <div class="child_11">
+            <h2>{#$data.company.contact?$data.company.contact:$data.company.user.nickname#}</h2>
+            <p class="span_1">企业联系人<span>{#$data.company.hy#}</span></p>
+          </div>
+        </div>
+
+        <div class="right_top">
+          <h1>{#$data.company.companyname#}</h1>
+          <div class="child_1">
+            <div class="child_21"
+              >{#if count($data.company.auth)#} {#volist name='data.company.auth'
+              id='d'#}<span>{#$d#}</span>{#/volist#}{#else#}未认证{#/if#}
+            </div>
+            <p><img src="/assets/images/home/rem_1.png" alt="" />{#$data.company.scale#}</p>
+            <p><img src="/assets/images/home/rem_2.png" alt="" />{#$data.company.trade#}</p>
+          </div>
+          <div class="child_2">
+            <div>
+              <p>{#$data.company.applysum#}</p>
+              <span>简历投递</span>
+            </div>
+            <div>
+              <p>{#$data.company.jobsum#}</p>
+              <span>招聘职位</span>
+            </div>
+          </div>
+          <a href="/job/company/{#$data.company.id#}"><button class="mac-sbss">查看全部职位</button></a>
+        </div>
+        <div class="right_bot">
+          <h1>相似职位</h1>
+          {#volist name="data.similar" id="vo"#}
+          <div
+            class="child_1 mac-sbss"
+            onclick="javascript:location.href='{#:url(\'index/job/show\',[\'id\'=>$vo.id])#}'"
+          >
+            <div class="span_1">
+              <h2>{#$vo.jobname#}</h2>
+              <p> {#$vo.wage_text#}{#eq name="vo.negotiable" value="0"#}/月{#/eq#} </p>
+            </div>
+            <div class="span_2">
+              <span>{#$vo.companyname#}</span>
+              <span>{#$vo.district_text#}</span>
+              <!-- <span>{#:show($vo)#}</span> -->
+            </div>
+          </div>
+          {#/volist#}
+          <button class="mac-sbss" onclick="javascript:location.href='{#:url(\'index/job/index\')#}'"
+            >查看更多相似职位</button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function loadBdMap() {
+    if (window.BMap !== undefined) {
+      return;
+    }
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "//api.map.baidu.com/api?v=2.0&ak={#$global_config.map_ak#}&callback=initBdMap";
+    document.body.appendChild(script);
+  }
+  function initBdMap() {
+    var map = new BMap.Map("bdMap"); // 创建Map实例
+    var lng = parseFloat("{#$data.company.map_lng#}");
+    var lat = parseFloat("{#$data.company.map_lat#}");
+    var zoom =
+      parseInt("{#$data.company.map_zoom#}") > 0
+        ? parseInt("{#$data.company.map_zoom#}")
+        : parseInt("{#$global_config.map_zoom#}");
+    var point = new BMap.Point(lng, lat); // 创建点坐标
+    map.centerAndZoom(point, zoom);
+    map.enableScrollWheelZoom(); //启用滚轮放大缩小
+    var marker = new BMap.Marker(new BMap.Point(lng, lat));
+    map.addOverlay(marker);
+  }
+  if ("{#$data.company.map_lat#}" > 0 && "{#$data.company.map_lng#}" > 0) {
+    loadBdMap();
+  }
+</script>

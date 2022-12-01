@@ -1,0 +1,266 @@
+{#layout name="public/freelance/freelance_layout" /#}
+{#load href="__ROOT__/assets/css/swiper-bundle.min.css" /#}
+{#load href="__ROOT__/assets/css/highslide.css" /#}
+{#load href="__ROOT__/assets/css/freelance/resume_show.css" /#}
+<div id="app">
+    <div class="sw_head">
+        <div class="sw_content">
+            <img src="{#$data.avatar_img#}" alt="" class="ava_img">
+            <p class="t1">{#$data.name#}</p>
+            <p class="t2">{#$data.gender_str#} · {#$data.age#}岁 · {#$data.education_str#} · {#$data.exp_str#} · {#$data.living_city#}</p>
+            <p class="t3 substring">{#$data.professional_title#}</p>
+            <img :src="rightQrcode" alt="" class="qr_img">
+            <p class="t4">微信扫一扫</p>
+        </div>
+    </div>
+    <div class="sw_container clearfix">
+        <div class="sc_left">
+            <div class="scl_c" id="J_nav_fixed">
+                <a href="#J_i1" class="cl_item J_cl_item selected">个人介绍</a>
+                {#if condition="count($data.services) gt 0"#}<a href="#J_i2" class="cl_item J_cl_item">提供服务</a>{#/if#}
+                {#if condition="count($data.skills) gt 0"#}<a href="#J_i4" class="cl_item J_cl_item">技能专长</a>{#/if#}
+                {#if condition="count($data.projects) gt 0"#}<a href="#J_i5" class="cl_item J_cl_item">项目经历</a>{#/if#}
+                {#if condition="count($data.works) gt 0"#}<a href="#J_i6" class="cl_item J_cl_item">作品案例</a>{#/if#}
+            </div>
+        </div>
+        <div class="sc_right">
+            {#if condition="$data.brief_intro neq ''"#}
+                <div class="i1" id="J_i1">
+                    <p class="sc_title">个人介绍</p>
+                    <div class="des">{#$data.brief_intro#}</div>
+                </div>
+            {#/if#}
+            {#if condition="count($data.services) gt 0"#}
+                <div class="i2" id="J_i2">
+                    <p class="sc_title">提供服务</p>
+                    <div class="sc_group">
+                        {#volist name="$data.services" id="item"#}
+                            <p class="sc_list">{#$item.title#}<span class="wage">{#$item.price#}</span></p>
+                        {#/volist#}
+                    </div>
+                </div>
+            {#/if#}
+            <div class="i3">
+                <p class="sc_title">联系方式</p>
+                <div class="sc_content">
+                    {#if condition="!$data.show"#}
+                        <div class="no_sing" @click="viewContact">
+                            <p class="t1">Hi~，你好！ 如果对我感兴趣，请 <span>点击查看联系方式</span> 具体沟通吧！</p>
+                            <div class="c_btn">立即查看</div>
+                        </div>
+                    {#else#}
+                        <div class="coc_b clearfix">
+                            <p class="c_tel">{#$data.mobile#}</p>
+                            {#if condition="$data.weixin neq ''"#}<p class="c_wx">{#$data.weixin#}</p>{#/if#}
+                        </div>
+                    {#/if#}
+                </div>
+            </div>
+            {#if condition="count($data.skills) gt 0"#}
+                <div class="i4" id="J_i4">
+                    <p class="sc_title">技能专长</p>
+                    <div class="sc_content clearfix">
+                        {#volist name="$data.skills" id="item"#}
+                            <p class="sc_item">{#if condition="$item.skill_id gt 0"#}{#$item.title#}{#else#}{#$item.custom_name#}{#/if#}<span>{#$item.level_str#}</span></p>
+                        {#/volist#}
+                    </div>
+                </div>
+            {#/if#}
+            {#if condition="count($data.projects) gt 0"#}
+                <div class="i5" id="J_i5">
+                    <p class="sc_title">项目经历</p>
+                    <div class="sc_group">
+                        {#volist name="$data.projects" id="item"#}
+                            <div class="sc_list">
+                                <p class="p1 substring">{#$item.name#}<span>{#$item.startdate#}~{#$item.enddate#}</span></p>
+                                <p class="p2">{#$item.description#}</p>
+                            </div>
+                        {#/volist#}
+                    </div>
+                </div>
+            {#/if#}
+            {#if condition="count($data.works) gt 0"#}
+                <div class="i6" id="J_i6">
+                    <p class="sc_title">作品案例</p>
+                    <div class="sc_content">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {#volist name="$data.works" id="item"#}
+                                    <div class="swiper-slide">
+                                        <a href="{#$item.img_str#}" class="highslide" onclick="return hs.expand(this)"><img class="s_img highslide" src="{#$item.img_str#}" alt="{#$item.title#}"></a>
+                                        <p class="s_des substring">{#$item.title#}</p>
+                                    </div>
+                                {#/volist#}
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                </div>
+            {#/if#}
+        </div>
+    </div>
+    <el-dialog title="查看联系方式付款" :visible.sync="showPayDialog" width="540px">
+        <div class="fl_pay_box">
+            <p class="t1">查看该联系方式需要支付金额<span>{#$data.view_fee#}</span>元</p>
+            <div class="pt_group clearfix">
+                <div class="pg_l">支付方式</div>
+                <div :class="[submitData.pay_type=='alipay'?'pg_m selected':'pg_m']" @click="choosePayment('alipay')"><div class="pgm_ta">支付宝支付</div></div>
+                <div :class="[submitData.pay_type=='wxpay'?'pg_m selected':'pg_m']" @click="choosePayment('wxpay')"><div class="pgm_tw">微信支付</div></div>
+            </div>
+            <div class="fl_tp" @click="submitPay">立即支付</div>
+        </div>
+    </el-dialog>
+    <el-dialog  title="支付提醒" :visible.sync="showWaitingPay" width="400px" :append-to-body="true">
+        <span class="fl_payment_text">请在新打开的页面上完成支付。支付完成后，请根据您支付的情况点击下面按钮。</span>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="handlerPayResult">支付成功</el-button>
+            <el-button @click="handlerPayResult">支付失败</el-button>
+        </span>
+    </el-dialog>
+</div>
+{#load href="__ROOT__/assets/js/swiper-bundle.min.js" /#}
+{#load href="__ROOT__/assets/js/highslide-with-gallery.js" /#}
+<script>
+    $(document).ready(function () {
+        $(function () {
+            // 左侧固定导航
+            var offset = 359;
+            var $fixed = $("#J_nav_fixed");
+            $(window).scroll(function(){(
+                $(this).scrollTop() > offset ) ? $fixed.addClass('open') : $fixed.removeClass('open');
+            });
+
+            // 左侧页内导航
+            $('.J_cl_item').click(function () {
+                var currentIndex = $('.J_cl_item').index(this);
+                $(this).addClass('selected').siblings().removeClass('selected');
+            })
+
+            // 作品案例轮播
+            if ($('.swiper-container').length > 0) {
+                var swiper = new Swiper('.swiper-container', {
+                    effect: 'flip',
+                    grabCursor: true,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+
+                $(function () {
+                    hs.graphicsDir = "__ROOT__/assets/js/graphics/";
+                    hs.align = 'center';
+                    hs.transitions = ['expand', 'crossfade'];
+                    hs.outlineType = 'rounded-white';
+                    hs.fadeInOut = true;
+                    hs.addSlideshow({
+                        interval: 5000,
+                        repeat: false,
+                        useControls: true,
+                        fixedControls: 'fit',
+                        overlayOptions: {
+                            opacity: 0.75,
+                            position: 'bottom center',
+                            hideOnMouseOut: true
+                        }
+                    });
+                })
+            }
+        })
+    })
+    var id = parseInt("{#$data.id#}")
+    var app = new Vue({
+        el: '#app',
+        data: {
+            rightQrcode: '',
+            isLogin: false,
+            showPayDialog: false,
+            submitData: {
+                id: id,
+                pay_type: 'alipay',
+                redirect_url: '',
+                order_type: '3'
+            },
+            showWaitingPay: false
+        },
+        created: function () {
+            this.getUserInfo()
+            var locationUrl = "{#$data.share_url#}"
+            this.rightQrcode = qscms.apiUrl + qscms.apiList.qrcode + '?alias=sub_fl_resume&url='+locationUrl+'&id=' + id
+        },
+        methods: {
+            closeViewer() {
+                this.showViewer = false
+            },
+            getUserInfo: function () {
+                var that = this
+                httpget(qscms.apiList.userinfo).then(function (res) {
+                    if (res.data.login === true) {
+                        that.isLogin = true
+                    }
+                }).catch(function () { })
+            },
+            viewContact: function () {
+                var that = this
+                if (that.isLogin) {
+                    that.showPayDialog = true
+                } else {
+                    this.$confirm('当前操作需要登录账号', '提示', {
+                        type: 'warning',
+                        confirmButtonText: '去登录'
+                    }).then(function () {
+                        location.href = qscms.locationList.loginCompany + '?redirect=' + location.href
+                    }).catch(function () { })
+                }
+            },
+            choosePayment: function (payment){
+                this.submitData.pay_type = payment
+            },
+            submitPay: function () {
+                this.submitData.redirect_url = location.href
+                this.handlerPaySubmit(qscms.apiList.freelanceContactPay,this.submitData)
+            },
+            handlerPaySubmit: function (url,data,callback) {
+                var that = this
+                httppost(url, data).then(function (res) {
+                    if (parseInt(res.data.pay_status) === 1) {
+                        that.$message({ type: 'success', message: '支付成功' })
+                        if(typeof callback === "function") {
+                            callback()
+                            return false
+                        }else{
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+                        }
+                        return false
+                    } else {
+                        that.handlerPay(res.data,callback)
+                    }
+                }).catch(function () { })
+            },
+            handlerPay: function (data,callback) {
+                var that = this
+                that.showPayDialog = false
+                setTimeout(function() {
+                    that.showWaitingPay = true
+                }, 1500)
+                if (that.submitData.pay_type === 'wxpay') {
+                    var href = qscms.locationList.wxpay + '?parameter=' + data.parameter + '&oid=' + data.order_oid + '&amount=' + data.order_amount + '&custom_location=1&success_url=' + that.submitData.redirect_url
+                    window.open(href);
+                } else {
+                    window.open(data.parameter)
+                }
+                if(typeof callback === "function") {
+                    callback()
+                    return false
+                }
+            },
+            handlerPayResult: function () {
+                location.reload()
+            }
+        }
+    })
+</script>

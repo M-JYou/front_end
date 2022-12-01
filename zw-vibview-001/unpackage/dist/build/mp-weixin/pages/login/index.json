@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "欢迎登录卓微科技",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "disableScroll": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-forms": "/uni_modules/uni-forms/components/uni-forms/uni-forms",
+    "uni-easyinput": "/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput",
+    "u-button": "/components/u-button/u-button"
+  }
+}

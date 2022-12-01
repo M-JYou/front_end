@@ -1,0 +1,155 @@
+{#layout name="public/freelance/freelance_layout" /#}
+{#load href="__ROOT__/assets/css/swiper-bundle.min.css" /#}
+{#load href="__ROOT__/assets/css/freelance/index.css" /#}
+<div class="frl_container" id="app">
+    <div class="frl_body">
+        <!--搜索-->
+        <div class="is_box">
+            <div :class="[isOpen ? 'is_drop open' : 'is_drop']" @click="isOpen = !isOpen">{{searchTypeCn}}</div>
+            <ul class="is_dbc" v-if="isOpen">
+                <li class="li" @click="changeSearchType('subject','项目')">项目</li>
+                <li class="li" @click="changeSearchType('resume','人才')">人才</li>
+            </ul>
+            <label><input type="text" placeholder="请输入关键词" class="is_input" @keyup.enter="handlerSearch" v-model="keyword" /></label>
+            <div class="is_btn" @click="handlerSearch">搜 索</div>
+        </div>
+        <!--轮播-->
+        <div class="s1">
+            <div class="swiper-container" id="J_sw">
+                <div class="swiper-wrapper">
+                    {#if condition="count($adlist['QS_freelance_top@web']) gt 0"#}
+                        {#volist name="adlist['QS_freelance_top@web']" id="vo"#}
+                            <div class="swiper-slide"{#if condition="$vo.web_link_url!=''"#}style="cursor:pointer;" onclick="javascript:window.open('{#$vo.web_link_url#}')" {#/if#}>
+                                <img src="{#$vo.image_src#}" class="a_img" alt="{#$vo.title#}">
+                            </div>
+                        {#/volist#}
+                    {#else#}
+                        <div class="swiper-slide">
+                            <img src="__ROOT__/assets/images/lazy_pre.png" data-original="__ROOT__/assets/images/freelance/18.jpg" class="a_img lazy" alt="默认图">
+                        </div>
+                    {#/if#}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!--发布-->
+        <div class="s2 clearfix">
+            <div class="s2_item" @click="handlerLink(1)">
+                <p class="t1">我有项目</p><p class="t2">发布项目等接单</p>
+                <div class="link_btn">发布项目</div>
+            </div>
+            <div class="s2_item r" @click="handlerLink(2)">
+                <p class="t1">我有技能</p><p class="t2">登记信息接零活</p>
+                <div class="link_btn">入驻赚钱</div>
+            </div>
+        </div>
+        <!--最新项目-->
+        <div class="s3">
+            <div class="p_title">
+                <div class="t_cn">最新项目</div><a href="{#:url('index/freelance/subject')#}" class="t_more" target="_blank">更多</a>
+            </div>
+            {#if condition="count($latestSubject) gt 0"#}
+                <div class="s3_group clearfix">
+                    {#volist name="latestSubject" id="vo"#}
+                        <a href="{#:url('index/freelance/subject_show',['id'=>$vo.id])#}" target="_blank" class="s3_item">
+                            <div class="p_name clearfix">
+                                <p class="name_cn substring">{#$vo.title#}</p>
+                                {#if condition="$vo.is_recommend"#}<p class="name_up">推荐</p>{#/if#}
+                            </div>
+                            <p class="i_wage">￥ {#$vo.price#}</p>
+                            <p class="i_time">截止时间 <span class="t t1">{#$vo.endtime#}</span>预计工期 <span class="t">{#$vo.period#}天</span></p>
+                        </a>
+                    {#/volist#}
+                </div>
+            {#else#}
+                <div class="list_empty">
+                    <div class="emp_text">暂时没有数据哦</div>
+                </div>
+            {#/if#}
+        </div>
+        {#if condition="count($adlist['QS_freelance_middle@web']) gt 0"#}
+        <!--横幅广告-->
+            <div class="s4">
+                {#volist name="adlist['QS_freelance_middle@web']" id="vo"#}
+                    <p class="s4_img">
+                        <a {#if condition="$vo.web_link_url!=''"#}href="{#$vo.web_link_url#}" target="_blank" {#/if#}>
+                        <img class="lazy" src="__ROOT__/assets/images/lazy_pre.png" data-original="{#$vo.image_src#}" alt="{#$vo.title#}">
+                        </a>
+                    </p>
+                {#/volist#}
+            </div>
+        {#/if#}
+        <!--自由职业者-->
+        <div class="s5">
+            <div class="p_title">
+                <div class="t_cn">自由职业者</div><a href="{#:url('index/freelance/resume')#}" class="t_more" target="_blank">更多</a>
+            </div>
+            {#if condition="count($latestResume) gt 0"#}
+                <div class="s5_group clearfix">
+                    {#volist name="latestResume" id="vo"#}
+                        <a href="{#:url('index/freelance/resume_show',['id'=>$vo.resume_id])#}" target="_blank" class="s5_item">
+                            <div class="i1">
+                                <img src="{#$vo.avatar_img#}" alt="" class="ava_img">
+                                <p class="i_name">{#$vo.name#}</p>
+                                <p class="i_ot substring">{#$vo.gender_str#} · {#$vo.exp_str#} · {#$vo.education#}</p>
+                            </div>
+                            <p class="i2 substring">提供的服务：
+                                {#if condition="count($vo.services) gt 0"#}
+                                {#volist name="$vo.services" id="item"#}
+                                {#$item.title#}
+                                {#/volist#}
+                                {#else#}无{#/if#}
+                            </p>
+                        </a>
+                    {#/volist#}
+                </div>
+            {#else#}
+                <div class="list_empty">
+                    <div class="emp_text">暂时没有数据哦</div>
+                </div>
+            {#/if#}
+        </div>
+    </div>
+</div>
+{#load href="__ROOT__/assets/js/swiper-bundle.min.js" /#}
+{#load href="__ROOT__/assets/js/jquery.lazyload.js" /#}
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $("img").lazyload({effect: "fadeIn"});
+            var swiper1 = new Swiper('#J_sw', {
+                autoplay: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable :true,
+                }
+            });
+        })
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            searchTypeCn: '项目',
+            isOpen: false,
+            keyword: '',
+            searchAlias: 'subject'
+        },
+        methods: {
+            changeSearchType: function (alias, aliasCn) {
+                this.searchAlias = alias
+                this.searchTypeCn = aliasCn
+                this.isOpen = false
+            },
+            handlerSearch: function () {
+                location.href = location.href + '/' + this.searchAlias + '?keyword=' + this.keyword
+            },
+            handlerLink: function (type) {
+                if (parseInt(type) === 1) {
+                    location.href = qscms.locationList.freelanceAddSubject
+                } else {
+                    location.href = qscms.locationList.freelanceAddResume
+                }
+            }
+        }
+    })
+</script>

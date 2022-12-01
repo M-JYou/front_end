@@ -1,0 +1,62 @@
+{#layout name="public/campus/campus_layout" /#} {#load href="__ROOT__/assets/css/campus/campus_noticelist.css" /#}
+<div class="s_content" id="app">
+  <div class="w1200 con_min">
+    <div class="info_list_title">名企校招</div>
+    <!-- 搜索 -->
+    <div class="search_min w1200">
+      <div class="search clearfix">
+        <div class="left ipt">
+          <input type="text" v-model="keyword" @keyup.enter="handlerSearch" placeholder="请输入关键词" />
+        </div>
+        <div class="right btn" @click="handlerSearch">
+          <button>搜一搜</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="list_header clearfix">
+      <div class="left hd_text_1">招聘简章</div>
+      <div class="left hd_text_2">网申起止时间</div>
+      <div class="left hd_text_3">发布时间</div>
+    </div>
+
+    <div class="info_list">
+      {#if condition="count($list) gt 0"#} {#volist name="list" id="vo"#}
+      <div class="list_it clearfix">
+        <div class="left it_text_1">
+          <a class="substring it_link" href="{#:url('index/campus/notice_show',['id'=>$vo.id])#}">{#$vo.title#}</a>
+        </div>
+        <div class="left it_text_2 substring"><span>{#:date('Y-m-d',$vo['holddate_start'])#}</span> — <span>{#:date('Y-m-d',$vo['holddate_end'])#}</span></div>
+        <div class="left it_text_3 substring">{#:date('Y-m-d',$vo['addtime'])#}</div>
+      </div>
+      {#/volist#} {#else#}
+      <div class="list_empty">
+        <div class="emp_text">暂时没有数据哦</div>
+      </div>
+      {#/if#}
+    </div>
+    {#$pagerHtml#}
+  </div>
+</div>
+<script>
+  var vm = new Vue({
+    el: "#app",
+    data: {
+      keyword: "",
+      searchAlias: "notice",
+    },
+    created: function () {
+      this.keyword = "{#$Request.param.keyword#}";
+    },
+    methods: {
+      handlerSearch: function () {
+        var that = this;
+        httpget(qscms.apiList.searchCampusLocation, { alias: that.searchAlias, keyword: that.keyword })
+          .then(function (res) {
+            location.href = res.data;
+          })
+          .catch(function () {});
+      },
+    },
+  });
+</script>

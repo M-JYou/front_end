@@ -1,0 +1,366 @@
+.main {
+    width: 1400px;
+    background-color: #F1F1F1;
+    padding: 10px 0px;
+}
+
+.main .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.el-breadcrumb {
+    margin: 0px 60px;
+}
+
+.p_main {
+    margin-top: 10px;
+    width: 100%;
+    min-height: 745px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+.box_1 {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #f1f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.box_1_top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.p_left h1 {
+    font-stretch: 24px;
+    color: #000;
+}
+
+.el-icon-edit-outline {
+    font-size: 16px;
+    color: #a8a8a8;
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.p_left .child_1 {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.p_left .child_1 span {
+    padding: 5px 15px;
+    color: #666666;
+    margin-right: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.p_left .child_2 {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.p_left .child_2 span {
+    padding: 0px 15px;
+    color: #777777;
+    border-right: 1px solid #777777;
+    font-size: 14px;
+}
+
+span:last-child {
+    border-right: none;
+}
+
+.p_right {
+    display: flex;
+    align-items: center;
+}
+
+.p_right .child_3 {
+    text-align: center;
+}
+
+.p_right .child_3 .comPic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.p_right .comPic img {
+    width: 100%;
+    height: 100%;
+}
+
+.p_right .comPic .jia {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    bottom: -8px;
+}
+
+.p_right .comPic .jia img {
+    width: 100%;
+    height: 100%;
+}
+
+.p_right .child_3 span {
+    display: block;
+    font-size: 12px;
+    color: #d3d2d2;
+    margin-top: 20px;
+}
+
+.p_right .child_4 {
+    margin-left: 40px;
+}
+
+.child_4 button {
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: #c4dfdc;
+    font-size: 14px;
+    color: #007768;
+    border: none;
+    margin-right: 15px;
+}
+
+.box_1 .operation {
+    /* width: 60%; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 740px;
+    margin-top: 15px;
+}
+
+.box_1 .operation>div {
+    padding: 0 15px;
+    font-size: 16px;
+    color: #a8a8a8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.box_1 .operation>div img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+
+.box_2 {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #f1f1f1f1;
+    padding: 20px;
+}
+
+.box_2 span {
+    font-size: 18px;
+    color: #333333;
+}
+
+.el-icon-edit-outline {
+    font-size: 16px;
+    color: #a8a8a8;
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.box_2 .child_1 {
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.box_2 .child_1>div {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.box_2 .child_1>div>span {
+    width: 100px;
+    font-size: 16px;
+    color: #777777;
+}
+
+.box_2 .child_1>div>p {
+    font-size: 16px;
+    color: #f35f49;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.box_2 .child_1>div>div{
+    display: flex;
+    align-items: center;
+}
+
+.box_2 .child_1>div>div span {
+    font-size: 14px;
+    color: #777777;
+    padding: 0 10px;
+    border-right: 1px solid #777777;
+}
+
+.box_2 .child_1>div>div span:last-child {
+    border-right: none;
+}
+
+.box_3 {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #f1f1f1f1;
+    padding: 20px;
+}
+
+.box_3 h1 {
+    font-stretch: 18px;
+    color: #333333;
+}
+
+.el-icon-circle-plus-outline {
+    font-size: 20px;
+    color: #a8a8a8;
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.box_3 .title_1 {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #333333;
+    margin-top: 20px;
+}
+
+.title_1 span {
+    font-size: 12px;
+    color: #777777;
+    margin-left: 20px;
+}
+
+.box_3 .child_1 {
+    margin-top: 20px;
+}
+
+.box_3 .child_1 span {
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+.box_3 .child_1 p {
+    font-size: 14px;
+    color: #777777;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.box_3 .child_2 {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.box_3 .child_2 button {
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    font-size: 12px;
+    color: #666666;
+    border: none;
+    margin-right: 15px;
+}
+
+.box_4 {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #f1f1f1f1;
+    padding: 20px;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+}
+
+.box_4 .child_1 h1 {
+    font-stretch: 18px;
+    color: #333333;
+    margin-bottom: 15px;
+}
+.box_4 .child_2 h1 {
+    font-stretch: 18px;
+    color: #333333;
+    margin-bottom: 15px;
+}
+.box_4 .child_2>p{
+    font-size: 14px;
+    color: #777777;
+    margin-top: 25px;
+}
+.box_4 .child_1 .tag_list {
+    margin-top: 38px;
+  }
+
+  .tag_list li {
+    display: inline-block;
+    padding: 2px 13px;
+    font-size: 14px;
+    color: #e6a75d;
+    background: #fdf6ec;
+    border-radius: 5px;
+    border: 1px solid #faecd8;
+    margin-right: 10px;
+  }
+
+.el-icon-circle-plus-outline {
+    font-size: 20px;
+    color: #a8a8a8;
+    font-weight: 700;
+    margin-left: 15px;
+}
+.box_4 .child_1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.box_4 .child_1 .child_1_left p {
+    font-size: 16px;
+    color: #333333;
+}
+
+.box_4 .child_1 .child_1_left>span {
+    display: block;
+    font-size: 14px;
+    color: #777777;
+    margin-top: 15px;
+}
+
+.box_4 .child_1 >span {
+    font-size: 16px;
+    color: #777777;
+    margin-right: 200px;
+}

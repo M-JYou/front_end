@@ -1,0 +1,23 @@
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+<div class="logoPart">
+  <div class="logo mac-ycc mac-oh">
+    <div class="mac-mf mac-fg1 mac-ycc mac-oh"
+      ><img class="mac-mf mac-fg1" src="{#$pageHeader.config.logo#}" alt=""
+    /></div>
+    <span class="mac-nbx">打造财税生态链</span>
+  </div>
+  <div class="search mac-ycc">
+    <form class="mac-nbx" action="{#:P(['search'=>null])#}" autocomplete="false">
+      <i class="el-icon-search"></i>
+      <input class="ipi" type="text" name="search" value="{#$search#}" placeholder="{#$stxt#}" />
+      <input type="submit" value="搜索" />
+    </form>
+    <span class="mac-oh mac-txt-hid mac-wf"
+      >热词推荐：
+      <ul>
+        {#volist name="$hot" id="v"#}<li>{#if isset($v['link'])#}<a href="{#$v['link']#}">{#$v.name#}</a>{#else#}<a href="?search={#$v#}">{#$v#}</a>{#/if#}</li
+        >{#/volist#}
+      </ul>
+    </span>
+  </div>
+</div>

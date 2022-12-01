@@ -1,0 +1,204 @@
+<html lang="en">
+  <head>
+    {#include file="public/meta" /#} {#load href="__ROOT__/assets/css/base.css" /#} {#load href="__ROOT__/assets/css/layout.css" /#} {#load href="__ROOT__/assets/css/public.css" /#} {#load
+    href="__ROOT__/assets/css/pecruitment.css" /#} {#load href="__ROOT__/assets/js/pecruitment.js" /#} {#load href="__ROOT__/assets/js/element-ui-index.js" /#}
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  </head>
+  <body>
+    <div id="app" class="todayBg">
+      <div class="todayHead">
+        <div class="todayTitle" style="background: url({#$todayLogo#}) no-repeat center center / auto 100%">
+          <span class="sitename">{#$global_config.sitename#}</span>
+          <!--            <div >-->
+          <!--                <img src="{#$todayLogo#}" alt="">-->
+          <!--            </div>-->
+        </div>
+        <div class="searchBox">
+          <div class="searchLeft">
+            <el-input type="text" @keyup.enter.native="searchClick()" v-model="searchForm.keyword" class="searchInput" placeholder="请输入关键字">
+              <el-select v-model="searchForm.type" slot="prepend" placeholder="请选择">
+                <el-option label="职位名称" :value="1"></el-option>
+                <el-option label="企业名称" :value="2"></el-option>
+              </el-select>
+            </el-input>
+          </div>
+          <span class="searchBut" @click="searchClick">搜索</span>
+        </div>
+        <div class="todayTitleImg">
+          <img src="__ROOT__/assets/images/recruitment/sjdt.png" alt="" />
+        </div>
+        <!--<div class="dataHall">-->
+        <!--<img src="__ROOT__/assets/images/recruitment/sjdt.png" alt="">-->
+        <!--</div>-->
+        <div class="tabBox">
+          <div class="tab">
+            <span class="num">{#$info.total_company#}</span>
+            <span>参会企业</span>
+          </div>
+          <div class="tab">
+            <span class="num">{#$info.total_job#}</span>
+            <span>可投职位</span>
+          </div>
+          <div class="tab">
+            <span class="num">{#$info.click#}</span>
+            <span>浏览次数</span>
+          </div>
+          <div class="tab">
+            <span class="num">{#$info.total_amount#}</span>
+            <span>招聘人数</span>
+          </div>
+        </div>
+      </div>
+      <!--<div class="enterprise">-->
+      <!--<img src="__ROOT__/assets/images/recruitment/chqy.png" alt="">-->
+      <!--</div>-->
+
+      <div class="todayTitleImg">
+        <img src="__ROOT__/assets/images/recruitment/chqy.png" alt="" />
+      </div>
+      <div class="dailyOut">
+        <div v-if="list.length == 0" class="none" style="width: 1200px; margin: 0 auto; background: #fff; padding: 120px 0; border-radius: 6px">
+          <img src="/assets/images/recruitment/dailtyNone.png" alt="" />
+          <span>暂无数据</span>
+        </div>
+
+        <div v-else>
+          <div class="dailyBox" style="overflow: auto" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
+            <div class="dailyCard" v-for="(item,index) of list" :key="index">
+              <div class="cardHead">
+                <div class="logo">
+                  <img :src="item.logo_src ? item.logo_src : require('@/assets/images/recruitment/empty_logo.jpg')" alt="" />
+                </div>
+                <div class="info">
+                  <div class="infoCon">
+                    <div class="name"><a :href="companyUrl(item.id)">{{ item.companyname }}</a></div>
+                    <span>{{ item.trade_name }} <span v-if="item.scale_name">|</span> {{ item.scale_name }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hr">
+                <img src="__ROOT__/assets/images/recruitment/hr.png" alt="" />
+              </div>
+              <div v-if="item.joblist.length == 0" class="none">
+                <img src="/assets/images/recruitment/dailtyNone.png" alt="" />
+                <span>暂无发布职位</span>
+              </div>
+              <div style="height: 202px; overflow: hidden; margin-top: -5px" v-else>
+                <div class="cardList" v-for="(job,i) of item.joblist" :key="i">
+                  <div class="listTitle">
+                    <span class="word"><a :href="jobUrl(job.id)">{{ job.jobname }}</a></span>
+                    <div class="listTag"> {{ job.district_name }} | {{ job.experience }} | {{ job.education }} </div>
+                  </div>
+                  <span class="pay">{{ job.wage_text }}</span>
+                </div>
+              </div>
+              <div class="sum" v-if="item.joblist.length > 0">该企业有<span>{{ item.job_num }}</span>个在招职位，<a :href="companyUrl(item.id)">点击查看</a></div>
+            </div>
+          </div>
+          <div class="tip">
+            <span v-if="loading">加载中...</span>
+            <span v-if="noMore">没有更多了</span>
+          </div>
+        </div>
+        <!--        <div>-->
+        <!--            <img src="__ROOT__/assets/images/recruitment/todayBottom.png" alt="">-->
+
+        <!--        </div>-->
+      </div>
+      <div class="footer"
+        >找工作，招人才，就上{#$global_config.sitename#}<br />未经书面授权，不得转载本网站所有招聘信息
+        <br />
+        <span> {#if $global_config.contact_tel#} 客服电话：{#$global_config.contact_tel#} {#/if#} </span>
+      </div>
+    </div>
+    <script>
+      function GetRequest() {
+        var url = location.search;
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+          var str = url.substr(1);
+          strs = str.split("&");
+          for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+          }
+        }
+        return theRequest;
+      }
+      var row = GetRequest();
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            list: [],
+            params: {
+              page: 1,
+              pagesize: 15,
+              recruitment_today_id: "{#$info.id#}",
+            },
+            searchForm: {
+              keyword: "",
+              type: 1,
+            },
+            total: 0,
+            loading: false,
+            data: {},
+            company_url: "{#:url('index/company/show',['id'=>'_id'])#}",
+            job_url: "{#:url('index/job/show',['id'=>'_id'])#}",
+          };
+        },
+        created: function () {
+          this.init();
+          console.log(this.$route);
+        },
+        computed: {
+          noMore() {
+            return this.list.length >= this.total;
+          },
+          disabled() {
+            return this.loading || this.noMore;
+          },
+        },
+        methods: {
+          init() {
+            httpget(qscms.apiList.recruitmentCompanyList, { ...this.params, ...this.searchForm })
+              .then((res) => {
+                console.log(res);
+                const { code, data } = res;
+                if (code == "200") {
+                  this.list.push(...data.items);
+                  console.log(this.list);
+                  this.total = data.total;
+                  this.loading = false;
+                }
+              })
+              .catch(() => {});
+          },
+          searchClick() {
+            this.params.page = 1;
+            this.list = [];
+            this.init();
+          },
+          load() {
+            this.loading = true;
+            if (this.list.length == 0) {
+              this.loading = false;
+              return;
+            } else if (this.list.length >= this.total) {
+              this.loading = false;
+              return;
+            } else {
+              this.params.page++;
+              this.init();
+            }
+          },
+          companyUrl: function (id) {
+            return this.company_url.replace("_id", id);
+          },
+          jobUrl: function (id) {
+            return this.job_url.replace("_id", id);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

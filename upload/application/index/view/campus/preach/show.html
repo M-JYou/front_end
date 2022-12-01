@@ -1,0 +1,38 @@
+{#layout name="public/campus/campus_layout" /#} {#load href="__ROOT__/assets/css/campus/campus_preachshow.css" /#}
+<div class="s_content">
+  <div class="w1200">
+    <div class="publicize_box clearfix">
+      <div class="com_img left">
+        <img src="{#$info.logo_url#}" alt="" />
+      </div>
+      <div class="publicize_info left">
+        <p class="com_name substring">{#$info.subject#}</p>
+        <div class="clearfix oth_info">
+          <p class="left oth_text substring">宣讲时间： {#$info.starttime#} </p>
+          <p class="left oth_text substring">宣讲学校： {#$info.school_name#} </p>
+          <p class="left oth_text substring">举办地址： {#$info.address#}</p>
+          <p class="left oth_text substring">招聘部门电话： {#$info.school_tel#}</p>
+        </div>
+      </div>
+      <div class="publicize_code_img right">
+        <div class="code">
+          <img src="" alt="" />
+        </div>
+        <p class="code_text">手机扫码查看</p>
+      </div>
+    </div>
+
+    <div class="article_con">
+      <div class="job_describe">详情介绍</div>
+      <div class="article_text editor-content-view"> {#$info.introduction#} </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    var shareQrcode = "";
+    var locationUrl = "{#$info.share_url#}";
+    shareQrcode = qscms.apiUrl + qscms.apiList.qrcode + "?type=normal&url=" + locationUrl;
+    $(".publicize_code_img .code img").attr("src", shareQrcode);
+  });
+</script>

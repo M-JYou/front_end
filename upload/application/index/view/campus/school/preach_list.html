@@ -1,0 +1,138 @@
+{#layout name="public/campus/campus_layout" /#} {#load href="__ROOT__/assets/css/campus/campus_schoolshow.css" /#}
+<div class="s_content" id="app" v-cloak>
+  <div class="badge">
+    <div class="badge_img">
+      <img src="{#$info.logo_url#}" alt="" />
+    </div>
+    <p class="school_name">{#$info.name#}</p>
+  </div>
+  <div class="w1200">
+    <div class="school_info_box clearfix">
+      <div class="left school_info clearfix">
+        <div class="left info_item substring"> 学校层次：<span>{#$info.level_cn#}</span> </div>
+        <div class="left info_item substring"> 所在地区：<span>{#$info.district_cn#}</span> </div>
+        <div class="left info_item substring"> 学校属性：<span>{#$info.type_cn#}</span> </div>
+        <div class="left info_item substring"> 资讯电话：<span>{#$info.tel#}</span> </div>
+        <div class="left info_item substring"> 学校地址：<span>{#$info.address#}</span> </div>
+      </div>
+      <div class="right code_img">
+        <div class="img">
+          <img :src="shareQrcode" alt="" />
+        </div>
+        <p class="code_text">扫描手机关注</p>
+      </div>
+    </div>
+
+    <div class="clearfix toggles_meet_btns j_meet">
+      <div class="left meet_btn">
+        <a class="btn_text" href="{#:url('index/campus/school_show',['id'=>$info.id])#}">学校介绍</a>
+      </div>
+      <div class="left meet_btn">
+        <a class="btn_text btn_text_ac" href="{#:url('index/campus/school_preach',['id'=>$info.id])#}">
+          宣讲会
+          <span>({#$info.preach_count#})</span>
+        </a>
+      </div>
+      <div class="left meet_btn">
+        <a class="btn_text" href="{#:url('index/campus/school_election',['id'=>$info.id])#}">
+          双选会
+          <span>({#$info.election_count#})</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="article_box j_article">
+      <!-- 宣讲会 -->
+      <div class="article_item clearfix">
+        <div class="left left_box">
+          <div class="meet_list">
+            {#if condition="count($list) gt 0"#} {#volist name="$list" id="vo"#}
+            <div class="ml_item">
+              <a href="{#:url('index/campus/preach_show',['id'=>$vo.id])#}" class="com_name substring">{#$vo.subject#}</a>
+              <p class="oth substring substring">
+                <span>宣讲时间：{#$vo.starttime#}</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                <span>举办地点：{#$vo.address#}</span>
+              </p>
+              <a class="ml_btn" target="_blank" href="{#:url('index/campus/preach_show',['id'=>$vo.id])#}">立即查看</a>
+            </div>
+            {#/volist#} {#else#}
+            <div class="list_empty">
+              <div class="emp_text">暂时没有数据哦</div>
+            </div>
+            {#/if#}
+          </div>
+          {#$pagerHtml#}
+        </div>
+        <div class="right right_box">
+          <div class="oth_meet_title">近期其他院校宣讲会</div>
+          <div class="oth_meet_list clearfix">
+            {#if condition="count($info.other_preach) gt 0"#} {#volist name="$info.other_preach" id="vo"#}
+            <div class="list_item left">
+              <a href="{#:url('index/campus/preach_show',['id'=>$vo.id])#}" target="_blank">
+                <img src="{#$vo.logo_url#}" alt="" class="img" />
+                <p class="substring">{#$vo.school_name#}</p>
+              </a>
+            </div>
+            {#/volist#} {#/if#}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    $(".college_list .college_item").each(function (idx) {
+      if ((idx + 1) % 3 == 0) {
+        $(".college_list .college_item").eq(idx).css({ "margin-right": "0" });
+      }
+    });
+    // 近期其他院校宣讲会 去除右边距
+    $(".oth_meet_list .list_item").each(function (idx) {
+      if ((idx + 1) % 3 === 0) {
+        $(".oth_meet_list .list_item").eq(idx).css({ "margin-right": "0" });
+      }
+    });
+  });
+
+  var app = new Vue({
+    el: "#app",
+    data: {
+      page: 1,
+      pagesize: 10,
+      school_id: 1,
+      electionData: [],
+      PreachData: [],
+      shareQrcode: "",
+    },
+    created: function () {
+      var locationUrl = "{#$info.share_url#}";
+      this.shareQrcode = qscms.apiUrl + qscms.apiList.qrcode + "?type=normal&url=" + locationUrl;
+    },
+    mounted: function () {
+      this.getData();
+    },
+    methods: {
+      getData: function () {
+        var _this = this;
+        httpget(qscms.apiList.schoolElection + "?page=" + this.page + "&pagesize=" + this.pagesize + "&school_id=" + this.school_id, {}).then(function (res) {
+          _this.electionData = res.data.item;
+        });
+        httpget(qscms.apiList.schoolPreach + "?page=" + this.page + "&pagesize=" + this.pagesize + "&school_id=" + this.school_id, {}).then(function (res) {
+          _this.PreachData = res.data.item;
+        });
+      },
+      Jump: function (id, type) {
+        if (type === "preach") {
+          var url = "{#:url('index/campus/preach_show',['id'=>'_id_'])#}";
+          url = url.replace("_id_", id);
+          window.open(url);
+        } else if (type === "election") {
+          var url = "{#:url('index/campus/election_show',['id'=>'_id_'])#}";
+          url = url.replace("_id_", id);
+          window.open(url);
+        }
+      },
+    },
+  });
+</script>

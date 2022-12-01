@@ -1,0 +1,27 @@
+{
+    "description": "项目配置文件。",
+    "packOptions": {
+        "ignore": []
+    },
+    "setting": {
+        "urlCheck": false
+    },
+    "compileType": "miniprogram",
+    "libVersion": "",
+    "appid": "wx5933f303468df59d",
+    "projectname": "vibviewTest",
+    "condition": {
+        "search": {
+            "list": []
+        },
+        "conversation": {
+            "list": []
+        },
+        "game": {
+            "list": []
+        },
+        "miniprogram": {
+            "list": []
+        }
+    }
+}

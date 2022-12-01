@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车案例</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </link>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 class="text-primary">购物车列表</h1>
+        <table class="table">
+            <thead>
+                <th>
+                    <!-- input没有click方法，只有change方法 -->
+                    <input type="checkbox" @change="checkAll" v-model="allCheck">全选
+                </th>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item,i) in goodslist" :key="item.id">
+                    <td><input type="checkbox" v-model="item.isChecked"></td>
+                    <td>{{item.name}}</td>
+                    <td>{{(item.price).toFixed(2)}}</td>
+                    <td><button @click="des(i)">-</button> {{item.num}} <button @click="add(i)">+</button></td>
+                    <td>{{(item.price*item.num).toFixed(2)}}</td>
+                    <td> <button type="button" class="btn btn-danger" @click="del(i)">删除</button></td>
+                </tr>
+                <tr v-if="goodslist.length>0">
+                    <td>总价：{{allPrice.toFixed(2)}}</td>
+                </tr>
+                <tr v-else>
+                    <td>什么都没有，快去逛逛吧</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                allCheck: false,
+                goodslist: [{
+                    id: 1,
+                    name: 'iphone11',
+                    price: 8850,
+                    num: 1,
+                    isChecked: false
+                }, {
+                    id: 2,
+                    name: 'xiaomi',
+                    price: 2999.99,
+                    num: 1,
+                    isChecked: false
+                }, {
+                    id: 3,
+                    name: 'huawei',
+                    price: 4500,
+                    num: 1,
+                    isChecked: false
+                }, {
+                    id: 4,
+                    name: 'vivo',
+                    price: 1890,
+                    num: 1,
+                    isChecked: false
+                }, {
+                    id: 5,
+                    name: "oppo",
+                    price: 3500,
+                    num: 1,
+                    isChecked: false
+                }]
+            },
+            methods: {
+                des(i) {
+                    if (this.goodslist[i].num <= 1) {
+                        this.goodslist[i].num = 1
+                    } else {
+                        this.goodslist[i].num--
+                    }
+                },
+                add(i) {
+                    this.goodslist[i].num++
+                },
+                del(i) {
+                    this.goodslist.splice(i, 1)
+                },
+                checkAll() {
+                    this.goodslist.map(item => {
+                        item.isChecked = this.allCheck
+                    })
+                },
+                /*   checkOne() {
+                      let res = this.goodslist.every(item => {
+                          return item.isChecked == true
+                      })
+                      this.allCheck = res
+                  } */
+            },
+            watch: {
+                goodslist: {
+                    handler() {
+                        let res = this.goodslist.every(item => item.isChecked == true)
+                        this.allCheck = res
+                    },
+                    deep: true
+                }
+            },
+            computed: {
+                // 计算总价
+                allPrice() {
+                    let sum = 0
+                    let arr = this.goodslist.filter(item => item.isChecked == true)
+                    arr.map(item => {
+                        sum += item.price * item.num
+                    })
+                    return sum
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

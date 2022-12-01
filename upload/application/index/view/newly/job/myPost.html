@@ -1,0 +1,226 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/myPost.css" /#}
+<div class="wapper_content" id="app">
+  <!-- #region -->
+  <div class="logoPart">
+    <div class="logo">
+      <img src="/assets/images/home/logo_xiazi.png" alt="">
+      <span>打造财税生态链</span>
+    </div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/resume">免费招聘</a></el-breadcrumb-item>
+        <el-breadcrumb-item>我的发布</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="mainContent">
+      <div class="box_1">
+        <button :class="{active:itemIndex==1}" @click="clickTab(1)">全部职位(100)</button>
+        <button :class="{active:itemIndex==2}" @click="clickTab(2)">已发布(60)</button>
+        <button :class="{active:itemIndex==3}" @click="clickTab(3)">审核中(300)</button>
+        <button :class="{active:itemIndex==4}" @click="clickTab(4)">已暂停(10)</button>
+      </div>
+      <div class="listItem" v-if="itemIndex==1">
+        <div class="itemPosition">
+          <h2>移动产品经理<span>[西宁·万达]</span></h2>
+          <p>12-25k/月</p>
+          <div class="welfare">
+            <div class="welfareBox">3-5年</div>
+            <div class="welfareBox">本科</div>
+            <div class="welfareBox">产品规划</div>
+            <div class="welfareBox">数据产品</div>
+            <div class="welfareBox">功能产品</div>
+          </div>
+        </div>
+        <div class="itemCompanyt">
+          <div class="comInfo">
+            <div class="comPic">
+              <img src="/assets/images/home/pic_06.png" alt="">
+              <div class="jia">
+                <img src="/assets/images/home/en_03.png" alt="">
+              </div>
+            </div>
+            <div class="comRight">
+              <h2 class="comName">青海等级科技有限责任公司</h2>
+              <div class="comAdd">
+                <span class="span_1">产品经理</span>
+                <span class="actTime">2022-9-21 活跃</span>
+              </div>
+            </div>
+          </div>
+          <div class="welfare">
+            <div class="welfareBox">周末双休</div>
+            <div class="welfareBox">年假</div>
+            <div class="welfareBox">年底双薪</div>
+          </div>
+        </div>
+        <button class="apply">求职</button>
+        <p class="activity">2022-9-18</p>
+        <div class="box_button">
+          <button>修改</button>
+          <button>暂停</button>
+          <button>置顶</button>
+          <button>刷新</button>
+          <button>删除</button>
+          <button>发布</button>
+          <button>代招</button>
+          <button>转发</button>
+        </div>
+      </div>
+      <div class="listItem" v-if="itemIndex==2">
+        <div class="itemPosition">
+          <h2>移动产品经理<span>[西宁·万达]</span></h2>
+          <p>12-25k/月</p>
+          <div class="welfare">
+            <div class="welfareBox">3-5年</div>
+            <div class="welfareBox">本科</div>
+            <div class="welfareBox">产品规划</div>
+            <div class="welfareBox">数据产品</div>
+            <div class="welfareBox">功能产品</div>
+          </div>
+        </div>
+        <div class="itemCompanyt">
+          <div class="comInfo">
+            <div class="comPic">
+              <img src="/assets/images/home/pic_06.png" alt="">
+              <div class="jia">
+                <img src="/assets/images/home/en_03.png" alt="">
+              </div>
+            </div>
+            <div class="comRight">
+              <h2 class="comName">青海等级科技有限责任公司</h2>
+              <div class="comAdd">
+                <span class="span_1">产品经理</span>
+                <span class="actTime">2022-9-21 活跃</span>
+              </div>
+            </div>
+          </div>
+          <div class="welfare">
+            <div class="welfareBox">周末双休</div>
+            <div class="welfareBox">年假</div>
+            <div class="welfareBox">年底双薪</div>
+          </div>
+        </div>
+        <button class="apply">求职</button>
+        <p class="activity">2022-9-18</p>
+        <div class="box_button">
+          <button>修改</button>
+          <button>暂停</button>
+          <button>置顶</button>
+          <button>刷新</button>
+          <button>删除</button>
+          <button>代招</button>
+          <button>转发</button>
+        </div>
+      </div>
+      <div class="listItem" v-if="itemIndex==3">
+        <div class="itemPosition">
+          <h2>移动产品经理<span>[西宁·万达]</span></h2>
+          <p>12-25k/月</p>
+          <div class="welfare">
+            <div class="welfareBox">3-5年</div>
+            <div class="welfareBox">本科</div>
+            <div class="welfareBox">产品规划</div>
+            <div class="welfareBox">数据产品</div>
+            <div class="welfareBox">功能产品</div>
+          </div>
+        </div>
+        <div class="itemCompanyt">
+          <div class="comInfo">
+            <div class="comPic">
+              <img src="/assets/images/home/pic_06.png" alt="">
+              <div class="jia">
+                <img src="/assets/images/home/en_03.png" alt="">
+              </div>
+            </div>
+            <div class="comRight">
+              <h2 class="comName">青海等级科技有限责任公司</h2>
+              <div class="comAdd">
+                <span class="span_1">产品经理</span>
+                <span class="actTime">2022-9-21 活跃</span>
+              </div>
+            </div>
+          </div>
+          <div class="welfare">
+            <div class="welfareBox">周末双休</div>
+            <div class="welfareBox">年假</div>
+            <div class="welfareBox">年底双薪</div>
+          </div>
+        </div>
+        <button class="apply">求职</button>
+        <p class="activity">2022-9-18</p>
+        <div class="box_button">
+          <button>置顶</button>
+          <button>刷新</button>
+          <button>转发</button>
+        </div>
+      </div>
+      <div class="listItem" v-if="itemIndex==4">
+        <div class="itemPosition">
+          <h2>移动产品经理<span>[西宁·万达]</span></h2>
+          <p>12-25k/月</p>
+          <div class="welfare">
+            <div class="welfareBox">3-5年</div>
+            <div class="welfareBox">本科</div>
+            <div class="welfareBox">产品规划</div>
+            <div class="welfareBox">数据产品</div>
+            <div class="welfareBox">功能产品</div>
+          </div>
+        </div>
+        <div class="itemCompanyt">
+          <div class="comInfo">
+            <div class="comPic">
+              <img src="/assets/images/home/pic_06.png" alt="">
+              <div class="jia">
+                <img src="/assets/images/home/en_03.png" alt="">
+              </div>
+            </div>
+            <div class="comRight">
+              <h2 class="comName">青海等级科技有限责任公司</h2>
+              <div class="comAdd">
+                <span class="span_1">产品经理</span>
+                <span class="actTime">2022-9-21 活跃</span>
+              </div>
+            </div>
+          </div>
+          <div class="welfare">
+            <div class="welfareBox">周末双休</div>
+            <div class="welfareBox">年假</div>
+            <div class="welfareBox">年底双薪</div>
+          </div>
+        </div>
+        <button class="apply">求职</button>
+        <p class="activity">2022-9-18</p>
+        <div class="box_button">
+          <button>修改</button>
+          <button>删除</button>
+          <button>发布</button>
+          <button>代招</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        itemIndex: 1,
+
+      }
+    },
+    methods: {
+      clickTab(index) {
+        this.itemIndex = index
+      },
+    }
+  })
+
+</script>

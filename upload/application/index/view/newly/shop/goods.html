@@ -1,0 +1,74 @@
+{#layout name="public/layout" /#}{#include file="public/search" /#}
+<div class="mac-y">
+  <div class="mac-x">
+    <div class="mac-y mac-p1em mac-nbx" style="width: 23em;">
+      <div class="mac-y mac-wf mac-p1em" style="border-radius: 1em; background-color: var(--mac-color-back)">
+        <h1 class="mac-ico-shangjia mac-bmr1em" style="font-size: 1.4em; color: var(--mac-color-main)"
+          >{#$data.shop.name#}</h1
+        >
+        <div class="mac-xsc mac-mt1em"
+          ><img class="imgheader mac-mr1em" src="{#$data.shop.user.photo#}" />{#$data.shop.user.nickname#}</div
+        >
+        <div class="mac-y mac-p2em" style="border-radius: 1em; background-color: var(--mac-color-white)">
+          <div class="mac-x mac-za">
+            <div class="{#$data.shop.evaluate>=80?'up':'down'#}">
+              <p>评价</p>
+              <p>{#:number_format($data.shop.evaluate/20,1)#}</p>
+            </div>
+            <div class="{#$data.shop.service>=80?'up':'down'#}">
+              <p>服务</p>
+              <p>{#:number_format($data.shop.service/20,1)#}</p>
+            </div>
+            <div class="{#$data.shop.logistics>=80?'up':'down'#}">
+              <p>物流</p>
+              <p>{#:number_format($data.shop.logistics/20,1)#}</p>
+            </div>
+          </div>
+          <div class="mac-x mac-za mac-mt2em">
+            <div class="mac-btn mac-ico-zhuanfa noico" model="Shop" mid="{#$data.shop.id#}">分享店铺</div>
+            <div
+              class="mac-btn mac-ico-favor noico"
+              model="Shop"
+              mid="{#$data.shop.id#}"
+              style="background-color: var(--mac-color-main2); color: var(--mac-color-main)"
+              >收藏店铺</div
+            >
+          </div>
+        </div>
+        <div class="mac-y mac-jc mac-wf" style="font-size: 2em" id="types">
+          <a class="shop-index-btn">店铺首页</a>
+          <div class="sidebar">{#:ulbar($types2,'type2')#}</div>
+        </div>
+      </div>
+    </div>
+    <div class="mac-y mac-fg1" id="content">
+      <div class="mac-x mac-wf mac-oh" style="height: 32em">
+        <el-carousel height="100%" class="mac-hf mac-nbx" style="width: 60%;z-index: -1;">
+          {#volist name='data.banner' id='d'#}
+          <el-carousel-item>
+            <img src="{#$d#}" class="mac-fimg" alt="" />
+          </el-carousel-item>
+          {#/volist#}
+        </el-carousel>
+        <div class="mac-hf mac-fg1 mac-oh mac-y mac-p1em mac-zb" style="font-size: 2em">
+          <div>{#$data.name#}</div>
+          <div style="font-size: 1.4em; color: var(--mac-color-red)">￥{#$data.expense#}</div>
+          <div>销量:<span class="mac-ml1em">{#$data.sales#}</span></div>
+          <div class="mac-x mac-zb" style="font-size: 0.8em">
+            <div class="mac-btn mac-ico-add_cart noico" mid="{#$data.id#}" model="/cart">立即购买</div>
+            <div
+              class="mac-btn mac-ico-add_cart noico"
+              style="background-color: var(--mac-color-main2); color: var(--mac-color-main)"
+              mid="{#$data.id#}"
+              >加入购物车</div
+            >
+          </div>
+        </div>
+      </div>
+      <div class="mac-mt2em" style="overflow-x: hidden;">{#$data.content#}</div>
+    </div>
+  </div>
+</div>
+<script>
+  new Vue({ el: "#content" });
+</script>

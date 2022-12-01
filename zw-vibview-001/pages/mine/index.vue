@@ -1,0 +1,290 @@
+<template>
+	<view class="pages">
+
+		<view class="content">
+			<!-- 头部 -->
+			<view class="mine-top">
+				<view class="top-content">
+					<view class="content-imgs">
+						<image src="../../static/tabbars/user001.png" mode="" class="imgsed"></image>
+					</view>
+					<view class="content-names">
+						<view class="title-name1">
+							<text>{{mineCotents.name}}</text>
+						</view>
+						<view class="title-name2">
+							<text>{{mineCotents.groupname}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 姓名位置 -->
+			<view class="names-contentsbox">
+				<view class="names-contents">
+					<view class="contentsfist">
+						<view class="contents-u-icon">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgEAYAAAAj6qa3AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAA7tJREFUaN7lWc1LVFEUP3dsTCv8IlyYRWYfO4nAVmouXKSREYX/gLQJDSHcuHFViNlCpP0s0ymDCKVEog9FEKzNLGRgJgiJaUocEQUdz6/FmTdxZ+4048x784TO5se9793z8Tv33Hfee0QOCQAAHo/gnTuCz58LhsOCOzuCsZhgICA4MQEGg5ubnfLPMZEALl2SAFZWUJAwC05Oir7KSrv9VbYFzmBwUxMpUqTev5fZmhr9rmCQQCC8eSPjUEju93pl3NQk2N1tXh8ICLa1KaWUUuvrdhOSZ+AnTkimgkE9g9vbgr29Vklk1QcAOHZM9I6O6jvBktlZt+NOIWBw0Lx1rUwWoB8AMDRkLpEbN9yOP+FgKKQ7Nj1tr/6SEsGvX3U7b9+6FziDwefPmzNz+7bt9gAAAwO6HespUl6er96sNZlRFClSFy+me0ogLC/bTYDoXVzUJ8vKBBsaik8ACITUU9oi5tcv2wkgIqJIxDxfW1t8AhQpUpub5otVVc4QkElvLFZ8AkAg/Phhnq+vtz12RYpUJr0GPxwngIiIVlcF9/b0+fZ22wkAgXDtmj4ZjQr+/Gm7vZz9YjB4fl4/nT99st0OAGB1Vbfj87kWuO5Yf39aI8Rg8NWrBetnMPjmTfPj9tYtt+NPEHD8uGAk8pcDMHhuTgbqwO8csv7IEXMDZL01Zm+ti0zEw4dpSUq0yvkR8OSJOfM9PW7Hm8FhK2MfP+oOx+NyvaUlNyK7upKlpBE5NeV2nNmJAADU1YnD0ahOxLNnuRH55Yu+Lhx26nuAQzVkdWzfvunz1dVZlypSpBob9cnPn5VHeZQn/4bHMdFfih49Evz+3Vy79+9n1QcAePFCX7e/L/jhg9i7d0+woqL4AQMArlzRHbUczCSvXllnRG6EXriQ9lQxysZG8rBkMPjMGYcCvnxZDMzM/NuheFzw9WvB69cLs1tVJXb7+mS8sJB2OGqyuyvo8wmeOnVwwwwGe72iYGREcG/PbHBzM7n1GQw+fdr2DBiJOXtWcHhYcG0tzTUGg7e2BB88kMl/9CNWTQm+e2cOeHtbro+NCZ486XTAOSeMweC7d81PEYuQly8FS0szMOv3mxcuLcng3Dm3A85KCIC//yOsj7GpZ4nfn7LAajxSZXw818PrsIpeMr9/6/F1dia20OPHesatHxoH7+EPqyRLQIvz6dNEI3T0aPJORYpUKCQ/HgC3HXdaDs/blEuSobZra2WLdHS47aBtokiRSv94moGA1lZZMDfntt9Oy39fAn8Ayf0qAi1jt9UAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjJUMTA6NDY6NDUrMDg6MDAIYHqcAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTIyVDEwOjQ2OjQ1KzA4OjAweT3CIAAAAFJ0RVh0c3ZnOmJhc2UtdXJpAGZpbGU6Ly8vaG9tZS9hZG1pbi9pY29uLWZvbnQvdG1wL2ljb25fMmt1Y2hzaHI5OTEvemhlbnNoaXhpbmdtaW5nLnN2Z3LZA2YAAAAASUVORK5CYII="
+								mode=""></image>
+						</view>
+						<view class="icon-title">姓名:</view>
+						<view class="icon-names">{{mineCotents.realname}}</view>
+					</view>
+					<view class="contentsfist">
+						<view class="contents-u-icon">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAwFJREFUWEfNlm3InmMYx3+/D77gg8QXfBJWixLKu/lilDGSRRFaxDJmKGsftiVRXhbLS2JMJlnZvOYlWaNEYU1bfBCllMhbWvHlr6POu67nee77uffsuR5z1t19vZzXcfyO4zyO/3nKAR4eYP/8vwGSHAqc1rK0S/2174yNzECSs4AHgfqv8SMwX/2jT4ihAEnuAtYAlYGXgIOAK5vjRepbfUFMAUhyKfBac/CAuqquk7zSIHZXVtQ/+4CYAJDkJOBt4BjgFvWpgZMkhwEfAicD69S1cwFwM/DkKAdJLgO2AhX9meqe2UJMzsDjwDLgavXlYcaTvANc2FcWJgNUis8HLle3jQBYAayfK4A7gYeADeptXYAkjwDnAacC24Eb1O/7XoITgG+AX4Bz1LrudkDdPg3c34fzMjasDR8DlgMb1aUN4GfgCLV36R4GcBzwKXA4sFh9PcnHwNnAEnXLbNPe/X6UEpYKVp/vUBckKRUsIfpEHUhzLxzT7QXvARcAK9RHk2yswgO2qEt68T6sBjrKdzrwAVA74EUlOh05fl4tmCkjyXyg9ORrYJv67nSw0xZVkjuAar/S/1PUf5L80KR6vbpysvEkn9fczvNngdXqT8NAxlZ1kqqFqond6ondrqgIgXvVL9rz6ppn2m9z+66EbRdwt1rLOmGMBWiGNwC3Ah+pJUalDTuAc4G/mzJWkRZIRXqVWmJV8+pMUdt7jbXqurFdMGJtBzJd4nSx+m2S+4DbgUOAvcDBw4o0ybXAC83uhJ10nzLQKcw3yznwG7BU3ZqkluU6YB6wR71nRACDVn5VvWIwZ0YALaVP1FmhGdgEPKx+Na4tO7W0Wb1mvwEaREl1RXoU8FdBAJvU70ZEvwh4o72rbvpyVgAN4tgGcWMzVoeUysiL6medZbseeK7dL1Tf368iHJXiJBXdTcAlnTklYLV/LG5HuHo19Bg34xrYB5AzgCM783aWLqiljlNGbwBdy0mOB44Gdqq/T1egcwIwriN6rYGZOPvPlmAmUP8CEFEhMNXYHEUAAAAASUVORK5CYII="
+								mode=""></image>
+						</view>
+						<view class="icon-title">手机:</view>
+						<view class="icon-names">{{mineCotents.telphone}}</view>
+					</view>
+					<view class="contentsfist">
+						<view class="contents-u-icon">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAatJREFUWEftly9IBFEQh78JNpNFtBgFLxoFUQSLqCB4QZtJk1hsImKyiM0k+AeLl6wWD5tgMWizqSAYTRpG5pg91nPv9q3rsuVe3Xnv973fvBlmhZKXlKxPF6DpgKpeAONAf8FpeQXuRGTedBoAqqoFiyYeL7ZU9RKY84i6iEwWBaOqI4A5XXGNmgG8AIMx0UIgWsQfHOLNACL7t4DdIpxIEK8CBkETwNOxCez9J0SSuIg8Rhf/AeAPch04+A+IduLxh/8LwD+uAod5IDqJpwJ4wApwFEEA0yLyFVIhaeJBAB60BBwDPUAdmBWRj04QIeLBAB64AJwAvQ6xKCLvSRCh4pkAPHgGOAX6gBtgWUSe4xBZxDMD+IYp4AwYAG4d4sm/xTuc1XfVSi0lVY3+k1gF7Taq6hhwDgwB98Aa8OkpsvYaJP4nByIoVR11iOEW0GDxXAC+2W67b6XpEFfARprtLW8mewpCekBoTNtWHHpA3rguQNyBaCCpZHlEeVKgqhPANdAYSKKRbMdarYhYzy9sece0gWQbqJU/lMYaTHljeWF+Bxzc/TUr3YFvMf0zCMQrUuIAAAAASUVORK5CYII="
+								mode=""></image>
+						</view>
+						<view class="icon-title">邮箱:</view>
+						<view class="icon-names" v-if="mineCotents.email =='&nbsp;' "></view>
+						<view class="icon-names" v-else>{{mineCotents.email}}</view>
+					</view>
+					<view class="contentsfist">
+						<view class="contents-u-icon">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgEAYAAAAj6qa3AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAyVJREFUaN7tlztIK0EUhmdiwEfAt2JhCIKF+IJ0gSiYShAUQdBoIVZioSBqJwo2NqJgYSFYqKBNSCMo2qfxSQJqJyIGAkp8o0aTObf43Ysryea1cbnc/ZuPszmzc/6zk5ldxnTp0vU/i6t9QyIiIs4ZMWJUWvptJs54MMg555wLobVxlYzW1ZEgQWJhAbHPB4bDFFXSda8X4+bnwfp6rf3ENyxIkCgvhwGXCxSCVJXLhXnMZq39/jDe0IACAwF1DcfSzQ3mbWrS2LjZ/LcgRYVCqa2I93fl3x8fpQfw+w0gIqKtrZi1CRIk3G4wOxsXrdbEjI+NyecZH1ee5+QEQVaW2j4N0Y3X1CBqb1cefnHBDdzADaEQ4qsrMBJRHnd+Lo8vL2OmcsYZt1oRdHSo3QBj9MudnXFHcsYZn5hAw2w2XJQ2r3hPyu3GOI8HsTRe0tkZeHSE4/T2FvOpbT/KewAKW15GNDio/pTy2cD1ddDlgmG7HbHDAeMWC+K8PPDhAfR6kb+9jbyNDbxnvL6mURIR0dJScptZsnp6Avv6wJUVMBJJ777SZt3bm2YDRkczY/zzE3Q6Qa83M/PQ1+Y5O5t8AwQJEhaLvGC1tLiI++/sKOfd3YHS8RpL0jF6f6+cNzCQ4kpYXVXHeDgM4/39ynnX12BODmi3K+fbbKDJBPr90fOCQTA396dPQ+wOMGI0MoLg57GVrPb3sUm1tCjnlZWBPT2g06mc73SiTuk//+3jS6biYrCtLfmVIEiQqKxEB4+PU1sBa2ugx6POikpVU1OJr4Av4UXH70fU3AwGg4l3kBGjjw8E8V6QMihixOjtLekGyFVVBZaUgNJ3/e4ueHAAvrzIx1VXg6enmjWAM8744WHK47GEpqfBzU2wtlY532TCX6igQL5p/aIECRJpGJcbKipS5z5qnS7x9PyMBjQ2pt0AtYTCpGNuby+zxltbtfYbuxGCBAmjEQVPToLSK3K66upKtI4MfF+l2BAiIiosRNTdDTocoPQxlJ+P3TwQQOzzYXMLh3F9eBjx3Bw+imZmtPb1yw2sqACHhrSuR5cuXbr+Cf0BeDK7MjPNThIAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMjJUMTA6NDc6NTcrMDg6MDC8lwAVAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTIyVDEwOjQ3OjU3KzA4OjAwzcq4qQAAAEh0RVh0c3ZnOmJhc2UtdXJpAGZpbGU6Ly8vaG9tZS9hZG1pbi9pY29uLWZvbnQvdG1wL2ljb25fcWVzZnVmYnNxaS93ZWl4aW4uc3ZnZEcRoQAAAABJRU5ErkJggg=="
+								mode=""></image>
+						</view>
+						<view class="icon-title">微信:</view>
+						<view class="icon-names" v-if="mineCotents.wechat=='&nbsp;' "></view>
+						<view class="icon-names" v-else>{{mineCotents.wechat}}</view>
+					</view>
+				</view>
+			</view>
+			<!-- 资料位置 -->
+			<view class="meansbox">
+				<view class="means-contents">
+
+					<view class="contentslist" @click="goPerfection(mineCotents.id)">
+						<view class="means-left">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgEAYAAAAj6qa3AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAAASAAAAEgARslrPgAAAfhJREFUaN7tl71KA0EUhe+NSrQVxEKsxMJCCIqFpY9gH2x8AV8ijQTBRjsLIYiCWlr4BJYJKEGDlaJF0EYtArnH4mBgk0ncVZLJhjnNYf5u7ndndnYjEhQUNEyCwWATEwAAHBywvbjoO68Bg19cIKKXF/rSku88BwzerhEqRAvcYLDzczfw56e7/+kptY9GvB2/v+e8+Xm2Dw9TfyJigwMA5uZa6wAAqqktxF/BO+L0qRCZfoOLioqenrJ3czM6q1ajb2yoqqo+P3eLx3FAIBB8fLhnZbP0qal+ccUG/++Od8QFABQK7njv7/zdtbUAHsAD+IAKAADY33cn+vCQGNxgsN1dd7y3N/rqqm/utgJUKu6EFxZGF9xgsGyWiTUa0YQfH5MVMAVH3Z14LudO/ORkZMFbAAaDbW25AXZ2oqCTk/T1dXq3L7ifo76y4psvZgGKRTfI1RX95sb9iKQYPFqA62v8S8Nz1McTr1BR0eXl3pOaTXqtxm/3SoXrymX2X15qRjOaubtLTQG4c9PTbFWr9LOzFqCIiJTLBL295Z+Xry/fgEFBvaXdBnhJ5fM80vk8j/rYmO+EE5CpqBnzLpV45xwfxy8AAOD1la3ZWd88fxYEgnqdBZiZaR/+5RLc26NvbzPQePK3hi+pqGizST868p1OUNCQ6hsHSEm0hTKkOAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0yMlQxMDo0ODoyMCswODowMIL+bA8AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMjJUMTA6NDg6MjArMDg6MDDzo9SzAAAAZHRFWHRzdmc6YmFzZS11cmkAZmlsZTovLy9ob21lL2FkbWluL2ljb24tZm9udC90bXAvaWNvbl9keW1nZnh6NzQ4cS93YW5zaGFuc2h1anVfeGlhbnhpbmd3YW5zaGFueGlueGkuc3ZnyYq9fwAAAABJRU5ErkJggg=="
+								mode=""></image>
+						</view>
+						<view class="means-center">完善资料</view>
+						<view class="means-rights">
+							<image class="iconimgs" src="../../static/inform/rights01.png" mode=""></image>
+						</view>
+					</view>
+
+					<view class="contentslist" @click="goPswd()">
+						<view class="means-left">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAbxJREFUWEfdlzFrFUEUhb/zF4zaG4SIgihJCq2eWIgWdtpZKaZKeDamjK80jaKVopWddhaKheRVWmiIBBSFEHs1+QsnjMyDZ/L27d24y4q3WtiZe79z7uzOjGg51HJ99gVg+yAwBZzIAj4D3yT9qiqoMoDtu8DtgkLLkharQFQCsP01K18H3gIfcrFZ4DxwMjtxLAoRBrD9CrgIPAO6kraHi9g+ANwHrgGvJV2KQIQAbN8EHgEvJF0dl9j2c+AKMCfpcRlEFGBg/VlJ70sAzgDvoq0oBbB9ClgDViXNlClK721/BKaB05I+jZsTAegC94CHkhaCAA+AeeCWpLQuCiMCcAdYAnqS0nNp2A7P+TcBbF8GLgDHs9wO0C+V/ueA4TlfgDeSXu7OMdIB2ytASlBn9CWdiwI4K+7VRJDWUEfSHsFFDvwGGEW8H6CBo/8fgO20ASEpbUyF0ZgDtn9kgMNtAaS1khwY+z9p0oGfGeBQWw60DtB6CzZzCybbasGRDPC9FYDoX7Gxr6BxgHQIiRYpGVd5M3oCXK+p+CDNU0k3otvx0XwHmKgJYivfFTZCADUVDaUpPROGsvzFoB3bNwowUeWxkgAAAABJRU5ErkJggg=="
+								mode=""></image>
+						</view>
+						<view class="means-center">修改密码</view>
+						<view class="means-rights">
+							<image class="iconimgs" src="../../static/inform/rights01.png" mode=""></image>
+						</view>
+					</view>
+					<view class="contentslist" @tap="cacelOrder()">
+						<view class="means-left">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAKBJREFUWEftl8sNgCAQRGc60c60Mu1MOxnjwcQYQBYMeFiOZGEmj/0EovNiZ324ATMBSUo9G0nTnabgU9gNNCPwJmQt31huRHPADTiB7gSsWV4ab+6EpUKxc16GTsAJZBO4ptm9QeXunSVYPQ1zxUJxbsBMQNIAYLu3z9onADCS3J8tOZiEkiYAy8cGZpJrloGvB07yH9FSLKT133HciswBU+GiIVd6G9wAAAAASUVORK5CYII="
+								mode=""></image>
+						</view>
+						<view class="means-center">清除缓存</view>
+						<view class="means-rights">
+							<image class="iconimgs" src="../../static/inform/rights01.png" mode=""></image>
+						</view>
+					</view>
+
+					<view class="contentslist" @tap="call()">
+						<view class="means-left">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAxJJREFUWEftl0+IV1UUxz9fwjYiZIvQUYIyEKwwMISwhUMglJUZKhi4UUlcpA6FYLpQY2YhmtJAaOQuHCjGmYUkEqREJRi0cYbBvw1YDTIEgoYr+cr5cd9w5/V+v/nNzE8GoQOPB++ee87nnnvuueeJGRbNsH8ePwDbc4C3gWVAGzAfGAH+Bn4GfpD0b7ORbToCtsPhh8BGICDqyR2gF/hG0oWJQJoCsN0JfJoZGwAGgd+BS8DLpWd20u2T9H4jiAkBbEdYVyQj3wFHJV2sZ9T2IuBz4N2k85ekhfX0GwLY/hNYkCZvkBQATYntPUBXUh6U9FLVxLoAtk8Da2OSpAkj1SAiLqInaUNZr9Kw7ZXA+aT8laRtTS27Qsn2auBMGmovJ2Y9gK+BLcCApEiwaYntL4HtwElJW3Nj/wGwHRkce/9UbIGk/ml5B2w/CwwBDyKnJN0tbFYBvAf0JYV5km5PFyDm2/4NeBX4QFJPI4DDwMfAVUmLW+E8AZwDVgFHJH1SCWB7SZTSVGJ7Ja1rIUCRB0OSwk9NxrbA9tPAP5nDA5L2txBgVxSxZG+HpO4yQFSvjsxhv6RaHWiF2D4O5Mf5GUmjeQTi3Mf5L2RY0nNp/w4B66PEFuSNoGxvBjYBUUNqCWf7R6A9m1erCTnAMWBnyfBcSXds59E5BeyT9EcZwnbcGbuze6BDUtgNgJtAbUFJ2iSN5ACxwm9LRscql+2PgC/S+H3gGnAduAxEUsXzYja/U9K+5Pw14Nds7IKkWjTG1QHbbyYnLyTlcaXT9vJ0wbzRYAt+AiKBI+Q1sR0LiwWGdEvaUYzVq4SxmlFJw1WObL8CxLM0vaMniN4gbr3oFcbEdh7ZtySdzcenfMs1iMC4IdvFbdglaW953pQAUnv2TmasR9KV0spPpBYuPv8i6fUq6EkDlE5EbjMq3UEgEu4zoGhApt4RlYltzwLuAU9WrCZuuidK36ffE5bC+jxwY4L9b31XXIKI/mBNBcQtII7Xo/kvyM509AuRUPGfUMj36QjGe1Iy6SSclPUmlP8HeAggKRQwF5j1OQAAAABJRU5ErkJggg=="
+								mode=""></image>
+						</view>
+						<view class="means-center">联系客服</view>
+						<view class="means-rights">
+							<image class="iconimgs" src="../../static/inform/rights01.png" mode=""></image>
+						</view>
+					</view>
+
+					<view class="contentslist" @click="show = true">
+						<view class="means-left">
+							<image class="icon-img"
+								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAT1JREFUWEftlz1OAzEUhL+pOAVSCmigpUlHDkEaWg4ABTXQUCFxDypuABVNRAdUSFBwj0FGTrRIya5tdjFCcWm9n29H47e2qLxUuT9/C8D2OXAIbGUo8w7MJE0zchahCwVsXwPHJUVizpWk09z8JsAbMAImku5TC9neB+6AD0mbqXnzuCaAw6akbF/YLs5dA/wbBYIJg38mTRPaDvsbwJGkl2UG7UWBVc63/QCMgWdgugxiaIAd4AbYXQUxKEBQxnYrxOAAXRDJANFQYer1sR4l7X0Zd16ta5pVB/jJZ7f5IFmBUoCqJuxqnuWBEgV+bRBFg9YbxV0nqE29Xky4BuhLgaf41yq9lL5K2s49LU0PhDfBWW6BRvyFpFAja327Ads+AC4LHia3kk6yOsfg7Ct4SZOkY9h34dR61RX4BD2Y5iEG4fobAAAAAElFTkSuQmCC"
+								mode=""></image>
+						</view>
+						<view class="means-center">
+							<view class="buttons" size="mini" @click="show = true">退出登录</view>
+						</view>
+						<view class="means-rights">
+							<image class="iconimgs" src="../../static/inform/rights01.png" mode=""></image>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 弹窗 -->
+		<view>
+			<u-popup class="popupbox" v-model="show" mode="bottom" length="30%">
+				<view class="popupcontent">
+					<view class="u-button1" @tap="cacelogin()">退出登录</view>
+					<view class="u-button2" @click="show = false;">取消</view>
+				</view>
+			</u-popup>
+
+		</view>
+
+		<page-tabpars></page-tabpars>
+	</view>
+</template>
+
+<script>
+	import {
+		mapGetters,
+		mapMutations
+	} from 'vuex'
+
+	import {
+		minelList
+	} from "@/api/api.js"
+	export default {
+		data() {
+			return {
+				callPhone:'',
+				show: false,
+				mineCotents: [],
+				psize: 15,
+				pindex: 1,
+				status: 'more',
+				contentText: {
+					contentdown: '加载更多',
+					contentrefresh: '加载中',
+					contentnomore: '没有更多'
+				},
+			};
+		},
+		computed: {
+			...mapGetters(['active']),
+		},
+		created() {
+
+		},
+		onLoad() {},
+		onShow() {
+			const token = uni.getStorageSync('token')
+			if (!token) {
+				uni.navigateTo({
+					url: '../login/index'
+				})
+				return
+			}
+			this.getminelList();
+		},
+
+		methods: {
+			//获取个人中心数据
+			getminelList() {
+				let that = this
+				let account = uni.getStorageSync('account')
+				minelList({
+					account
+				}).then(res => {
+					console.log(res, 555);
+					if (res.statusCode === 200) {
+						this.mineCotents = res.data
+						this.callPhone= '028-87816741'
+					}
+					console.log(this.callPhone)
+
+				})
+			},
+
+			// 立即联系打电话
+			call(callPhone) {
+				callPhone=this.callPhone
+				console.log('传入的电话', callPhone);
+				const res = uni.getSystemInfoSync();
+				// 模态框
+				if (res.platform == 'ios') {
+					uni.makePhoneCall({
+						phoneNumber: callPhone,
+						success() {
+							console.log('拨打成功');
+						},
+						fail() {
+							console.log('拨打失败');
+						}
+					})
+				} else {
+					uni.showActionSheet({
+						itemList: [callPhone, '呼叫'],
+						success: function(res) {
+							console.log(res, 3333);
+							if (res.tapIndex == 1) {
+								uni.makePhoneCall({
+									phoneNumber: callPhone,
+								})
+							}
+						}
+					})
+				}
+
+			},
+
+			// 去完善资料
+			goPerfection(id) {
+				console.log(id, 12121)
+				// return
+				uni.navigateTo({
+					url: `/pages/perfection/index?id=${id}`
+				})
+			},
+
+			...mapMutations(['SET_ACTIVE']),
+
+			// 修改密码
+			goPswd(id) {
+				uni.navigateTo({
+					url: "/pages/password/index?id=${id}"
+				})
+			},
+			// 清除缓存
+			cacelOrder(e) {
+				uni.showModal({
+					content: '缓存已清除',
+					success: ({
+						confirm
+					}) => {
+						if (!confirm) return
+						cancelPay({
+							id: e.order_id
+						}).then(({
+							status
+						}) => {
+							if (status !== 200) return
+							this.$emit('upload', true)
+						})
+					}
+				})
+			},
+
+			//退出登录
+			cacelogin() {
+				uni.removeStorageSync('token')
+				this.show = false
+				uni.navigateTo({
+					url: "/pages/login/index"
+				})
+			}
+		}
+	};
+</script>
+
+<style lang="scss" scoped>
+	@import "index.scss";
+</style>

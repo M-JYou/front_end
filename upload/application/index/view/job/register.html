@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {#include file="public/meta" /#}
+    <link rel="stylesheet" href="__ROOT__/assets/css/base.css">
+    <link rel="stylesheet" href="__ROOT__/assets/css/jobRegister_element-ui.css">
+    <link rel="stylesheet" href="__ROOT__/assets/css/jobRegister_index.css">
+</head>
+<body>
+<div id="app">
+    <div class="jobHeader">
+        <div class="jobInner">
+            <div class="innerLeft" onclick="window.open('{#$global_data.sitedomain#}')">
+                <img src="__ROOT__/assets/images/jobRegister/jobRegister-home.png" >
+                <span>网站首页</span>
+            </div>
+            <div class="innerRight">联系热线：{#$global_data.contact_tel#}</div>
+        </div>
+    </div>
+    <div class="jobBottom">
+        <div class="bottomInner">
+            <span class="bottomLeft">为了更好的找到合适您的工作，请认真填写下面内容~</span>
+            <div class="bottomRight">
+                <span class="txt">关注公众号查看更多好工作~</span>
+                <div class="bottomCode">
+                    <img :src="wechatQrcode" style="width: 100%" slot="reference">
+                </div>
+                <!--<el-popover placement="bottom-end" trigger="hover" width="80" style="display: block">-->
+                    <!--<span class="top-qrcode-item" v-if="wechatQrcode">-->
+                        <!--<span class="img"><img :src="wechatQrcode" style="width: 100%"/></span>-->
+                    <!--</span>-->
+
+                <!--</el-popover>-->
+            </div>
+        </div>
+    </div>
+    <div class="jobForm">
+        <img src="__ROOT__/assets/images/jobRegister/jobRegiste-title.png" class="formTitle">
+        <el-form ref="form" :model="form" :rules="rules" label-width="120px" class="demo-ruleForm">
+            {#volist name="list" id="vo"#}
+                <!-- 文本输入 -->
+                {#if condition="$vo.field_type == 1"#}
+                    <el-form-item label="{#$vo.field_name#}" prop="{#$vo.field_alias#}">
+                        <el-input
+                                v-model="form.{#$vo.field_alias#}"
+                                placeholder="{#$vo.field_remark#}"
+                                maxlength="{#$vo.field_length#}"
+                                :show-word-limit="{#$vo.field_length#} > 0 ? true : false"
+                        ></el-input>
+                    </el-form-item>
+                    <!-- 判断是否是手机号需要验证码的情况-->
+                    {#if condition="$vo.field_way == 2"#}
+                        <el-form-item
+                                label="短信验证码"
+                                prop="verify_code"
+                                style="width: 100%"
+                                :rules="{ required: true, message: '请填写短信验证码', trigger: 'blur' }"
+                        >
+                            <div class="flex">
+                                <el-input class="log_field" v-model="form.verify_code" placeholder="请输入验证码"></el-input>
+                                <span class="get_bt" style="width: 120px;" @click="sendSms">{{sendSmsBtnText}}</span>
+                            </div>
+                        </el-form-item>
+                    {#/if#}
+                {#/if#}
+                <!-- 选项单选 -->
+                {#if condition="$vo.field_type == 2"#}
+                    <el-form-item label="{#$vo.field_name#}" prop="{#$vo.field_alias#}">
+                        <el-radio-group v-model="form.{#$vo.field_alias#}">
+                            {#volist name="$vo.field_value" id="fieldValue"#}
+                                <el-radio label="{#$fieldValue.field_value#}"></el-radio>
+                            {#/volist#}
+                        </el-radio-group>
+                    </el-form-item>
+                {#/if#}
+                <!-- 选项多选 -->
+                {#if condition="$vo.field_type == 3"#}
+                    <el-form-item label="{#$vo.field_name#}" prop="{#$vo.field_alias#}">
+                        <el-checkbox-group v-model="form.{#$vo.field_alias#}">
+                            {#volist name="$vo.field_value" id="fieldValue"#}
+                                <el-checkbox label="{#$fieldValue.field_value#}" style="width: 130px"></el-checkbox>
+                            {#/volist#}
+                        </el-checkbox-group>
+                    </el-form-item>
+                {#/if#}
+                <!-- 选项下拉 -->
+                {#if condition="$vo.field_type == 4"#}
+                    <el-form-item label="{#$vo.field_name#}" prop="{#$vo.field_alias#}">
+                        <el-select v-model="form.{#$vo.field_alias#}" placeholder="请选择" class="width100">
+                            {#volist name="$vo.field_value" id="fieldValue"#}
+                                <el-option label="{#$fieldValue.field_value#}" value="{#$fieldValue.field_value#}"></el-option>
+                            {#/volist#}
+                        </el-select>
+                    </el-form-item>
+                {#/if#}
+                <!-- 多行文本 -->
+                {#if condition="$vo.field_type == 5"#}
+                    <el-form-item label="{#$vo.field_name#}" prop="{#$vo.field_alias#}">
+                        <el-input
+                                type="textarea"
+                                v-model="form.{#$vo.field_alias#}"
+                                placeholder="{#$vo.field_remark#}"
+                                maxlength="{#$vo.field_length#}"
+                                :show-word-limit="{#$vo.field_length#} > 0 ? true : false"
+                        ></el-input>
+                    </el-form-item>
+                {#/if#}
+            {#/volist#}
+            <div @click="onSubmit('form')" class="button"><img src="__ROOT__/assets/images/jobRegister/jobRegister-icon.png" class="buttonIcon">提交信息</div>
+        </el-form>
+
+        <el-dialog title="验证码" :visible.sync="showPictureCaptcha" @opened="pictureCaptchaOpened" width="360px" :close-on-click-modal="false">
+            {#include file="captcha/picture" /#}
+        </el-dialog>
+    </div>
+    <div class="jobFooter">
+        <span>
+            找工作，招人才，就上{#$global_data.sitename#}
+            <br>
+            未经书面授权，不得转载本网站所有招聘信息
+        </span>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    var fieldAlias = JSON.parse('{#$field_alias_json#}')
+    var fieldRules = []
+    var regularMobile = /^13[0-9]{9}$|14[0-9]{9}$|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$|16[0-9]{9}$|19[0-9]{9}$/
+    // 手机号验证方式
+    var mobileValidator = (rule, value, callback) =>{
+        if (value === '') {
+            callback(new Error('请输入'+rule.field_name));
+        }
+        if (!regularMobile.test(value)) {
+            callback(new Error(rule.field_name+'格式不正确'));
+        }
+        callback();
+    }
+    // 设置字段验证规则
+    var fieldList = JSON.parse('{#$list_json#}')
+    if (fieldList.length > 0) {
+        var msg;
+        var triggerWay;
+        for (let i=0; i<fieldList.length; i++){
+            var item = fieldList[i]
+            fieldRules[item['field_alias']] = []
+            // 验证必填项
+            if (item['is_must'] == 1) {
+                var fieldType = 'string';
+                // 多选框需定义类型为数组
+                if (item['field_type'] == 3) {
+                    fieldType = 'array';
+                }
+                // 文本用 blur 其它用 change
+                msg = '请填写'+ item['field_name'];
+                triggerWay = 'blur';
+                if ($.inArray(item['field_type'], [2,3,4]) > -1) {
+                    msg = '请选择'+ item['field_name'];
+                    triggerWay = 'change';
+                }
+                fieldRules[item['field_alias']].push(
+                    { type:fieldType, required: true, field_name:item['field_name'], message: msg, trigger: triggerWay }
+                )
+            }
+            // 验证手机号
+            if (item['field_way'] == 2) {
+                fieldRules[item['field_alias']].push(
+                    {required: true, field_name:item['field_name'], validator: mobileValidator, trigger: triggerWay }
+                )
+            }
+            // 验证长度
+            if (item['field_length'] > 0) {
+                fieldRules[item['field_alias']].push(
+                    { max: item['field_length'], field_name:item['field_name'], message: '长度不能超过'+item['field_length']+'个字', trigger: triggerWay }
+                )
+            }
+        }
+    }
+    function loadTencent() {
+        if (window.BMap !== undefined) {
+            return
+        }
+        var script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = 'https://ssl.captcha.qq.com/TCaptcha.js'
+        document.body.appendChild(script)
+    }
+    function loadVaptcha() {
+        if (window.BMap !== undefined) {
+            return
+        }
+        var script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = 'https://v.vaptcha.com/v3.js'
+        document.body.appendChild(script)
+    }
+    var captcha_open = parseInt("{#$global_data.captcha_open#}");
+    var captcha_type = "{#$global_data.captcha_type#}";
+    if (captcha_open == 1) {
+        if (captcha_type == 'tencent') {
+            loadTencent()
+        } else if (captcha_type == 'vaptcha') {
+            loadVaptcha()
+        }
+    }
+
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                form: fieldAlias,
+                rules: fieldRules,
+                regularMobile: regularMobile,
+                sendSmsBtnDisabled: false,
+                sendSmsBtnText: '获取验证码',
+                sendSmsTimer: '',
+                sendSmsInterval: 60,
+                captcha_open:captcha_open,
+                captcha_type:captcha_type,
+                showPictureCaptcha: false,
+                secret_str: '',
+                catpchaSrc: '',
+                captchaRules: {
+                    code: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' }
+                    ],
+                },
+                captchaForm: {
+                    code: ''
+                },
+                wechatQrcode: '{#$global_config.wechat_qrcode#}',
+            }
+        },
+        methods: {
+            // 表单提交处理
+            onSubmit(formName) {
+                this.$refs[formName].validate(valid => {
+                    if (valid) {
+                        var that = this
+                        httppost(qscms.apiList.saveRegisterData, that.form).then(function (res) {
+                            that.$message({
+                                type: 'success',
+                                message: res.message
+                            })
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 3000)
+                        }).catch(function () { })
+                    }
+                })
+            },
+            // 发送验证码
+            sendSms: function () {
+                var that = this
+                if (that.sendSmsBtnDisabled === true) {
+                    return false
+                }
+                if(that.form.contact_way == ''){
+                    that.$message.error('请输入' + fieldRules.contact_way[0].field_name)
+                    return false
+                }
+                if (!that.regularMobile.test(that.form.contact_way)) {
+                    that.$message.error(fieldRules.contact_way[0].field_name + '格式不正确')
+                    return false
+                }
+                if (that.captcha_open == 1) {
+                    if (that.captcha_type == 'tencent') {
+                        var captchaWindow = new TencentCaptcha('{#$global_data.captcha_tencent_appid#}', function (res) {
+                            that.doSendSms(res)
+                        });
+                        captchaWindow.show()
+                    } else if (that.captcha_type == 'vaptcha') {
+                        vaptcha({
+                            vid: "{#$global_data.captcha_vaptcha_vid#}", // 验证单元id
+                            type: "invisible", // 显示类型 隐藏式
+                            scene: 0, // 场景值 默认0
+                            offline_server: "", //离线模式服务端地址，若尚未配置离线模式，请填写任意地址即可。
+                        }).then(function (vaptchaObj) {
+                            obj = vaptchaObj; //将VAPTCHA验证实例保存到局部变量中
+                            //获取token的方式二：
+                            vaptchaObj.listen("pass", function () {
+                                that.doSendSms({ code: vaptchaObj.getToken() })
+                            });
+                            //关闭验证弹窗时触发
+                            vaptchaObj.listen("close", function () {
+                                //验证弹窗关闭触发
+                            });
+                            obj.validate();
+                        });
+                    } else {
+                        that.showPictureCaptcha = true
+                        that.pictureCaptchaCallback = 'doSendSms'
+                    }
+                } else {
+                    that.doSendSms(null)
+                }
+            },
+            doSendSms: function (captcha) {
+                var that = this
+                httppost(qscms.apiList.sendsms_auth_mobile_nocheck, { mobile: that.form.contact_way, captcha: captcha }).then(function (res) {
+                    that.$message({
+                        type: 'success',
+                        message: '验证码发送成功'
+                    })
+                    that.sendSmsTimer = setInterval(function () {
+                        if (that.sendSmsInterval === 0) {
+                            that.sendSmsBtnDisabled = false
+                            that.sendSmsBtnText = '获取验证码'
+                            that.sendSmsInterval = 60
+                            clearInterval(that.sendSmsTimer)
+                        } else {
+                            that.sendSmsBtnDisabled = true
+                            that.sendSmsBtnText = '重发 ' + that.sendSmsInterval + ' 秒'
+                            that.sendSmsInterval--
+                        }
+                    }, 1000)
+                }).catch(function () { })
+            },
+            changeImg: function () {
+                var that = this
+                httpget(qscms.apiList.captchaPicture, {})
+                    .then(function (res) {
+                        that.secret_str = res.data.secret_str
+                        that.catpchaSrc = res.data.src
+                    })
+                    .catch(function () { })
+            },
+            pictureCaptchaOpened: function () {
+                this.changeImg()
+            },
+            submitPictureCaptcha: function () {
+                var that = this
+                that.$refs.captchaForm.validate(function (valid) {
+                    if (valid) {
+                        that.showPictureCaptcha = false
+                        that[that.pictureCaptchaCallback]({ code: that.captchaForm.code, secret_str: that.secret_str })
+                        that.captchaForm.code = ''
+                    } else {
+                        that.captchaForm.code = ''
+                        return false;
+                    }
+                });
+            }
+        }
+    })
+</script>

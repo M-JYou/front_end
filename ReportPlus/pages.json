@@ -1,0 +1,66 @@
+{
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index_1",
+			"style": {
+				"navigationStyle": "custom",
+				"pageOrientation": "auto"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"pageOrientation": "auto"
+			}
+		},
+		{
+			"path": "pages/main/index",
+			"style": {
+				"navigationStyle": "custom",
+				"pageOrientation": "auto"
+			}
+		},
+		{
+			"path": "pages/school/index",
+			"style": {
+				"navigationStyle": "custom",
+				"pageOrientation": "auto"
+			}
+		},
+		{
+			"path": "pages/finance/index",
+			"style": {
+				"navigationStyle": "custom",
+				"pageOrientation": "auto"
+			}
+		}
+	],
+	"subPackages":[{
+		"root":"myPackageA",
+		"pages":[{
+			"path":"pages/sport/index",
+			"style":{
+				"navigationStyle": "custom",
+				"pageOrientation": "auto"
+			}
+		}]
+	}],
+	"window": {
+		"navigationBarTitleText": "下拉刷新",
+		"enablePullDownRefresh": true,
+		"backgroundTextStyle": "dark"
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "UReport",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"windows": {
+		"navigationBarTitleText": "下拉刷新",
+		"enablePullDownRefresh": true,
+		"backgroundTextStyle": "dark"
+	}
+}

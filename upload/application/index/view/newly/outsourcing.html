@@ -1,0 +1,586 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/outsourcing.css" /#}
+<div class="content_wrapper" id="app">
+  <!-- #region -->
+  <div class="logoPart">
+    <div class="logo">
+      <a href=""><img src="/assets/images/home/logo_xiazi.png" alt="" /></a>
+      <a href=""><span>打造财税生态链</span></a>
+    </div>
+  </div>
+  <!-- #endregion -->
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item>财务外包</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="box_2">
+      <div class="tuijian">
+        <img src="/assets/images/home/tuijian_02.png" alt="" />
+      </div>
+      <div class="box_right">
+        <div class="line"></div>
+        <div
+          class="child_1 box"
+          :class="contract.state?'box_o':'box_c'"
+          @click="goNeedList"
+        >
+          <div class="top">1</div>
+          <span class="other">需求详情</span>
+        </div>
+        <el-dialog :visible.sync="needList">
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column prop="other.companyName" label="单位名称">
+            </el-table-column>
+            <el-table-column prop="other.contacts" label="联系人">
+            </el-table-column>
+            <el-table-column prop="other.taxpayer" label="纳税人类型">
+            </el-table-column>
+            <el-table-column prop="other.addr" label="单位地址">
+            </el-table-column>
+            <el-table-column prop="other.income" label="年收入总额">
+            </el-table-column>
+            <el-table-column prop="addtime" :formatter="ftime" label="申请时间">
+            </el-table-column>
+          </el-table>
+        </el-dialog>
+        <div
+          class="child_2 box"
+          :class="contract.state=='上传合同'?'box_c':'box_o'"
+          @click="gouploadContract"
+        >
+          <div class="top">2</div>
+          <span>上传合同</span>
+        </div>
+        <el-dialog
+          :visible.sync="uploadContract"
+          width="30%"
+          min-height="470px"
+        >
+          <el-form
+            :model="contract"
+            :rules="rules"
+            ref="ruleForm"
+            label-width="100px"
+            class="demo-ruleForm"
+          >
+            <el-form-item label="联系人" prop="contacts">
+              <el-input
+                v-model="contract.contacts"
+                placeholder="请填写联系人"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="联系电话">
+              <el-input
+                v-model="contract.tel"
+                placeholder="请填写联系电话"
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="截止时间" prop="time">
+              <el-date-picker
+                v-model="contract.endtime"
+                type="date"
+                placeholder="选择截止时间"
+              />
+            </el-form-item>
+          </el-form>
+
+          <el-upload
+            class="upload-demo"
+            :action="apiAttachUpload"
+            :headers="headers"
+            :before-remove="handleRemove"
+            :file-list="contract.files"
+            :on-success="handleAttachSuccess"
+            :before-upload="beforeAttachUpload"
+            :accept="raccept"
+            :on-preview="handlePreview"
+          >
+            <el-button size="mini" type="primary">点击上传</el-button>
+            <!-- <div slot="tip" class="el-upload__tip">
+              只能上传{{ raccept }}文件，且不超过{{ fileupload_size }}kb
+            </div> -->
+          </el-upload>
+          <div class="mac-wf mac-x mac-xe mac-mt1em">
+            <el-button
+              @click="submitContract"
+              type="primary"
+              :disabled="disabled"
+              >确定提交</el-button
+            >
+          </div>
+        </el-dialog>
+
+        <div
+          class="child_2 box"
+          :class="contract.state=='费用支付托管'?'box_c':'box_o'"
+          @click="gofeeEscrow"
+        >
+          <div class="top">3</div>
+          <span>费用支付托管</span>
+        </div>
+        <el-dialog :visible.sync="feeEscrow" width="25%">
+          <div>
+            <p>
+              支付虾币数：<span style="font-size: 22px; color: red"
+                >{{contract.points}}</span
+              >
+            </p>
+            <el-divider></el-divider>
+            <el-checkbox v-model="checked"
+              ><button @click="viewPact">支付协议</button></el-checkbox
+            >
+            <el-divider></el-divider>
+            <el-button @click="confirmPay" :disabled="disabled">
+              确认支付
+            </el-button>
+          </div>
+        </el-dialog>
+
+        <div
+          class="child_2 box"
+          :class="contract.state=='付款'?'box_c':'box_o'"
+        >
+          <div class="top">4</div>
+          <span>
+            <select name="" id="">
+              <option value="" disabled selected style="display: none">
+                付款
+              </option>
+              <option
+                value="delay"
+                :class="contract.state=='延期付款'?'box_cb':'box_ob'"
+              >
+                延期付款
+              </option>
+              <option
+                value="refund"
+                :class="contract.state=='申请退款'?'box_cb':'box_ob'"
+              >
+                申请退款
+              </option>
+              <option
+                value="agree"
+                :class="contract.state=='同意付款'?'box_cb':'box_ob'"
+              >
+                同意付款
+              </option>
+            </select>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <img src="/assets/images/home/process_bd.png" alt="" />
+      <div class="contact">
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="在线咨询"
+          placement="left"
+        >
+          <img src="/assets/images/home/process_message.png" alt="" />
+        </el-tooltip>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="电话联系"
+          placement="left"
+        >
+          <img
+            src="/assets/images/home/process_phone.png"
+            alt=""
+            @click="showPhone"
+          />
+        </el-tooltip>
+
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="提交需求"
+          placement="left"
+        >
+          <img
+            src="/assets/images/home/process_book.png"
+            alt=""
+            @click="goshowForm"
+          />
+        </el-tooltip>
+      </div>
+    </div>
+    <el-dialog :visible.sync="showForm" width="50%" min-height="470px">
+      <el-form
+        :model="ruleForm.other"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
+    <el-form-item label="单位名称" prop="companyName">
+      <el-input v-model="ruleForm.other.companyName" placeholder="请输入单位名称"></el-input>
+    </el-form-item>
+    <el-form-item label="联系人" prop="contacts">
+      <el-input v-model="ruleForm.other.contacts" placeholder="请输入联系人"></el-input>
+    </el-form-item>
+   
+    <el-form-item label="单位地址" prop="addr">
+      <el-input v-model="ruleForm.other.addr" placeholder="请输入单位地址"></el-input>
+    </el-form-item>
+    <el-form-item label="年收入" prop="income">
+      <el-input v-model.number="ruleForm.other.income" placeholder="最近一年收入总额"></el-input>
+    </el-form-item>
+    <el-form-item label="纳税人类型" prop="taxpayer ">
+      <el-select v-model="ruleForm.other.taxpayer" placeholder="请选择纳税人类型">
+        <el-option value="一般纳税人"></el-option>
+        <el-option value="小规模纳税人"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="要求描述" prop="describe">
+      <el-input type="textarea" v-model="ruleForm.other.describe" placeholder="请输入要求"></el-input>
+    </el-form-item>
+    <el-form-item label="手机号" prop="mobile">
+      <el-input v-model="ruleForm.other.mobile" placeholder="请输入手机号"></el-input>
+    </el-form-item>
+    <el-form-item label="验证码" prop="code">
+  <div class="formCode">
+    <el-input v-model="ruleForm.other.code" placeholder="请输入验证码"></el-input>
+    <el-button
+    :disabled="disabled"
+    type="success"
+    round
+    @click.stop="sendCode"
+    >{{sleeps?sleeps:'获取验证码'}}</el-button
+  >
+  </div>
+    </el-form-item>
+
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')"
+            >提交</el-button
+          >
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+  </div>
+</div>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        tableData:[],
+        visitor: JSON.parse(Cookies.get("qscms_visitor") || "{}"),
+        me: {},
+        showRegQuick: false,
+        needList: false,
+        uploadContract: false,
+        feeEscrow: false,
+        fileList: [],
+        checked: true,
+        showForm: false,
+        jobs: [],
+        citys: [],
+        wage: [
+          "不限",
+          "1000元以下",
+          "1000-2000元",
+          "2000-3000元",
+          "3000-5000元",
+          "5000-8000元",
+          "8000-12000元",
+          "12000-15000元",
+          "15000元以上",
+        ],
+
+        ruleForm: {
+          type: "财务外包", // CHAR(32) 类型
+          content: "", // TEXT 正文
+          other: {
+            companyName:"",
+            contacts: "", // 联系人
+            post: [], // 岗位
+            addr: "",
+            peopleNum:"",
+            wage: "",
+            describe: "",
+            companyProfile:"",
+            mobile: "",
+            code: "",
+            taxpayer:"",
+          }, // json 正文
+        },
+
+        disabled: false,
+        sleeps: 0,
+        rules: {
+          // companyName: [
+          //   { required: true, message: "请输入单位名称", trigger: "blur" },
+          // ],
+          contacts: [
+            { required: true, message: "请输入联系人", trigger: "blur" },
+          ],
+          wage: [{ required: true, message: "工资待遇", trigger: "change" }],
+          addr: [
+            { required: true, message: "请输入工作地址", trigger: "blur" },
+          ],
+          taxpayer: [
+            { required: true, message: "请选择纳税人类型", trigger: "change" },
+          ],
+          peopleNum: [
+            { required: true, message: "请输入代招人数", trigger: "blur" },
+          ],
+          post: [{ required: true, message: "请选择岗位", trigger: "change" }],
+          describe: [
+            { required: true, message: "要求描述", trigger: "blur" },
+            { min: 10, message: "长度至少10个字符", trigger: "blur" },
+          ],
+          companyProfile: [
+            { required: true, message: "单位简介", trigger: "blur" },
+            { min: 10, message: "长度至少10个字符", trigger: "blur" },
+          ],
+          mobile: [
+            { required: true, message: "请输入手机号", trigger: "blur" },
+          ],
+          code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+        },
+        contract: {
+          type: "财务外包", //  CHAR(16) 类型
+          endtime: "", //  INT UNSIGNED 截止时间
+          files: [], //  TEXT 合同url
+          contacts: "", //  CHAR(16) 联系人
+          tel: "", //  CHAR(16) 联系电话
+          other: "", //  TEXT 其他json
+        },
+
+        apiAttachUpload: qscms.apiUrl + "/member/upload/index",
+        fileupload_size: 104857600,
+        headers: { "user-token": visitor.token },
+        style: "",
+        raccept: ".doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.pdf",
+      };
+    },
+    async created() {
+      globalThis.that = this;
+      if (this.visitor.token) {
+        let t = await httppost("member/memberInfo/me");
+        this.me = t.data;
+        t = await httppost("member/apply/index", { type: this.ruleForm.type });
+        this.tableData = t.data;
+        t = await httppost("/member/contract/find", {
+          type: this.ruleForm.type,
+        });
+        if (t.data.length) {
+          t = t.data.find((e) => e.state != "完结");
+          if (t) {
+            t.addtime *= 1000;
+            t.endtime *= 1000;
+            this.contract = t;
+          }
+        }
+      }
+      this.getJobList();
+      this.getcityList();
+    },
+    mounted() {
+      const { clientHeight, clientWidth } = this.$el.parentElement;
+      const v = clientHeight < clientWidth ? clientHeight : clientWidth;
+      this.style = `overflow:hidden;flex-shrink:0;flex-grow:0;width:${v}px;height:${v}px;`;
+    },
+    methods: {
+      async confirmPay() {
+        if (this.disabled) {
+          return;
+        }
+        this.disabled = true;
+        const res = await httppost("member/contract/pay", {
+          id: this.contract.id,
+        });
+        this.$message(res.message);
+        console.log(res);
+      },
+
+      handleAttachSuccess(res, file) {
+        if (res.code == 200) {
+          let info = { name: file.name, url: res.data.file_url };
+          this.contract.files.push(info);
+        } else {
+          this.$message.error(res.message);
+          return false;
+        }
+      },
+      beforeAttachUpload(file) {
+        const configFileExtArr = this.raccept;
+        const filename_arr = file.name.split(".");
+        const filetype = filename_arr[filename_arr.length - 1];
+        if (!configFileExtArr.includes(filetype)) {
+          this.$message.error("上传文件格式不允许");
+          return false;
+        }
+        if (file.size / 1024 > this.fileupload_size) {
+          this.$message.error(`上传文件最大为${this.fileupload_size}kb`);
+          return false;
+        }
+        return true;
+      },
+      handleRemove(file, fileList) {
+        this.$message.error("合同不允许移除");
+        // this.contract.files.splice(
+        //   this.contract.files.indexOf({ name: file.name, url: file.url }),
+        //   1
+        // );
+        return false;
+      },
+      handlePreview(file) {
+        if (window.navigator.msSaveOrOpenBlob) {
+          navigator.msSaveBlob(file.raw, file.name);
+        } else {
+          const link = document.createElement("a");
+          link.filename = link.download = file.name;
+          link.href = file.raw
+            ? window.URL.createObjectURL(file.raw)
+            : file.url;
+          link.click();
+          window.URL.revokeObjectURL(link.href);
+        }
+      },
+      async submitContract() {
+        if (this.disabled) {
+          return;
+        }
+        this.disabled = true;
+        const d = { ...this.contract };
+        d.endtime = parseInt(d.endtime / 1000);
+        const r = await httppost("member/contract/add", d);
+      },
+      fp() {
+        return arguments[2].join("， ");
+      },
+      ftime() {
+        return formatShortTime(arguments[2]);
+      },
+      async sendCode() {
+        if (
+          !this.sleeps &&
+          this.ruleForm.other.mobile.toString().length == 11 &&
+          /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/
+        ) {
+          const r = await httppost("member/sendsms/authMobileNoCheck", {
+            mobile: this.ruleForm.other.mobile,
+          });
+          this.$message[r.code == 200 ? "success" : "error"](r.message);
+          this.sleeps = 60;
+          const h = setInterval(() => {
+            if (!(this.sleeps-- > 0)) {
+              this.sleeps = 0;
+              clearInterval(h);
+            }
+          }, 1000);
+        }
+      },
+      goNeedList() {
+        if (this.me.id) {
+          this.needList = true;
+        } else {
+          this.$confirm("当前操作需要登录商家账号", "提示", {
+            type: "warning",
+            confirmButtonText: "去登录",
+          })
+            .then(() => {
+              location.href =
+                qscms.locationList.loginPersonal + "?redirect=" + location.href;
+            })
+            .catch(() => {});
+        }
+      },
+      gouploadContract() {
+        if (1 === 1) {
+          this.uploadContract = true;
+        } else {
+          this.$confirm("当前操作需要登录商家账号", "提示", {
+            type: "warning",
+            confirmButtonText: "去登录",
+          })
+            .then(() => {
+              location.href =
+                qscms.locationList.loginPersonal + "?redirect=" + location.href;
+            })
+            .catch(() => {});
+        }
+      },
+      gofeeEscrow() {
+        if (1 === 1) {
+          this.feeEscrow = true;
+        } else {
+          this.$confirm("当前操作需要登录商家账号", "提示", {
+            type: "warning",
+            confirmButtonText: "去登录",
+          })
+            .then(() => {
+              location.href =
+                qscms.locationList.loginPersonal + "?redirect=" + location.href;
+            })
+            .catch(() => {});
+        }
+      },
+      goshowForm() {
+        if (1 === 1) {
+          this.showForm = true;
+        } else {
+          this.$confirm("当前操作需要登录商家账号", "提示", {
+            type: "warning",
+            confirmButtonText: "去登录",
+          })
+            .then(() => {
+              location.href =
+                qscms.locationList.loginPersonal + "?redirect=" + location.href;
+            })
+            .catch(() => {});
+        }
+      },
+
+      handlePreview(file) {
+        console.log(file);
+      },
+      showPhone() {
+        alert("13300022222");
+      },
+      submitForm(formName) {
+        if (this.disabled) {
+          return;
+        }
+        this.disabled = true;
+        // return console.log({...this.ruleForm});
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            httppost("member/apply/add", this.ruleForm).then((res) => {
+              this.$message[res.code == 200 ? "success" : "error"](res.message);
+              this.showForm = false;
+            });
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      viewPact() {
+        alert("支付协议");
+      },
+      async getJobList() {
+        const { data } = await httppost("method/CategoryJob");
+        this.jobs = data;
+      },
+      async getcityList() {
+        const { data } = await httppost("member/CategoryDistrict/index", {
+          pid: ["like", Cookies.get("qscms_cityId").substr(0, 4) + "%"],
+        });
+        // console.log(data);
+        this.citys = data;
+      },
+    },
+  });
+</script>

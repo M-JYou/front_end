@@ -1,0 +1,678 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/askFinancial.css" /#}
+<div class="wapper_content" id="app">
+    <!-- 聊天 -->
+    <!-- <div class="mac-sbss" @click="msgClick">按钮</div> -->
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="search">
+            <div class="search-input">
+                <div>
+                    <i class="el-icon-search"></i>
+                    <input type="text" v-mordel="input" placeholder="请输入关键字">
+                </div>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="release">
+            <button @click="putQuestion=true">我要提问</button>
+        </div>
+        <el-dialog :visible.sync="putQuestion" class="putQuestion">
+            <h1>我要提问</h1>
+            <div class="one"><span>问题</span><input type="text" placeholder="请输入问题"></div>
+            <div class="five" v-show="radio=='2'"><span>付费金额</span><input type="number" placeholder="请输入付费金额"></div>
+            <div class="two"><span>提问方式</span>
+                <el-radio v-model="radio" label="1">免费提问</el-radio>
+                <el-radio v-model="radio" label="2">付费提问</el-radio>
+            </div>
+            <div class="three"><button @click="addQuestion">确认提问</button></div>
+        </el-dialog>
+    </div>
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>问答</el-breadcrumb-item>
+            </el-breadcrumb>
+            <div class="tabs">
+                <span :class="{active:itemIndex==1}" @click="clickTab(1)">申请成为专家</span>
+                <span :class="{active:itemIndex==2}" @click="clickTab(2)">专家风采</span>
+                <span :class="{active:itemIndex==3}" @click="clickTab(3)">我的问答</span>
+                <span :class="{active:itemIndex==4}" @click="clickTab(4)">奖励规则</span>
+            </div>
+        </div>
+        <div class="mainContent" v-if="itemIndex==null || itemIndex==1">
+            <div class="nav">
+                <h2>问答</h2>
+                <span class="current"><a href="/ask/financial">财税问答</a></span>
+                <span><a href="/ask/social">人社问答</a></span>
+            </div>
+            <div class="formContent">
+                <div class="con_1">
+                    <div class="xuanze">
+                        <div>
+                            <button @click="typeClick1" class="typeButton1">普通</button>
+                            <button @click="typeClick2" class="typeButton2">专家</button>
+                        </div>
+                        <el-select v-model="value" placeholder="时间">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+
+
+                    <div class="box_con">
+
+                        <div v-show="putong" class="item" v-for="(item,index) in quesList" :key="index">
+                            <div class="itemQues">
+                                <div class="itemTop">
+                                    <div class="userPic">
+                                        <img :src="item.user.photo" alt="">
+                                        <div class="jia">
+                                            <img src="/assets/images/home/en_03.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="userName">{{item.user.nickname}}</span>的提问
+                                    <span class="time">{{ft(item.addtime)}}</span>
+                                </div>
+
+                                <div class="title">
+                                    <div class="box_5" @click="toFinancialDetails(item.id)">
+                                        <h2>{{item.name}}</h2>
+                                        <div class="box_3"><img src="/assets/images/home/ask_03.png"
+                                                alt="">{{item.expense}}</div>
+                                    </div>
+                                    <div>
+                                        <button v-show="item.create==hd.me.id" v-if="item.expense != 0"
+                                            class="forgetBtn">转为免费问题</button>
+                                        <button v-show="item.create==hd.me.id" v-else="item.expense == 0" class="getBtn"
+                                            v-else>转为付费问题</button>
+                                        <el-button v-show="item.create!=hd.me.id" type="primary" icon="el-icon-edit"
+                                            @click="toFinancialDetails(item.id)">
+                                            我要回答</el-button>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="quesText">
+                                    <p>{{item.content}}</p>
+                                </div>
+                                <div class="operation">
+                                    <!-- <div class="shu_b" model="Qa" mid="{#$data.id#}"><img
+                                            src="/assets/images/home/operation_01.png" alt="">分享{#$data.info5.reprint#}
+                                    </div>
+
+                                    <div class="shu_b" @click.stop="commentClick(item.id)"><img
+                                            src="/assets/images/home/operation_04.png"
+                                            alt="">评论{{item.info5.comment.length}}</div>
+                                    <div class="shu_b" @click.stop="reprintClick(item.id)"><img
+                                            src="/assets/images/home/operation_02.png" alt="">举报
+                                    </div>
+                                    <div class="shu_b" @click.stop="likesClick(item.id)"><img
+                                            src="/assets/images/home/operation_03.png" alt="">点赞{{item.info5.likes}}
+                                    </div> -->
+                                    <div class="mac-btnss mac-ico-zhuanfa" model="Qa" mid="{#$data.id#}">转发{#$data.info5.reprint#}</div>
+                                    <div class="mac-btnss mac-ico-pinglun" model="Qa" mid="{#$data.id#}"
+                                      >评论{#:count($data.info5.comment)#}</div
+                                    >
+                                    <div class="mac-btnss mac-ico-tishi" model="Qa" mid="{#$data.id#}">举报{#$data.info5.report#}</div>
+                                    <div class="mac-btnss mac-ico-dianzan" model="Qa" mid="{#$data.id#}">点赞{#$data.info5.likes#}</div>
+                                </div>
+                            </div>
+                            <div class="itemAnswer" v-for="(i,ii) in item.info5.comment">
+                                <div class="itemTop">
+                                    <div class="userPic">
+                                        <img src="/assets/images/home/en_01.png" alt="">
+                                        <div class="jia">
+                                            <img src="/assets/images/home/en_03.png" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="userName"><span>{{i.user.name}}</span>做出解答
+                                        <span class="time">{{ft(i.addtime)}}</span>
+                                </div>
+                                <div class="answer">
+                                    <p v-if="item.expense == 0">{{i.content}}
+                                    </p>
+                                    <p v-else="item.expense != 0"> <i class="el-icon-warning-outline"></i>该答案为付费答案，不能查看！
+                                    </p>
+                                </div>
+                                <div class="operation">
+                                    <div model="Qa" mid="{#$data.id#}"><img src="/assets/images/home/operation_01.png" alt="">分享{#$data.info5.reprint#}
+                                    </div>
+                                    <div><img src="/assets/images/home/operation_04.png"
+                                            alt="">评论{{i.info5.comment.length}}</div>
+                                    <div><img src="/assets/images/home/operation_02.png" alt="">举报
+                                    </div>
+                                    <div><img src="/assets/images/home/operation_03.png" alt="">点赞{{i.info5.likes}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <el-dialog v-if="itemIndex===1" title="您提交的资料仅用于专家认证，我们会对您提供的信息实施加密保护！" :visible.sync="dialogTableVisible">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="申请人" prop="name">
+                    <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="封面图片">
+                    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload"
+                        v-model="ruleForm.cover">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item label="职称" prop="other.appellation">
+                    <el-input v-model="ruleForm.other.appellation"></el-input>
+                </el-form-item>
+                <el-form-item label="学历" prop="other.education">
+                    <el-input v-model="ruleForm.other.education"></el-input>
+                </el-form-item>
+                <el-form-item label="头衔称谓" prop="other.rank">
+                    <el-input v-model="ruleForm.other.rank"></el-input>
+                </el-form-item>
+                <el-form-item label="擅长专业" prop="other.major">
+                    <el-input v-model="ruleForm.other.major"></el-input>
+                </el-form-item>
+                <el-form-item label="工作年限" prop="other.worktime">
+                    <el-input v-model="ruleForm.other.worktime"></el-input>
+                </el-form-item>
+                <el-form-item label="个人介绍" prop="content">
+                    <el-input v-model="ruleForm.content"></el-input>
+                </el-form-item>
+                <el-form-item label="证明材料" prop="other.file">
+                    <!-- <el-input v-model="ruleForm.other.file"></el-input> -->
+
+
+
+
+                </el-form-item>
+                <el-form-item label="手机号" prop="tel">
+                    <el-input v-model="ruleForm.tel"></el-input>
+                </el-form-item>
+                <el-form-item label="验证码" prop="code">
+                    <el-input v-model="ruleForm.code" class="codeList"></el-input>
+                    <el-button class="code" round @click.stop="sendCode">{{sleeps?sleeps:'获取验证码'}}</el-button>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')" class="submitButton">提交申请</el-button>
+                    <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+        <div class="mainContent" v-if="itemIndex===2">
+            <div class="nav">
+                <h2>问答</h2>
+                <span class="current"><a href="/ask/financial">财税问答</a></span>
+                <span><a href="/ask/social">人社问答</a></span>
+            </div>
+            <div class="formContent">
+                <div class="con_2">
+                    <div class="box_con">
+                        <div class="itempeo" v-for="(item,index) in expertData" ::key="index">
+                            <div class="itemtop">
+                                <img :src="item.cover" alt="">
+                            </div>
+                            <div class="itemBtm">
+                                <div class="box_3">
+                                    <div class="nameinfo">
+                                        <div class="img">
+                                            <img :src="item.photo" alt="">
+                                            <input type="checkbox" v-model="checked1" name="" id=""
+                                                v-if="item.online==1?checked1=true:checked1=false">
+                                        </div>
+                                        <span>{{item.nickname}}</span>
+                                    </div>
+                                </div>
+                                <div class="box_1">
+                                    <h2>{{item.name}}</h2>
+                                    <span>
+                                        {{item.other.major}}专家
+                                    </span>
+                                </div>
+                                <div class="box_2">
+                                    <span>
+                                        {{item.other.appellation}}
+                                        <!-- <i class="el-icon-edit"></i> -->
+                                    </span>
+                                    <span>
+                                        {{item.other.worktime}}年
+                                    </span>
+                                </div>
+                                <div class="box_4">
+                                    <button class="btn_pay" @click="follow">关注</button>
+                                    <button @click="dialogTableVisible = true" class="btn_pay" v-if="item.online==0"
+                                        style='background-color:#F7F7F7; color: darkgray;' disabled>付费咨询</button>
+                                    <button @click="dialogTableVisible = true" class="btn_pay" v-if="item.online==1"
+                                        style="background-color:#C4DFDC ;">付费咨询</button>
+                                </div>
+
+
+                                <el-dialog title="付费咨询" :visible.sync="dialogTableVisible">
+
+                                    <el-form :model="questionForm" :rules="rule" ref="questionForm" label-width="100px"
+                                        class="demo-questionForm">
+                                        <el-form-item label="问题" prop="content">
+                                            <el-input type="textarea" v-model="questionForm.content"
+                                                placeholder="请输入您要咨询的问题"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="金额" prop="expense">
+                                            <el-input v-model="questionForm.expense" placeholder="请输入咨询金额"></el-input>
+                                        </el-form-item>
+                                        <el-checkbox v-model="checked">
+                                            <el-popover placement="right" width="400" trigger="click">
+                                                <span>支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议</span>
+                                                <el-button slot="reference" style="border:none;">支付协议</el-button>
+                                            </el-popover>
+                                        </el-checkbox>
+                                        <el-form-item>
+                                            <el-button type="success"
+                                                style="width: 200px; background-color:#007768;color: #fff;border:none;margin-left: 300px;"
+                                                @click="payMoney(questionForm)">确定咨询</el-button>
+                                        </el-form-item>
+                                    </el-form>
+
+
+                                </el-dialog>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="page_box"><span>上一页</span><button>111</button><span>下一页</span></div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="mainContent" v-if="itemIndex===3">
+            <div class="nav">
+                <h2>问答</h2>
+                <span @click="clickItem3(1)" :class="itemIndex3==1 ? 'current' : ''">我的提问</span>
+                <span @click="clickItem3(2)" :class="itemIndex3==2 ? 'current' : ''">我的回答</span>
+            </div>
+            <div class="formContent" v-if="itemIndex3==1">
+                <div class="con_3">
+                    <div class="box_con">
+                        <div class="box_1">
+                            <button>专家</button>
+                            <button>普通</button>
+                            <button><select name="" id="">
+                                    <option value="opt1">时间不限</option>
+                                    <option value="opt2">1天内</option>
+                                    <option value="opt3">3天内</option>
+                                    <option value="opt4">一周内</option>
+                                </select></button>
+                        </div>
+                        <div>
+                            <div class="item" v-for="(item,ii) in quesList" :key="ii">
+                                <ul>
+                                    <li class="liFirst">
+                                        <div class="box_2"><img src="/assets/images/home/ask_01.png" alt="">
+                                            <h2>{{item.content}}</h2>
+                                            <div class="box_3"><img src="/assets/images/home/ask_03.png"
+                                                    alt=""><span>{{item.expense}}</span><i
+                                                    class="el-icon-edit-outline"></i></div>
+                                        </div>
+                                        <div class="box_4">{{ft(item.addtime)}}</div>
+                                    </li>
+
+                                    <li class="liTwo">
+                                        <div class="box_5">
+                                            <div class="box_6"><img src="/assets/images/home/ask_02.png" alt="">
+                                                <p><span><strong>李祥云</strong>律师</span>的回答 <span><i
+                                                            class="el-icon-trophy"></i></span></p>
+                                            </div>
+                                            <div class="box_4">2022-9-21</div>
+                                        </div>
+                                        <p class="textp">查看详情...</p>
+                                    </li>
+                                    <li class="liThree">
+                                        <button class="freeBtn">转为免费提问</button>
+                                        <button class="payBtn">转为付费提问</button>
+                                        <button class="delete" @click="quesDelete(item.id)"><i
+                                                class="el-icon-delete"></i>删除</button>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="page_box"><span>上一页</span><button>111</button><span>下一页</span></div>
+                </div>
+            </div>
+            <div class="formContent" v-else>
+                回答
+            </div>
+        </div>
+
+        <div class="mainContent" v-if="itemIndex===4">
+            <div class="nav">
+                <h2>问答</h2>
+                <span class="current"><a href="/ask/financial">财税问答</a></span>
+                <span><a href="/ask/social">人社问答</a></span>
+            </div>
+            <div class="formContent">
+                <div class="con_4">
+                    <h1>奖励规则</h1>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                putQuestion: false,
+                putong: false,
+                radio: '1',
+                options: [{
+                    value: '选项1',
+                    label: '黄金糕frfrfgrg'
+                }, {
+                    value: '选项2',
+                    label: '双皮奶'
+                }],
+                value: '',
+                gridData: {},
+                me: hd.me,
+                id: '',
+                ruleForm: {
+                    name: '',
+                    cover: '',
+                    other: {
+                        appellation: '',
+                        education: '',
+                        worktime: '',
+                        rank: '',
+                        file: [],
+                        major: '',
+                    },
+                    nickname: '',
+                    online: '',
+                    content: '',
+                    tel: '',
+                },
+                questionForm: {
+                    content: '',
+                    expense: ''
+                },
+
+                disabled: false,
+                sleeps: 0,
+                rule: {
+                    content: [
+                        { required: true, message: '请输入您要咨询的问题', trigger: 'blur' },
+                    ],
+                    expense: [
+                        { required: true, message: '请输入咨询金额', trigger: 'blur' },
+                    ],
+                },
+                rules: {
+                    name: [
+                        { required: true, message: '请填写真实姓名', trigger: 'blur' },
+                        { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
+                    ],
+
+
+                    cover: [
+                        { required: true, message: '请上传封面图片', trigger: 'blur' }
+                    ],
+
+                    appellation: [
+                        { required: true, message: '请填写职称', trigger: 'blur' }
+                    ],
+                    education: [
+                        { required: true, message: '请填写学历', trigger: 'blur' }
+                    ],
+                    rank: [
+                        { required: true, message: '请填写头衔称谓', trigger: 'blur' }
+                    ],
+                    major: [
+                        { required: true, message: '请填写擅长专业', trigger: 'blur' }
+                    ],
+                    worktime: [
+                        { required: true, message: '请填写工作年限', trigger: 'blur' }
+                    ],
+                    content: [
+                        { required: true, message: '请填写个人介绍', trigger: 'blur' },
+                        { min: 10, message: '长度至少10个字符', trigger: 'blur' }
+                    ],
+                    file: [
+                        { required: true, message: '请上传证明材料', trigger: 'blur' }
+                    ],
+                    tel: [
+                        { required: true, message: '请填写手机号', trigger: 'blur' }
+                    ],
+                    code: [
+                        { required: true, message: '请填写验证码', trigger: 'blur' }
+                    ],
+                },
+
+                quesList: [],
+                answerList: [],
+                expertData: [],
+                input: '',
+                itemIndex: null,
+                dialogTableVisible: false,
+                checked1: false,
+
+                itemIndex3: 1,
+                checked: true,
+                imageUrl: '',
+                fileList: '',
+                forgetBtnText: [],
+                // major:''
+            }
+        },
+        created() {
+            // this.showQuestion()
+            this.getExpertList()
+            this.typeClick1()
+        },
+        methods: {
+            // 提交问题
+            addQuestion() {
+
+
+            },
+            // 普通或者专家按钮
+            async typeClick1() {
+                $('.typeButton1').addClass("active")
+                $('.typeButton2').removeClass("active")
+                this.putong = true;
+                const res = await httppost('member/qa/index', { target: 0, info5: 5 });
+                this.quesList = res.data;
+                // console.log(this.quesList);
+                console.log(hd.me);
+
+
+            },
+            typeClick2() {
+                $('.typeButton2').addClass("active")
+                $('.typeButton1').removeClass("active")
+                this.putong = false;
+                // const res = await httppost('member/qa/index', { target: 0, info5: 5 });
+                // this.dataList = res.data;
+                // console.log(this.dataList);
+            },
+
+            payMoney(formName) {
+                if (this.disabled) {
+                    return;
+                }
+                this.disabled = true;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        httppost("member/qa/add", this.questionForm).then((res) => {
+                            console.log('111');
+
+
+                        })
+                    }
+                });
+            },
+            msgClick() {
+                hd.msgClick(...arguments);
+                console.log(arguments, hd.msgClick);
+            },
+            // 切换
+            clickTab(index) {
+                this.itemIndex = index
+                if (index != 3) {
+                    this.itemIndex3 = 1;
+                }
+                if (index == 1) {
+                    this.dialogTableVisible = true
+                }
+            },
+            // 获取验证码
+            async sendCode() {
+                if (
+                    !this.sleeps &&
+                    this.ruleForm.tel.toString().length == 11 &&
+                    /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/
+                ) {
+                    const r = await httppost("member/sendsms/authMobileNoCheck", {
+                        mobile: this.ruleForm.tel,
+                    });
+                    this.$message[r.code == 200 ? "success" : "error"](r.message);
+                    this.sleeps = 60;
+                    const h = setInterval(() => {
+                        if (!(this.sleeps-- > 0)) {
+                            this.sleeps = 0;
+                            clearInterval(h);
+                        }
+                    }, 1000);
+                }
+            },
+            // 提交表单（申请成为专家）
+            submitForm(formName) {
+                console.log("dsfdsg");
+                // if (this.disabled) {
+                // return;
+                // }
+                // this.disabled = true;
+                // return console.log({...this.ruleForm});
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        httppost("member/Expert/save", this.ruleForm).then((res) => {
+                            this.$message[res.code == 200 ? "success" : "error"](res.message);
+                            console.log("提交成功");
+                            this.showForm = false;
+                            console.log(this.ruleForm);
+                        });
+                    }
+                });
+            },
+
+            ft: formatShortTime,
+
+            clickItem3(e) {
+                this.itemIndex3 = e;
+            },
+            // 关注专家
+            follow() {
+                this.$message({
+                    message: '关注成功',
+                    type: 'success'
+                });
+            },
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isLt2M
+            },
+            // 上传头像
+            handleChange(file, fileList) {
+                this.fileList = fileList.slice(-3);
+            },
+            // 问答
+            // showQuestion() {
+            //     httppost('/member/qa/index', { info5: 5 }).then((res) => {
+            //         this.quesList = res.data;
+            //     }).catch(() => { })
+            // },
+            // 跳转到问答详情页
+            toFinancialDetails(id) {
+                location.href = `/ask/askDetails/${id}.html`;
+            },
+            // 转发
+
+            // 点赞
+            async favorites(id) {
+                const r = await httppost('/member/qa/favorites', { id });
+            },
+            // 评论
+            async comment(id, content) {
+                const r = await httppost('/member/qa/comment', { id, content });
+            },
+            // 举报
+            async report(id, content) {
+                const r = await httppost('/member/qa/report', { id, content });
+            },
+            // 收藏
+            async likes(id) {
+                const r = await httppost('/member/qa/likes', { id });
+            },
+
+            getExpertList() {
+                httppost('/member/Expert/index').then((res) => {
+                    this.expertData = res.data;
+                    console.log(this.expertData);
+
+                })
+            },
+            quesDelete() {
+                if (this.id) {
+                    this.$confirm("确定删除？", "提示", {
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        type: 'warning'
+                    }).then(() => {
+                        httppost('member/qa/delete', { id }).then((res) => {
+                            this.id = res.id
+                        })
+                    })
+                }
+            },
+            // 
+            async reprintClick(id) {
+                const r = await httppost('/member/qa/reprint', { id });
+                const url = 'http://ad.cc/ask/askDetails' + '/' + r.data.id + '.html';
+                alert(url)
+            },
+
+            commentClick(id, content) {
+                location.href = `/ask/askDetails/${id}.html`;
+            }
+
+
+
+
+
+
+
+
+        }
+    })
+
+</script>

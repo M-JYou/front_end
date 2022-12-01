@@ -1,0 +1,151 @@
+.logoPart{
+	height: 85px;
+}
+.release p {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.release p a {
+    font-size: 20px;
+    color: #007768;
+    margin-left: 15px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    padding: 20px 0px;
+}
+
+.main .el-breadcrumb {
+    margin: 30px 0px 30px 100px;
+
+}
+
+.main .mainContent {
+    width: 100%;
+    display: flex;
+    background-color: #FFFFFF;
+    justify-content: space-evenly;
+}
+
+.main .mainContent .nav {
+    width: 300px;
+    height: 845px;
+    background-color: #F7F7F7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .mainContent .nav h2 {
+    width: 270px;
+    height: 80px;
+    color: #007768;
+    font-size: 28px;
+    border-bottom: 1px solid #E9E9E9;
+    line-height: 80px;
+    text-align: center;
+}
+
+.main .mainContent .nav span {
+    font-size: 20px;
+    color: #777777;
+    margin-top: 40px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main .mainContent .nav .current {
+    /* font-size: 20px; */
+    margin-top: 40px;
+    font-weight: 700;
+    font-family: 'Microsoft YaHei';
+}
+.main .mainContent .nav .current a {
+    color: #007768;
+    font-size: 22px;
+}
+
+.main .mainContent .formContent {
+    width: 1065px;
+    height: 845px;
+    border-radius: 15px;
+    background-color: #F7F7F7;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+overflow: auto;
+}
+.formContent .item{
+    width:1016px;
+    height: 248px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+.formContent .item h2{
+    font-size: 24px;
+    color: #777777;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+.formContent .item h2 .spot{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #007768;
+    margin-right: 20px;
+}
+.formContent .item .docIntroduction{
+    width: 98%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.formContent .item .docIntroduction p{
+    width:740px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2 ;
+    overflow: hidden;
+    font-size: 18px;
+    color: #A8A8A8;
+    line-height: 32px;
+    margin-left: 16px;
+}
+.formContent .item .docIntroduction button{
+    width: 140px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #007768;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-left: 20px;
+}
+.formContent .item .operation{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 18px;
+}
+.formContent .item .operation>div{
+    width: 130px;
+    font-size: 18px;
+    color: #A8A8A8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+

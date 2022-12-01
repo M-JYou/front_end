@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "qiun-data-charts": "/uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts",
+    "page-tabpars": "/components/page-tabpars/page-tabpars",
+    "share": "/components/share/index"
+  }
+}

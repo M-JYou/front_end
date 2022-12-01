@@ -1,0 +1,325 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/joblist.css" /#} {#include file="public/search" /#}
+<div class="wapper_content" id="app">
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item>免费求职</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="main-top">
+      <div class="top-head">
+        <button class="info">招聘信息</button>
+      </div>
+      <div class="classification">
+        <div>
+          <p class="box_1">职位</p>
+          <p class="box_2" :class="jobsClass">
+            {#volist name='jobs' id='d'#}<a
+              href="{#:P(['job'=>$d.id==$job?null:$d.id])#}"
+              class="{#$d.id==$job?'current':'' #}"
+              >{#$d.name#}</a
+            >{#/volist#}
+          </p>
+          <button @click="jobsClass=jobsClass?'':'cswrap'">{{ jobsClass? '收起' : '更多'}} </button>
+        </div>
+        <div>
+          <p class="box_1">区域</p>
+          <p class="box_2" :class="citysClass">
+            {#volist name='citys' id='d'#}<a
+              href="{#:P(['city'=>$d.id==$city?null:$d.id])#}"
+              class="{#$d.id==$city?'current':'' #}"
+              >{#$d.name#}</a
+            >{#/volist#}
+          </p>
+          <button @click="citysClass=citysClass?'':'cswrap'">{{ citysClass? '收起' : '更多'}} </button>
+        </div>
+        <div>
+          <p class="box_1">发布时间</p>
+          <p class="box_2">
+            <el-date-picker
+              size="mini"
+              @change="jump"
+              style="margin-left: 30px"
+              v-model="param.time"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            >
+            </el-date-picker>
+          </p>
+        </div>
+        <div>
+          <p class="box_1">福利</p>
+          <p class="box_2" :class="jobtagClass"
+            ><a :style="i.style" v-for="i in jobtag" @click="jobtagClick(i.id)">{{i.name}}</a></p
+          >
+          <button @click="jobtagClass=jobtagClass?'':'cswrap'">{{ jobtagClass? '收起' : '更多'}} </button>
+        </div>
+
+        <div>
+          <p class="box_1">更多</p>
+          <p class="box_2">
+            <el-select @change="jump" v-model="param.trade" placeholder="请选择行业类型" size="mini" clearable>
+              <el-option v-for="item in trade" :key="item.id" :label="item.name" :value="item.id"> </el-option>
+            </el-select>
+            <el-select @change="jump" v-model="param.company_type" placeholder="请选择单位性质" size="mini" clearable>
+              <el-option v-for="item in company_type" :key="item.id" :label="item.name" :value="item.id"> </el-option>
+            </el-select>
+            <el-select @change="jump" v-model="param.education" placeholder="请选择学历要求" size="mini" clearable>
+              <el-option v-for="(i,ii) in education" :key="ii" :label="i" :value="parseInt(ii)"> </el-option>
+            </el-select>
+            <el-select @change="jump" v-model="param.experience" placeholder="请选择工作经验" size="mini" clearable>
+              <el-option v-for="(i,ii) in experience" :key="ii" :label="i" :value="parseInt(ii)"> </el-option>
+            </el-select>
+            <el-select @change="jump" v-model="param.wage" placeholder="请选择薪资范围" size="mini" clearable>
+              <el-option v-for="(i,ii) in wage" :key="ii" :label="i.label" :value="ii"> </el-option>
+            </el-select>
+          </p>
+        </div>
+        <div>
+          <p class="box_1">您是不是要找</p>
+          <p class="box_2">
+            {#volist name='history' id='d'#}<a
+              href="{#:P(['job'=>$d.id==$job?null:$d.id])#}"
+              class="{#$d.id==$job?'current':'' #}"
+              >{#$d.name#}</a
+            >{#/volist#}
+          </p></div
+        >
+      </div>
+    </div>
+    <div class="box_3">
+      <button><i class="el-icon-circle-check"></i>已实名认证</button>
+    </div>
+
+    <div class="mainList">
+      <div class="listCon">
+        <div class="listItem" v-for="(i,ii) in data.items" @click="goto(i.id)">
+          <div class="itemPosition">
+            <h2>{{i.jobname}}<span>[{{i.district_}}]</span></h2>
+            <p>{{fwage(i)}}</p>
+            <div class="welfare">
+              <div class="welfareBox" v-for="j in i.tag">{{j}}</div>
+            </div>
+          </div>
+          <div class="itemCompanyt">
+            <div class="comInfo">
+              <div class="comPic">
+                <img class="imgheader" :src="i.photo" alt="" :mid="i.uid" />
+              </div>
+              <div class="comRight">
+                <h2 class="comName">{{i.company_name}}</h2>
+                <div class="comAdd">
+                  <span class="span_1">产品经理</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="apply"
+            :style="'cursor:'+(me.utype==2&&i.apply_text=='投递'?'pointer':'no-drop')"
+            @click.stop="doApplyResume(i)"
+            >{{i.apply_text}}</button
+          >
+          <p class="activity">{{fdate(i.last_login_time)}}活跃</p>
+        </div>
+      </div>
+      {#load href="__ROOT__/assets/css/page.css" /#}
+      <div class="page">
+        <button class="last" :style="'cursor:'+(data.current_page>1?'pointer':'no-drop')" @click="lastClick"
+          ><i class="el-icon-arrow-left"></i
+        ></button>
+        <button class="num">{{data.current_page}}</button>
+        <button
+          class="next"
+          :style="'cursor:'+(data.current_page<data.total_page?'pointer':'no-drop')"
+          @click="nextClick"
+          ><i class="el-icon-arrow-right"></i
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function getQueryJson(p) {
+    const url = location.href; // 获取当前浏览器的URL
+    const param = {}; // 存储最终JSON结果对象
+    url.replace(/([^?&]+)=([^?&]+)/g, (s, v, k) => {
+      param[v] = decodeURIComponent(k); //解析字符为中文
+      const t = Number(param[v]);
+      if (param[v] === t.toString()) {
+        param[v] = t;
+      }
+      return k + "=" + v;
+    });
+    Object.keys(p).forEach((k) => {
+      if (param[k] === undefined) {
+        const t = `/${k}/`;
+        let s = url.indexOf(t);
+        if (s > 0) {
+          s += t.length;
+          let e = url.indexOf("/", s);
+          if (e < 0) {
+            e = url.indexOf(".", s);
+          }
+          if (e < 0) {
+            e = url.length;
+          }
+          param[k] = decodeURIComponent(url.substring(s, e));
+        }
+      }
+    });
+    return param;
+  }
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        me: hd.me,
+        showRegQuick: false,
+        param: {
+          time: undefined,
+          jobtag: undefined,
+          company_type: undefined,
+          trade: undefined,
+          education: undefined,
+          experience: undefined,
+          wage: undefined,
+        },
+        jobsClass: "",
+        citysClass: "",
+        jobtag: JSON.parse(`{#:show($jobtags)#}`),
+        jobtagClass: "",
+        trade: JSON.parse(`{#:show($trade)#}`),
+        company_type: JSON.parse(`{#:show($company_type)#}`),
+        education: JSON.parse(`{#:show($education)#}`),
+        experience: JSON.parse(`{#:show($experience)#}`),
+        wage: JSON.parse(`{#:show($wage)#}`),
+        data: JSON.parse(`{#:show($data)#}`),
+        jumpRet: false,
+      };
+    },
+    created() {
+      this.data.items.forEach((e) => {
+        e.tag = e.tag
+          .split(",")
+          .map((e2) => {
+            const t = this.jobtag.find((e3) => e3.id == e2);
+            return t ? t.name : undefined;
+          })
+          .filter((e2) => e2);
+      });
+console.log(JSON.parse(JSON.stringify(this.data)));
+      this.jumpRet = true;
+      const p = Object.assign(this.param, getQueryJson(this.param));
+      if (p.time) {
+        p.time = p.time.split(",").map((e) => e * 1000 || 0);
+      }
+      if (p.jobtag) {
+        this.jobtagClick((p.jobtag = JSON.parse(`[${p.jobtag}]`)));
+      }
+      this.jumpRet = false;
+    },
+    methods: {
+      fwage(p) {
+        let min = (p.minwage / 1000).toString();
+        let t = parseFloat(min).toFixed(1);
+        if (min.length > t.length) {
+          min = t;
+        }
+        let max = (p.maxwage / 1000).toString();
+        t = parseFloat(max).toFixed(1);
+        if (max.length > t.length) {
+          max = t;
+        }
+        return `${min}-${max}K/月`;
+      },
+      fdate(p) {
+        const d = new Date(p * 1000);
+        return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+      },
+      jobtagClick(id) {
+        if (!Array.isArray(id)) id = [id];
+        const t = [];
+        this.jobtag.forEach((e) => {
+          if (id.find((ee) => ee == e.id)) {
+            e.style = e.style ? "" : "color:#f1b62b;";
+          }
+          if (e.style) {
+            t.push(e.id);
+          }
+        });
+        this.param.jobtag = t.length ? t : undefined;
+        this.jump();
+      },
+      lastClick() {
+        if (this.data.current_page > 1) {
+          this.param.page = --this.data.current_page;
+          this.jump();
+        }
+      },
+      nextClick() {
+        if (this.data.total_page > this.data.current_page) {
+          this.param.page = ++this.data.current_page;
+          this.jump();
+        }
+      },
+      jump() {
+        if (this.jumpRet) {
+          return;
+        }
+        let t = "";
+        for (const key in this.param) {
+          if (Object.hasOwnProperty.call(this.param, key)) {
+            if (this.param[key] || this.param[key] === 0) {
+              t +=
+                "&" +
+                key +
+                "=" +
+                encodeURIComponent(key !== "time" ? this.param[key] : this.param[key].map((e) => parseInt(e / 1000)));
+            }
+          }
+        }
+        t = window.location.origin + window.location.pathname + (t ? "?" + t.substring(1) : "");
+        if (window.location.href != t) {
+          window.location.href = t;
+        }
+      },
+      doApplyResume(job) {
+        if (job.apply_text == "投递") {
+          if (this.me?.utype !== 2) {
+            this.$confirm("当前操作需要登录求职者账号", "提示", {
+              type: "warning",
+              confirmButtonText: "去登录",
+            })
+              .then(() => {
+                location.href = qscms.locationList.loginPersonal + "?redirect=" + location.href;
+              })
+              .catch(() => {});
+          } else {
+            httppost(qscms.apiList.jobapply, { jobid: job.id })
+              .then(function (res) {
+                that.$message({ type: "success", message: res.message });
+                location.reload();
+              })
+              .catch(function () {});
+          }
+        } else {
+          this.$message.error("请勿重复投递简历");
+        }
+      },
+      favoritesCompany(id) {
+        httppost("/member/memberInfo/favorites", { id })
+          .then((r) => {
+            this.$message.success(r.message);
+          })
+          .catch(() => {});
+      },
+      goto(id) {
+        window.location.href = `/job/${id}.html`;
+      },
+    },
+  });
+</script>

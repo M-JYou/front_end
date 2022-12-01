@@ -1,0 +1,64 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/logoLayout.css" /#} {#load
+href="__ROOT__/assets/css/studyVideoDetails.css" /#}
+<div class="wapper_content mac-ico" id="app">
+  <!-- #region -->
+  <div class="logoPart">
+    <div class="logo">
+      <img src="/assets/images/home/logo_xiazi.png" alt="" />
+      <span>打造财税生态链</span>
+    </div>
+  </div>
+  <div class="main">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/study/video/1">免费学习</a></el-breadcrumb-item>
+      <el-breadcrumb-item>视频详情</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="main_btm">
+      <div class="main_content">
+        <div class="video_con">
+          <video src="{#$data.video#}" width="100%" height="100%" controls> </video>
+        </div>
+        <div class="video_title">
+          <h1>{#$data.name#}</h1>
+          <div class="content_text"> {#$data.content#} </div>
+
+          <div class="operation">
+            <div class="mac-btnss mac-ico-zhuanfa" model="Study" mid="{#$data.id#}">转发{#$data.info5.reprint#}</div>
+            <div class="mac-btnss mac-ico-pinglun" model="Study" mid="{#$data.id#}"
+              >评论{#:count($data.info5.comment)#}</div
+            >
+            <div class="mac-btnss mac-ico-tishi" model="Study" mid="{#$data.id#}">举报{#$data.info5.report#}</div>
+            <div class="mac-btnss mac-ico-dianzan" model="Study" mid="{#$data.id#}">点赞{#$data.info5.likes#}</div>
+          </div>
+        </div>
+        <div class="user_qes">
+          <span class="userComment">用户评论</span>
+          {#volist name='data.info5.comment' id='v'#}
+          <div class="itemAnswer">
+            <div class="itemTop">
+              <a href="">
+                <div class="userPic mac-oh mac-xcc"><img class="mac-hf" src="{#$v.user.photo#}" alt="" /></div>
+                <span class="userName">{#$v.user.nickname#}</span>的评论
+              </a>
+              <span class="time">{#:date('Y-m-d H:i:s',$v.addtime)#}</span>
+            </div>
+            <p class="answer">{#$v.content#}</p>
+            <div class="operation">
+              <div class="mac-btnss mac-ico-tishi" model="Comment" mid="{#$v.id#}">举报{#$v.report#}</div>
+              <div class="mac-btnss mac-ico-dianzan" model="Comment" mid="{#$v.id#}">点赞{#$v.likes#}</div>
+            </div>
+          </div>
+          {#/volist#}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  new Vue({
+    el: "#app",
+    async created() {},
+    methods: {},
+  });
+</script>

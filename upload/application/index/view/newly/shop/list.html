@@ -1,0 +1,61 @@
+{#layout name="public/layout" /#}{#include file="public/search" /#}
+
+<div class="mac-x mac-fg1">
+  <div class="mac-p1em mac-nbx" style="width: 24em">
+    <div class="mac-y mac-jc mac-wf" style="background-color: var(--mac-color-back); border-radius: 1em" id="types">
+      <a style="font-size: 2em; color: var(--mac-color-main); margin-top: 1em; font-weight: 600">分类</a>
+      <div class="sidebar" style="font-size: 1.4em; border-top: 1px solid #ddd; margin-top: 1em">
+        {#:ulbar($types,'type')#}</div
+      >
+    </div>
+  </div>
+  <div class="mac-y mac-wf">
+    <div class="mac-x" style="font-size: 1.6em">
+      <a href="{#:P(['order'=>'sales','orderkey'=>$orderkey?0:1])#}" style="margin-right: 1em"
+        >销量 {#$order=='sales'?($orderkey?'↓':'↑'):''#}</a
+      >
+      <a href="{#:P(['order'=>'addtime','orderkey'=>$orderkey?0:1])#}" style="margin-right: 1em"
+        >新品 {#$order=='addtime'?($orderkey?'↓':'↑'):''#}</a
+      >
+      <a href="{#:P(['order'=>'expense','orderkey'=>$orderkey?0:1])#}"
+        >价格 {#$order=='expense'?($orderkey?'↓':'↑'):''#}</a
+      >
+    </div>
+    <div class="listGrid" sum="3">
+      {#volist name='data' id='d'#}
+      <div class="item">
+        <a href="{#:P(['goods'=>$d.id])#}"><img src="{#$d.cover#}" alt="" /></a>
+        <div class="mac-x mac-zb mac-je mac-p1em">
+          <div class="mac-x mac-je" style="color: var(--mac-color-red); font-size: 1.4em"
+            >￥<span style="font-size: 1.4em">{#$d.expense#}</span></div
+          >
+          <span>已售:{#$d.sales#}</span>
+        </div>
+        <div class="mac-ml2em mac-mt04em mac-txt-hid">{#$d.name#}</div>
+        <div class="mac-x mac-p1em mac-jc mac-zb" style="font-size: 1.4em">
+          <a
+            href="{#:P(['shop'=>$d.shop.id])#}"
+            class="mac-ico-shangjia mac-bmr1em"
+            style="color: var(--mac-color-main); font-weight: 600"
+            >{#$d.shop.name#}</a
+          >
+          <div class="mac-x">
+            <div
+              class="mac-btn mac-ico-favor"
+              model="Goods"
+              mid="{#$d.id#}"
+              style="background-color: initial; color: gold"
+            ></div>
+            <div
+              class="mac-btn mac-ico-add_cart"
+              model="Cart"
+              mid="{#$d.id#}"
+              style="color: var(--mac-color-red); background-color: initial"
+            ></div>
+          </div>
+        </div>
+      </div>
+      {#/volist#}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,255 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/collectProduct.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="search">
+            <div class="search-input">
+                <div>
+                    <select name="" id="">
+                        <option value="">商品</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                    </select>
+                    <input type="text" placeholder="请输入商品名称">
+                </div>
+                <button>搜索</button>
+            </div>
+           
+        </div>
+        <div class="release">
+            <p @click="goshopCart"><img src="/assets/images/home/shop_1.png" alt=""><span>购物车</span></p>
+            <p @click="goshopFreeStore"><img src="/assets/images/home/shop_5.png" alt=""><span>免费开店</span></p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="pTitle">
+            <img src="/assets/images/home/shop_06.png" alt="">
+
+        </div>
+
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/officialWeb/shopping">购物</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/officialWeb/shopMy">我的</a></el-breadcrumb-item>
+                <el-breadcrumb-item>收藏的商品</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="mainContent">
+
+
+
+            <div class="mainLeft">
+
+                <div class="user">
+                    <img src="/assets/images/home/ask_01.png" alt="">
+                    <h2>尼古丁·凯奇</h2>
+                    <div><span>关注 999</span><span>粉丝 9999</span></div>
+                    <p>籽虾号：12345678</p>
+                    <p>虾币：1376</p>
+                </div>
+
+
+
+
+                <div class="nav">
+                    <span class="current">收藏的商品</span>
+                    <span>收藏的店铺</span>
+                    
+                </div>
+            </div>
+
+            <div class="mainRight">
+              <div class="fenlei">
+                <div class="left">
+                    <span class="active">全部 </span>
+                    <span>财会用品</span>
+                    <span>办公用品 </span>
+                    <span>财税软件</span>
+                    <span>财税书籍</span>
+                </div>
+                <div class="right">
+                    <el-checkbox v-model="checked">全选</el-checkbox>
+                    <el-button type="primary" icon="el-icon-delete">删除</el-button>
+                </div>
+
+              </div>
+
+
+
+
+              <div class="itemWrapper">
+                <div class="item" v-for="(item,index) in products" :key="index" @click="goShopDetails(item.id)">
+                    <div class="box_2">
+                        <img src="{{item.cover}}" alt="">
+                    </div>
+                    <div class="itemBtm">
+                        <div class="box_3">
+                            <div class="price">
+                                <div class="newPrice">￥<span>{{item.expense}}</span></div>
+                                <div class="oddPrice">￥1366</div>
+                            </div>
+                            <p class="num">已售13525</p>
+                        </div>
+                        <div class="box_4">{{item.name}}</div>
+                        <div class="box_5">
+                            <div class="shopName"><img src="/assets/images/home/shop_04.png" alt="">{{item.store.name}}</div>
+                            <div class="addCart"><img @click="open2" src="/assets/images/home/shop_8.png" alt=""><img
+                                    @click="addCart" src="/assets/images/home/shop_9.png" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+               
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                checked:false,
+                activeName: 'first',
+                input: '',
+                expert: true,
+                navList: ['全部', '猜你喜欢', '财会用品', '办公用品', '财税软件', '财税书籍'],
+                data: JSON.parse(`{#:show($data)#}`),
+                me: JSON.parse(Cookies.get("qscms_visitor") || "{}"),
+                showRegQuick:false,
+                products:[],
+            }
+        },
+        created() {
+            this.getProductList()
+        },
+        methods: {
+            open2() {
+                this.$message({
+                    message: '商品收藏成功',
+                    type: 'success'
+                });
+            },
+            addCart() {
+                this.$message({
+                    message: '已添加',
+                    type: 'success'
+                });
+            },
+            // lastClick() {
+            //     if (this.data.current_page > 1) {
+            //         this.param.page = --this.data.current_page;
+            //         this.jump();
+            //     }
+            // },
+            // nextClick() {
+            //     if (this.data.total_page > this.data.current_page) {
+            //         this.param.page = ++this.data.current_page;
+            //         this.jump();
+            //     }
+            // },
+            goshopCart() {
+                // const utype = this.me.utype || 0;
+                // if (parseInt(utype) === 0) {
+                //     this.showRegQuick = true;
+                //     this.$confirm('当前操作需要登录账号', '提示', {
+                //         type: 'warning',
+                //         confirmButtonText: '登录'
+                //     }).then(() => {
+                //         location.href = qscms.locationList.loginPersonal + "?redirect=" + location.href;
+                //     }).catch(() => { })
+                // } else{
+                //     location.href = './shopCart.html'
+                // }
+            },
+            goshopMy() {
+                // const utype = this.me.utype || 0;
+                // if (parseInt(utype) === 0) {
+                //     this.showRegQuick = true;
+                //     this.$confirm('当前操作需要登录账号', '提示', {
+                //         type: 'warning',
+                //         confirmButtonText: '登录'
+                //     }).then(() => {
+                //         location.href = qscms.locationList.loginPersonal + "?redirect=" + location.href;
+                //     }).catch(() => { })
+                // } else{
+                //     location.href = './shopMy.html'
+                // }
+            },
+            goshopShare() {
+                // const utype = this.me.utype || 0;
+                // if (parseInt(utype) === 0) {
+                //     this.showRegQuick = true;
+                //     this.$confirm('当前操作需要登录账号', '提示', {
+                //         type: 'warning',
+                //         confirmButtonText: '登录'
+                //     }).then(() => {
+                //         location.href = qscms.locationList.loginPersonal + "?redirect=" + location.href;
+                //     }).catch(() => { })
+                // } else{
+                //     // location.href = './shopCart.html'
+                //     console.log('分享');
+                // }
+            },
+            goshopFreeStore() {
+                // const utype = this.me.utype || 0;
+                // if (parseInt(utype) === 0) {
+                //     this.showRegQuick = true;
+                //     this.$confirm('当前操作需要登录账号', '提示', {
+                //         type: 'warning',
+                //         confirmButtonText: '登录'
+                //     }).then(() => {
+                //         location.href = qscms.locationList.loginPersonal + "?redirect=" + location.href;
+                //     }).catch(() => { })
+                // } else{
+                //     location.href = './shopCart.html'
+                // }
+            },
+            goSellerCenter() {
+                // const utype = this.me.utype || 0;
+                // if (parseInt(utype) === 0) {
+                //     this.showRegQuick = true;
+                //     this.$confirm('当前操作需要登录账号', '提示', {
+                //         type: 'warning',
+                //         confirmButtonText: '登录'
+                //     }).then(() => {
+                //         location.href = qscms.locationList.loginPersonal + "?redirect=" + location.href;
+                //     }).catch(() => { })
+                // } else{
+                //     location.href = './shopCart.html'
+                // }
+            },
+            getProductList(){
+                httppost('member/goods/index').then( (res) =>{
+                    this.products=res.data;
+                    console.log(this.products);
+
+                })
+            },
+            goShopDetails(id){
+                location.href = `/officialWeb/shopDetails/${id}.html`;
+
+            }
+
+
+
+
+        }
+    })
+
+</script>

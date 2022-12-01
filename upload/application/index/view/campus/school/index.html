@@ -1,0 +1,262 @@
+{#layout name="public/campus/campus_layout" /#}
+{#load href="__ROOT__/assets/css/campus/campus_schoollist.css" /#}
+<div class="s_content" id="app">
+  <!-- 搜索 -->
+  <div class="search_min w1200">
+    <div class="search clearfix">
+      <div class="left ipt">
+        <input type="text" v-model="keyword" @keyup.enter="handlerSearch" placeholder="请输入关键词">
+      </div>
+      <div class="right btn" @click="handlerSearch">
+        <button>搜一搜</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 筛选 -->
+  <div class="w1200">
+    <div class="campus_filter_combo">
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">院校层次：</div>
+        <div class="left line_item clearfix">
+          <a class="left f_item {#if condition='!$Request.param.level'#}f_item_ac{#/if#}" href="{#:P(['level'=>null])#}">不限</a>
+          <span class="cityLinkArea">
+            {#volist name="level_list" id="vo"#}
+            <a href="{#:P(['level'=>$vo.id])#}" class="f_item  {#if condition='$Request.param.level==$vo.id'#}f_item_ac{#/if#}">{#$vo.name#}</a>
+            {#/volist#}
+          </span>
+        </div>
+      </div>
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">所在地区：</div>
+        <div class="left line_item clearfix">
+          <a class="left f_item {#if condition='!$Request.param.d1'#}f_item_ac{#/if#}" href="{#:P(['d1'=>null,'d2'=>null,'d3'=>null])#}">不限</a>
+          <a href="javascript:;" class="left f_item classifyReturn"  data-type="cityReturn" style="display: none">上级</a>
+          <span id="cityLinkArea">
+            {#volist name="options_district" id="vo"#}
+              <a href="{#$vo.url#}" class="cityLink {#if condition='$Request.param.d3==$vo.id'#}f_item_ac{#/if#} f_item">{#$vo.text#}</a>
+            {#/volist#}
+          </span>
+          <a href="javascript:;" data-type="cityLink" style="display: none" class="f_more more toggleMore"  >
+            <span>更多</span>
+          </a>
+        </div>
+      </div>
+      <div class="campus_filter_line filter_combo_mgb clearfix">
+        <div class="line_title left">院校类型：</div>
+        <div class="left line_item clearfix">
+          <a class="left f_item {#if condition='!$Request.param.type'#}f_item_ac{#/if#}" href="{#:P(['type'=>null])#}">不限</a>
+          <span class="cityLinkArea">
+            {#volist name="type_list" id="vo"#}
+            <a href="{#:P(['type'=>$vo.id])#}" class="f_item {#if condition='$Request.param.type==$vo.id'#}f_item_ac{#/if#}">{#$vo.name#}</a>
+            {#/volist#}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="college">
+      <div class="college_list clearfix">
+        {#if condition="count($list) gt 0"#}
+          {#volist name="list" id="item"#}
+          <div class="left college_item {#if condition="($key+1)%3 eq 0"#}no_mr{#/if#}" onclick="javascript:window.open('{#:url(\'index/campus/school_show\',[\'id\'=>$item.id])#}')">
+            <div class="college_info">
+              <a class="college_name substring">{#$item.name#}</a>
+              <p class="college_oth substring">
+                <span>{#$item.type_cn#}</span>
+                <span>{#$item.level_cn#}</span>
+              </p>
+              <p class="college_address substring">学校所在地：{#$item.district_cn#}</p>
+              <div class="img">
+                <img src="{#$item.logo_url#}" alt="">
+              </div>
+            </div>
+            <div class="meet substring">
+              该校近期共有  <span class="color">{#$item.preach_count#}</span>  场宣讲会，  <span class="color">{#$item.election_count#}</span>  场双选会
+            </div>
+          </div>
+          {#/volist#}
+        {#else#}
+        <div class="list_empty">
+          <div class="emp_text">暂时没有数据哦</div>
+        </div>
+        {#/if#}
+      </div>
+      {#$pagerHtml#}
+    </div>
+  </div>
+</div>
+
+<script> 
+$(function(){
+  var cityList = {};
+  var d1 = 0, d2 = 0, d3 = 0;
+  var c1 = 0, c2 = 0, c3 = 0;
+  var cityLevel = parseInt('{#$district_level#}');
+  var displayWordWidth = 900;
+  // 筛选条件显示数量控制
+  handleFilterConditionDisplay('cityLink');
+  function handleFilterConditionDisplay(className) {
+    var showWidth = 0, $filterLink = $('.' + className);
+    $filterLink.each(function (index, value) {
+      if (showWidth > displayWordWidth) {
+        $(this).hide();
+        $('[data-type=' + className + ']').show();
+      } else {
+        $(this).addClass('sw');
+        if (className === 'tagLink') {
+          showWidth += (value.clientWidth + 5);
+        } else {
+          showWidth += value.clientWidth;
+        }
+      }
+    });
+  }
+
+  // ajax获取分类数据
+  getClassify('citycategory');
+
+  // 返回上一级
+  $('.classifyReturn').click(function () {
+    var thisType = $(this).data('type');
+    if (thisType === 'cityReturn') {
+      if (cityLevel === 3) {
+        // 三级分类
+        var returnArray = cityList.filter(function (item) {
+          if (parseInt(item.value) === d1) {
+            return item
+          }
+        })[0].children;
+        $('#cityLinkArea').html(generateList(returnArray, 2, thisType));
+      } else {
+        $('#cityLinkArea').html(generateList(cityList, 1, thisType));
+        $('[data-type=cityReturn]').hide();
+      }
+      cityLevel = cityLevel - 1;
+      handleFilterConditionDisplay('cityLink');
+    } else {
+      if (categoryLevel === 3) {
+        // 三级分类
+        var returnArray = categoryList.filter(function (item) {
+          if (parseInt(item.value) === c1) {
+            return item
+          }
+        })[0].children;
+        $('#categoryLinkArea').html(generateList(returnArray, 2, thisType));
+      } else {
+        $('#categoryLinkArea').html(generateList(categoryList, 1, thisType));
+        $('[data-type=categoryReturn]').hide();
+      }
+      categoryLevel = categoryLevel - 1;
+      handleFilterConditionDisplay('jobLink');
+    }
+  });
+
+  // 返回上一级生成列表
+  function generateList(data, level, type) {
+    var listHtml = '';
+    Object.values(data).forEach(function (item) {
+      var listUrl = '';
+      if (type === 'cityReturn') {
+        if (level === 2) {
+          listUrl = '{#:P([\'d1\'=>\'_d1_\',\'d2\'=>\'_d2_\',\'d3\'=>null])#}';
+          listUrl = listUrl.replace('_d1_', d1);
+          listUrl = listUrl.replace('_d2_', item.value);
+        } else {
+          listUrl = '{#:P([\'d1\'=>\'_d1_\',\'d2\'=>null,\'d3\'=>null])#}';
+          listUrl = listUrl.replace('_d1_', item.value);
+        }
+        listHtml += '<a href="' + listUrl + '" class="f_item cityLink">' + item.label + '</a>';
+      } else {
+        if (level === 2) {
+          listUrl = '{#:P([\'c1\'=>\'_c1_\',\'c2\'=>\'_c2_\',\'c3\'=>null])#}';
+          listUrl = listUrl.replace('_c1_', c1);
+          listUrl = listUrl.replace('_c2_', item.value);
+        } else {
+          listUrl = '{#:P([\'c1\'=>\'_c1_\',\'c2\'=>null,\'c3\'=>null])#}';
+          listUrl = listUrl.replace('_c1_', item.value);
+        }
+        listHtml += '<a href="' + listUrl + '" class="f_item jobLink">' + item.label + '</a>';
+      }
+    });
+    return listHtml;
+  }
+
+  // 显示和收起更多分类
+  $('.toggleMore').click(function () {
+    var className = $(this).data('type');
+    if ($(this).hasClass('open')) {
+      $(this).removeClass('open').find('span').html('更多');
+      toggleClassify(className, true);
+    } else {
+      $(this).addClass('open').find('span').html('收起');
+      toggleClassify(className, false);
+    }
+  });
+
+  /**
+   * 显示和隐藏操作节点的公用方法
+   * @param className 节点类名
+   * @param num 可以显示的数量
+   * @param status 区分显示还是隐藏 true->需要隐藏
+   */
+  function toggleClassify(className, status) {
+    var num = $('.' + className + '.sw').length;
+    $('.' + className).each(function (index) {
+      $(this).show();
+      if (status) {
+        if (index > (num - 1)) {
+          $(this).hide();
+        }
+      }
+    });
+  }
+
+  // 获取分类数据
+  function getClassify(type) {
+    httpget(qscms.apiList.classify + '?type=' + type, {}).then(function (res) {
+      if (res.code === 200) {
+        if (type === 'citycategory') {
+          cityList = res.data;
+          d1 = parseInt('{#$Request.param.d1#}');
+          d2 = parseInt('{#$Request.param.d2#}');
+          d3 = parseInt('{#$Request.param.d3#}');
+          if (cityLevel !== 1) {
+            $('[data-type=cityReturn]').show();
+          }
+        } else if (type === 'jobcategory') {
+          categoryList = res.data;
+          c1 = parseInt('{#$Request.param.c1#}');
+          c2 = parseInt('{#$Request.param.c2#}');
+          c3 = parseInt('{#$Request.param.c3#}');
+          if (categoryLevel !== 1) {
+            $('[data-type=categoryReturn]').show();
+          }
+        }
+      } else {
+        console.log(res.message);
+      }
+    }).catch(function (err) {
+      console.log(err);
+    });
+  }
+});
+var app = new Vue({
+  el: '#app',
+  data: {
+    keyword: '',
+    searchAlias: 'school'
+  },
+  created: function () {
+    this.keyword = "{#$Request.param.keyword#}"
+  },
+  methods: {
+    handlerSearch: function () {
+      var that = this
+      httpget(qscms.apiList.searchCampusLocation, { alias: that.searchAlias, keyword: that.keyword }).then(function (res) {
+        location.href = res.data
+      }).catch(function () { })
+    }
+  }
+})
+</script>

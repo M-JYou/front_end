@@ -1,0 +1,263 @@
+.search {
+    margin-left: 0px;
+  
+  }
+.release{
+    /* width: 100%; */
+    display: flex;
+    margin-bottom: 50px;
+    margin-left: 300px;
+}
+.release p {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+    margin-top: 30px;
+}
+
+.release p span{
+    font-size: 14px;
+    color: #007768;
+    margin-left: 5px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    padding-bottom: 15px;
+}
+
+.main .pTitle{
+    margin:0px auto;
+}
+/* .main .top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+
+
+.main .top .el-breadcrumb {
+    margin: 5px 32px;
+
+}
+.main .top .box_1{
+    width: 1080px;
+    height: 63px;
+    background-color: #F6F6F6;
+    padding-left: 50px;
+    border-radius: 10px;
+
+}
+.main .top .box_1>span{
+    font-size: 18px;
+    color: #666666;
+    line-height: 63px;
+    margin-left: 50px;
+}
+.main .top .box_1>span .el-icon-d-caret{
+    margin-left: 15px;
+}
+.main .top .box_1>span:hover{
+    color: #007768;
+}
+
+.main .mainContent {
+    width: 100%;
+    min-height: 545px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    display: flex;
+    
+    justify-content: space-between;
+}
+.mainContent .mainLeft{
+    width: 20%;
+   min-height: 545px;
+
+}
+.nav {
+    width: 100%;
+    height: 100%;
+    background-color: #F7F7F7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: 20px; */
+    min-height: 500px;
+}
+ 
+ .nav span {
+    font-size: 20px;
+    color: #777777;
+    margin-top: 40px;
+    font-family: 'Microsoft YaHei';
+}
+ .nav .current {
+    color: #007768;
+    font-size: 22px;
+    margin-top: 40px;
+    font-weight: 700;
+    font-family: 'Microsoft YaHei';
+}
+
+.mainContent .mainRight{
+    width: 79%;
+    min-height: 550px;
+    background-color: #F7F7F7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+ 
+    padding: 20px;
+}
+.quanxuna{
+    width: 150px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.item{
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.item .box_1{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+    border-bottom: 1px solid #F7F7F7;
+
+}
+.item .box_1 .dingdanhao{
+font-size: 14px;
+color: #777777;
+margin-right: 45px;
+}
+.item .box_1 .left_box{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    margin-left: 530px;
+    justify-content: space-evenly;
+}
+.item .box_1 .left_box>span{
+    font-size: 16px;
+color: #007768;
+}
+.box_2{
+    width: 100%;
+    display: flex;
+    padding: 10px 0px;
+    justify-content: space-between;
+    align-items:center;
+}
+.box_2 .spxx{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+.box_2 .spxx .checkbox{
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+}
+.shangping{
+    width: 620px;
+    display: flex;
+    align-items: center;
+}
+.shangping img{
+        width: 100px;
+        height: 80px;
+      }
+.shangping>div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* align-items: flex-start; */
+    margin-left: 5px;
+}
+.shangping>div h2 {
+    font-size: 16px;
+    color: #333333;
+    width: 92%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .shangping>div span {
+    font-size: 16px;
+    color: #BEBEBE;
+  }
+  .spjiage{
+    display: flex;
+  }
+  .spjiage>span{
+    font-size: 16px;
+    color: #777777;
+  }
+  .spjiage .shuliang{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 100px;
+  }
+  .spjiage .shuliang p{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #777777;
+    line-height: 30px;
+  }
+  .spjiage .shuliang p span{
+
+    font-size: 20px;
+    color: #777777;
+    margin-left: 20px;
+  }
+  .spjiage .shuliang p .p_title{
+width: 150px;
+text-align: right;
+    font-size: 14px;
+    color: #777777;
+  }
+  .spjiage .shuliang p .zongjia{
+    font-size: 20px;
+    color: #E70000;
+  }
+  .box_3{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .box_3 button{
+    margin-right: 15px;
+  }
+  .box_3 .button_1{
+    width: 89px;
+    height: 27px;
+    border-radius: 15px;
+    background-color: #C4DFDC;
+    font-size: 12px;
+    color: #007768;
+  }
+  .box_3 .button_2{
+    width: 89px;
+    height: 27px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    font-size: 12px;
+    color: #BABABA;
+  }

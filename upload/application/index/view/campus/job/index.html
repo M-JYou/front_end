@@ -1,0 +1,453 @@
+{#layout name="public/campus/campus_layout" /#}
+{#load href="__ROOT__/assets/css/campus/campus_joblist.css" /#}
+<div class="s_content" id="app" v-cloak>
+  <!-- 搜索 -->
+  <div class="search_min w1200">
+    <div class="search clearfix">
+      <div class="left ipt">
+        <input type="text" v-model="keyword" @keyup.enter="handlerSearch" placeholder="请输入关键词">
+      </div>
+      <div class="right btn" @click="handlerSearch">
+        <button>搜一搜</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 筛选 -->
+  <div class="w1200">
+    <div class="campus_filter_combo">
+
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">工作地点：</div>
+        <div class="left line_item clearfix">
+          <a class="left f_item {#if condition='!$Request.param.d1'#}f_item_ac{#/if#}" href="{#:P(['d1'=>null,'d2'=>null,'d3'=>null])#}">不限</a>
+          <a href="javascript:;" class="left f_item classifyReturn"  data-type="cityReturn" style="display: none">上级</a>
+          <span id="cityLinkArea">
+            {#volist name="options_district" id="vo"#}
+              <a href="{#$vo.url#}" class="cityLink f_item {#if condition='$Request.param.d3 == $vo.id'#}f_item_ac{#/if#}">{#$vo.text#}</a>
+            {#/volist#}
+          </span>
+          <a href="javascript:;" data-type="cityLink" style="display: none"  class="f_more more toggleMore"  >
+            <span>更多</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">薪资类别：</div>
+        <div class="left line_item clearfix">
+          <a href="{#:P(['w1'=>null,'w2'=>null])#}" class="f_item left {#if condition='!$Request.param.w1 && !$Request.param.w2'#}f_item_ac{#/if#}">不限</a>
+          <span class="cityLinkArea">
+            <a class="f_item left {#if condition='!$Request.param.w1 && $Request.param.w2==1000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>null,'w2'=>1000])#}">1000元以下</a>
+            <a class="f_item left {#if condition='$Request.param.w1==1000 && $Request.param.w2==2000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>1000,'w2'=>2000])#}">1000-2000元</a>
+            <a class="f_item left {#if condition='$Request.param.w1==2000 && $Request.param.w2==3000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>2000,'w2'=>3000])#}">2000-3000元</a>
+            <a class="f_item left {#if condition='$Request.param.w1==3000 && $Request.param.w2==5000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>3000,'w2'=>5000])#}">3000-5000元</a>
+            <a class="f_item left {#if condition='$Request.param.w1==5000 && $Request.param.w2==8000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>5000,'w2'=>8000])#}">5000-8000元</a>
+            <a class="f_item left {#if condition='$Request.param.w1==8000 && $Request.param.w2==12000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>8000,'w2'=>12000])#}">8000-12000元</a>
+            <a class="f_item left {#if condition='$Request.param.w1==12000 && $Request.param.w2==15000'#}f_item_ac{#/if#}" href="{#:P(['w1'=>12000,'w2'=>15000])#}">12000-15000元</a>
+            <a class="f_item left {#if condition='$Request.param.w1==15000 && !$Request.param.w2'#}f_item_ac{#/if#}" href="{#:P(['w1'=>15000,'w2'=>null])#}">15000元以上</a>
+          </span>
+        </div>
+      </div>
+
+      <div class="campus_filter_line clearfix">
+        <div class="line_title left">职位分类：</div>
+        <div class="left line_item clearfix">
+          <a class="left f_item {#if condition='!$Request.param.c1'#}f_item_ac{#/if#}" href="{#:P(['c1'=>null,'c2'=>null,'c3'=>null])#}">不限</a>
+          <a href="javascript:;" class="f_item back classifyReturn" data-type="categoryReturn" style="display: none">上级</a>
+          <span id="categoryLinkArea">
+            {#volist name="options_categoryjob" id="vo"#}
+            <a href="{#$vo.url#}" class="f_item jobLink {#if condition='$Request.param.c3==$vo.id'#}f_item_ac{#/if#}">{#$vo.text#}</a>
+            {#/volist#}
+          </span>
+          <a class="f_more toggleMore" data-type="jobLink" style="display: none"  href="javascript:;">更多</a>
+        </div>
+      </div>
+
+      <div class="filter_selected clearfix" v-if="showSelected">
+        <div class="campus_filter_line filter_combo_mgb clearfix">
+          <div class="line_title left">已选条件：</div>
+          <div class="left fse_group clearfix">
+            <a href="{#:P(['d1'=>null,'d2'=>null,'d3'=>null])#}" class="tag left" v-if="d1">{{citySelectedText}}</a>
+            <a href="{#:P(['c1'=>null,'c2'=>null,'c3'=>null])#}" class="tag left" v-if="c1">{{categorySelectedText}}</a>
+            <a href="{#:P(['w1'=>null,'w2'=>null])#}" class="tag left" v-if="w1 || w2">{{wageSelectedText}}</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="w1200 clearfix">
+    <!-- 列表 -->
+    <div class="left list_box">
+      <div>
+        {#if condition="count($list.items) gt 0"#}
+          {#volist name="list.items" id="item"#}
+          <div class="list_item">
+            <div class="left lit_img">
+              <img src="{#$item.company_logo#}" alt="">
+            </div>
+            <div class="left lit_job clearfix">
+              <div class="left lit_text_box">
+                <a href="{#:url('index/job/show',['id'=>$item.id])#}" target="_blank" class="job_name substring">{#$item.jobname#}</a>
+                <div class="oth substring">
+                  <span class="salary">{#$item.wage_text#}</span>
+                  <span class="address">
+                    工作地点 <span class="t">{#$item.district_text#}</span>
+                  </span>
+                </div>
+                <p class="oth_list substring"><span>{#$item.companyname#}</span></p>
+              </div>
+              <div class="right lit_btns_box">
+                <p class="lit_text">{#$item.refreshtime#}发布</p>
+                <a class="lit_btn" href="{#:url('index/job/show',['id'=>$item.id])#}"  target="_blank"  >查看详情</a>
+              </div>
+            </div>
+          </div>
+          {#/volist#}
+        {#else#}
+        <div class="list_empty">
+          <div class="emp_text">暂时没有数据哦</div>
+        </div>
+        {#/if#}
+      </div>
+      {#$pagerHtml#}
+    </div>
+    <!-- 热门校招 -->
+    <div class="left hot_recruit">
+      <div class="hot_title">热门校招</div>
+
+      <div class="hot_rec_list">
+        {#volist name="hotjob_list" id="vo"#}
+          <div class="rec_list_item clearfix" onclick="javascript:window.open('{#:url(\'index/campus/job_show\',[\'id\'=>$vo.id])#}');">
+            <div class="img left">
+              <img src="{#$vo.company_logo#}" alt="">
+            </div>
+            <div class="hot_job_info left">
+              <a class="job_name substring">{#$vo.jobname#}</a>
+              <a class="com_name substring">{#$vo.companyname#}</a>
+              <span class="address substring">{#$vo.district_text#}</span>
+            </div>
+          </div>
+        {#/volist#}
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function () {
+  $(function () {
+    var cityList = {}, categoryList = {};
+    var d1 = 0, d2 = 0, d3 = 0;
+    var c1 = 0, c2 = 0, c3 = 0;
+    var cityLevel = parseInt('{#$district_level#}');
+    var categoryLevel = parseInt('{#$category_level#}');
+    var displayWordWidth = 860;
+    // 筛选条件显示数量控制
+    handleFilterConditionDisplay('cityLink');
+    handleFilterConditionDisplay('jobLink');
+    // handleFilterConditionDisplay('tagLink');
+    function handleFilterConditionDisplay(className) {
+      var showWidth = 0, $filterLink = $('.' + className);
+      $filterLink.each(function (index, value) {
+        if (showWidth > displayWordWidth) {
+          $(this).hide();
+          $('[data-type=' + className + ']').show();
+        } else {
+          $(this).addClass('sw');
+          if (className === 'tagLink') {
+            showWidth += (value.clientWidth + 5);
+          } else {
+            showWidth += value.clientWidth;
+          }
+        }
+      });
+    }
+
+    // ajax获取分类数据
+    getClassify('citycategory');
+    getClassify('jobcategory');
+
+    // 返回上一级
+    $('.classifyReturn').click(function () {
+      var thisType = $(this).data('type');
+      if (thisType === 'cityReturn') {
+        if (cityLevel === 3) {
+          // 三级分类
+          var returnArray = cityList.filter(function (item) {
+            if (parseInt(item.value) === d1) {
+              return item
+            }
+          })[0].children;
+          $('#cityLinkArea').html(generateList(returnArray, 2, thisType));
+        } else {
+          $('#cityLinkArea').html(generateList(cityList, 1, thisType));
+          $('[data-type=cityReturn]').hide();
+        }
+        cityLevel = cityLevel - 1;
+        handleFilterConditionDisplay('cityLink');
+      } else {
+        if (categoryLevel === 3) {
+          // 三级分类
+          var returnArray = categoryList.filter(function (item) {
+            if (parseInt(item.value) === c1) {
+              return item
+            }
+          })[0].children;
+          $('#categoryLinkArea').html(generateList(returnArray, 2, thisType));
+        } else {
+          $('#categoryLinkArea').html(generateList(categoryList, 1, thisType));
+          $('[data-type=categoryReturn]').hide();
+        }
+        categoryLevel = categoryLevel - 1;
+        handleFilterConditionDisplay('jobLink');
+      }
+    });
+
+    // 返回上一级生成列表
+    function generateList(data, level, type) {
+      var listHtml = '';
+      Object.values(data).forEach(function (item) {
+        var listUrl = '';
+        if (type === 'cityReturn') {
+          if (level === 2) {
+            listUrl = '{#:P([\'d1\'=>\'_d1_\',\'d2\'=>\'_d2_\',\'d3\'=>null])#}';
+            listUrl = listUrl.replace('_d1_', d1);
+            listUrl = listUrl.replace('_d2_', item.value);
+          } else {
+            listUrl = '{#:P([\'d1\'=>\'_d1_\',\'d2\'=>null,\'d3\'=>null])#}';
+            listUrl = listUrl.replace('_d1_', item.value);
+          }
+          listHtml += '<a href="' + listUrl + '" class="f_item cityLink">' + item.label + '</a>';
+        } else {
+          if (level === 2) {
+            listUrl = '{#:P([\'c1\'=>\'_c1_\',\'c2\'=>\'_c2_\',\'c3\'=>null])#}';
+            listUrl = listUrl.replace('_c1_', c1);
+            listUrl = listUrl.replace('_c2_', item.value);
+          } else {
+            listUrl = '{#:P([\'c1\'=>\'_c1_\',\'c2\'=>null,\'c3\'=>null])#}';
+            listUrl = listUrl.replace('_c1_', item.value);
+          }
+          listHtml += '<a href="' + listUrl + '" class="f_item jobLink">' + item.label + '</a>';
+        }
+      });
+      return listHtml;
+    }
+
+    // 显示和收起更多分类
+    $('.toggleMore').click(function () {
+      var className = $(this).data('type');
+      if ($(this).hasClass('open')) {
+        $(this).removeClass('open').find('span').html('更多');
+        toggleClassify(className, true);
+      } else {
+        $(this).addClass('open').find('span').html('收起');
+        toggleClassify(className, false);
+      }
+    });
+
+    /**
+     * 显示和隐藏操作节点的公用方法
+     * @param className 节点类名
+     * @param num 可以显示的数量
+     * @param status 区分显示还是隐藏 true->需要隐藏
+     */
+    function toggleClassify(className, status) {
+      var num = $('.' + className + '.sw').length;
+      $('.' + className).each(function (index) {
+        $(this).show();
+        if (status) {
+          if (index > (num - 1)) {
+            $(this).hide();
+          }
+        }
+      });
+    }
+
+    // 获取分类数据
+    function getClassify(type) {
+      httpget(qscms.apiList.classify + '?type=' + type, {}).then(function (res) {
+        if (res.code === 200) {
+          if (type === 'citycategory') {
+            cityList = res.data;
+            d1 = parseInt('{#$Request.param.d1#}');
+            d2 = parseInt('{#$Request.param.d2#}');
+            d3 = parseInt('{#$Request.param.d3#}');
+            if (cityLevel !== 1) {
+              $('[data-type=cityReturn]').show();
+            }
+          } else if (type === 'jobcategory') {
+            categoryList = res.data;
+            c1 = parseInt('{#$Request.param.c1#}');
+            c2 = parseInt('{#$Request.param.c2#}');
+            c3 = parseInt('{#$Request.param.c3#}');
+            if (categoryLevel !== 1) {
+              $('[data-type=categoryReturn]').show();
+            }
+          }
+        } else {
+          console.log(res.message);
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  })
+})
+
+var vm = new Vue({
+      el:'#app',
+      data:{
+        searchAlias: 'job',
+        keyword: '{#$Request.param.keyword#}',
+        d1: parseInt('{#$Request.param.d1#}'),
+        d2: parseInt('{#$Request.param.d2#}'),
+        d3: parseInt('{#$Request.param.d3#}'),
+        cityLevel: parseInt('{#$district_level#}'),
+        citySelectedText: '',
+        c1: parseInt('{#$Request.param.c1#}'),
+        c2: parseInt('{#$Request.param.c2#}'),
+        c3: parseInt('{#$Request.param.c3#}'),
+        categoryLevel: parseInt('{#$category_level#}'),
+        categorySelectedText: '',
+        w1: parseInt('{#$Request.param.w1#}'),
+        w2: parseInt('{#$Request.param.w2#}'),
+        wageSelectedText: '',
+        showSelected: false,
+        displayMethod: true
+      },
+      created: function () {
+        this.keyword = "{#$Request.param.keyword#}"
+      },
+      mounted: function() {
+        var listtype = getStorageValue('joblist_type');
+        if (!listtype || listtype == 'detail') {
+          this.displayMethod = true
+        } else {
+          this.displayMethod = false
+        }
+        // 已选条件展示
+        if (this.d1) {
+          this.getClassify('citycategory'); // 地区
+        }
+        if (this.c1) {
+          this.getClassify('jobcategory'); // 职位分类
+        }
+        // 薪资
+        if (this.w1 && !this.w2) {
+          // 最高薪资以上
+          this.wageSelectedText = this.w1 + '元以上';
+        } else if (this.w1 && this.w2) {
+          // 薪资区间
+          this.wageSelectedText = this.w1 + '-' + this.w2 + '元';
+        } else if (!this.w1 && this.w2) {
+          // 最低薪资以下
+          this.wageSelectedText = this.w2 + '元以下';
+        }
+
+
+        // 是否显示已选条件
+        if (this.keyword || this.d1 || this.c1 || this.w1 || this.w2 ) {
+          this.showSelected = true;
+        }
+      },
+      methods: {
+        getClassify: function (type) {
+          var _this = this;
+          httpget(qscms.apiList.classify + '?type=' + type, {}).then(function (res) {
+            if (res.code === 200) {
+              if (type === 'citycategory') {
+                var cityList = res.data;
+                if (_this.d1) {
+                  if (_this.cityLevel === 2) {
+                    // 地区为二级
+                    _this.citySelectedText = cityList.filter(function (item) {
+                      if (parseInt(item.value) === _this.d1) {
+                        return item
+                      }
+                    })[0].label;
+                  }
+                  if (_this.cityLevel === 3) {
+                    // 地区为三级
+                    var levelTwoList = cityList.filter(function (item) {
+                      if (parseInt(item.value) === _this.d1) {
+                        return item
+                      }
+                    })[0].children;
+                    if (_this.d3) {
+                      var levelThreeList = levelTwoList.filter(function (item) {
+                        if (parseInt(item.value) === _this.d2) {
+                          return item
+                        }
+                      })[0].children;
+                      _this.citySelectedText = levelThreeList.filter(function (item) {
+                        if (parseInt(item.value) === _this.d3) {
+                          return item
+                        }
+                      })[0].label;
+                    } else {
+                      _this.citySelectedText = levelTwoList.filter(function (item) {
+                        if (parseInt(item.value) === _this.d2) {
+                          return item
+                        }
+                      })[0].label;
+                    }
+                  }
+                }
+              } else if (type === 'jobcategory') {
+                var categoryList = res.data;
+                if (_this.c1) {
+                  if (_this.categoryLevel === 2) {
+                    // 地区为二级
+                    _this.categorySelectedText = categoryList.filter(function (item) {
+                      if (parseInt(item.value) === _this.c1) {
+                        return item
+                      }
+                    })[0].label;
+                  }
+                  if (_this.categoryLevel === 3) {
+                    // 地区为三级
+                    var levelTwoList = categoryList.filter(function (item) {
+                      if (parseInt(item.value) === _this.c1) {
+                        return item
+                      }
+                    })[0].children;
+                    if (_this.c3) {
+                      var levelThreeList = levelTwoList.filter(function (item) {
+                        if (parseInt(item.value) === _this.c2) {
+                          return item
+                        }
+                      })[0].children;
+                      _this.categorySelectedText = levelThreeList.filter(function (item) {
+                        if (parseInt(item.value) === _this.c3) {
+                          return item
+                        }
+                      })[0].label;
+                    } else {
+                      _this.categorySelectedText = levelTwoList.filter(function (item) {
+                        if (parseInt(item.value) === _this.c2) {
+                          return item
+                        }
+                      })[0].label;
+                    }
+                  }
+                }
+              }
+            } else {
+              console.log(res.message);
+            }
+          }).catch(function (err) {
+            console.log(err);
+          });
+        },
+        handlerSearch: function () {
+          var that = this
+          httpget(qscms.apiList.searchCampusLocation, { alias: that.searchAlias, keyword: that.keyword }).then(function (res) {
+            location.href = res.data
+          }).catch(function () { })
+        }
+      }
+    })
+</script>

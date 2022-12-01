@@ -1,0 +1,119 @@
+.logoPart{
+	height: 85px;
+}
+.release p {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.release p a {
+    font-size: 20px;
+    color: #007768;
+    margin-left: 15px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    /* padding: 20px 0px; */
+}
+
+.main .el-breadcrumb {
+    margin: 0px 0px 12px 32px;
+
+}
+.tag-ite {
+    background-color: #fff;
+    display: flex;
+    border-bottom: 4px solid #007768;
+  }
+  .tag-ite .span {
+    display: block;
+    height: 45px;
+    font-size: 14px;
+    width: 143px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    background-color: #F7F7F7;
+    margin-left: 20px;
+}
+.tag-ite .active{
+    background-color: #007768;
+    color: #fff; 
+}
+.tag-ite .active a{
+    background-color: #007768;
+    color: #fff;
+}
+
+.main .mainContent {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    padding: 0 10px;
+    background-color: #FFFFFF;
+    justify-content: space-between;
+}
+
+.main .mainContent .formContent {
+  width: 100%;
+    min-height: 845px;
+    border-radius: 15px;
+    background-color: #F7F7F7;
+    padding: 20px;
+}
+.formContent .conts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .formContent .conts  .ite {
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+
+  .formContent .conts .ite .time {
+    padding: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .conts .ite .time .year {
+    font-size: 18px;
+    font-weight: 600;
+    color: #E00000;
+    font-style: italic;
+  }
+
+  .ite .mon {
+    background-color: #E00000;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 5px;
+  }
+
+
+  .ite .bottom {
+    padding: 10px;
+    line-height: 32px;
+  }
+
+  .ite .title {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .ite .info {
+    font-size: 14px;
+    color: #777777;
+    display: flex;
+    justify-content: space-between;
+  }

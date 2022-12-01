@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {#include file="public/meta" /#} {#load href="__ROOT__/assets/css/reset.css" /#} {#load
+    href="__ROOT__/assets/css/base.css" /#} {#load href="__ROOT__/assets/css/layout.css" /#} {#load
+    href="__ROOT__/assets/css/public.css" /#} {#load href="__ROOT__/assets/css/global.css" /#} {#load
+    href="__ROOT__/assets/css/iconfont.css" /#}{#load href="__ROOT__/static/editor/kindeditor-all.js" /#} {#load
+    href="__ROOT__/static/editor/lang/zh-CN.js" /#}
+    <style>
+      .chat-text {
+        width: 70%;
+      }
+      .chat-text > textarea {
+        background-color: inherit;
+      }
+      .chat-tag {
+        align-self: end;
+        color: #aaa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="homePage">
+      <!-- header -->
+      {#include file="public/header" /#}
+      <!-- content -->
+      {__CONTENT__}
+      <!-- footer -->
+      {#include file="public/footer" /#}
+    </div>
+  </body>
+</html>

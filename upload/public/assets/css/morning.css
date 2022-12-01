@@ -1,0 +1,208 @@
+.logoPart {
+    height: 85px;
+}
+
+.release p {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.release p a {
+    font-size: 20px;
+    color: #007768;
+    margin-left: 15px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    /* padding: 20px 0px; */
+}
+
+.main .el-breadcrumb {
+    margin: 0px 0px 12px 32px;
+
+}
+
+.tag-ite {
+    background-color: #fff;
+    display: flex;
+    border-bottom: 4px solid #007768;
+}
+
+.tag-ite .span {
+    display: block;
+    height: 45px;
+    font-size: 14px;
+    width: 143px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    background-color: #F7F7F7;
+    margin-left: 20px;
+}
+.tag-ite .active{
+    background-color: #007768;
+    color: #fff; 
+}
+.tag-ite .active a{
+    background-color: #007768;
+    color: #fff;
+}
+
+.main .mainContent {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    padding: 0 10px;
+    background-color: #FFFFFF;
+    justify-content: space-between;
+}
+
+.main .mainContent .nav {
+    width: 300px;
+    height: 845px;
+    background-color: #F7F7F7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .mainContent .nav h2 {
+    width: 270px;
+    min-height: 80px;
+    color: #007768;
+    font-size: 28px;
+    border-bottom: 1px solid #E9E9E9;
+    line-height: 80px;
+    text-align: center;
+}
+
+.main .mainContent .nav span {
+    font-size: 20px;
+    color: #777777;
+    margin-top: 40px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main .mainContent .nav .current {
+    color: #007768;
+    font-size: 22px;
+    margin-top: 40px;
+    font-weight: 700;
+    font-family: 'Microsoft YaHei';
+}
+
+.main .mainContent .formContent {
+    width: 1065px;
+    min-height: 845px;
+    border-radius: 15px;
+    background-color: #F7F7F7;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formContent .right {
+    margin-left: 10px;
+    width: 100%;
+}
+
+.right .difang {
+    height: 70px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    line-height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.right .el-icon-location-information {
+    color: #007768;
+    font-size: 24px;
+    margin-left: 30px;
+    font-weight: 700;
+}
+
+.right .title {
+    color: #007768;
+    font-size: 22px;
+    margin-left: 5px;
+}
+
+.right .city {
+    margin-left: 20px;
+}
+
+.right .city select {
+    font-size: 22px;
+    color: #777777;
+}
+
+.right .banner {
+    height: 150px;
+    margin: 15px 0;
+}
+
+.el-carousel {
+    height: 100%;
+}
+
+.el-carousel__container {
+    position: relative;
+    height: 150px;
+}
+
+/* .right .box_2 {
+    margin-top: 15px;
+    background-color: #FFFFFF;
+} */
+
+.right .itea {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #F6F6F6;
+}
+
+.right .itea .right {
+    padding: 25px;
+
+}
+
+.right h2 {
+    font-size: 26px;
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.right .from {
+    font-size: 16px;
+    width: 95%;
+    margin-top: 10px;
+}
+
+.right .cover {
+    width: 220px;
+    height: 130px;
+    /* // border-radius: 15px; */
+}
+
+.right .iteb {
+    padding: 5px 0;
+    border-bottom: 1px solid #F6F6F6;
+}
+
+.right .cover {
+    width: 220px;
+    height: 130px;
+    margin-right: 10px;
+}

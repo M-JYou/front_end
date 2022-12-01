@@ -1,0 +1,312 @@
+.pages{
+	background-color:#262b41 ;
+	width: 100vw;
+	height: 100vh;
+	overflow-x: hidden;
+	.content{
+		padding:5px;
+		padding-top: 50px;
+		background-color: #262b41;
+		
+		
+	
+		.data{
+			margin-top: -23rpx;
+			background: #262b41;
+			z-index: 1;
+			position: relative;
+			padding-top: 22px;
+			.data-content{
+				.content-logo{
+					width: 100%;
+					padding: 5px;
+					font-size: 18px;
+					text-align: center;
+					// line-height: 25px;
+					margin-top:-25px;
+					margin-bottom: 25px;
+					.logotexts{
+						
+						 text-shadow: 1px 0.5px 1px  0px #AFDDFF;
+					}
+						
+					.logotext{
+						font-size: 15px;
+						margin-top:45px;
+						// background-color: #0074D9;
+					}
+				}
+			}
+			
+			.rowbox{
+				margin-top:14px;
+				.label{
+					position: relative;
+					font-size: 18px;
+					font-weight: bold;
+					color: #FFFFFF;
+					// margin-top: 10rpx;
+					// padding-left: 15rpx;
+				}
+				.label:before{
+					content: '';
+					position: absolute;
+					bottom: -2px;
+					left: 0;
+					width: 14px;
+					height: 14px;
+					// background: linear-gradient(87deg, #2B5CDA 0%, rgba(84, 165, 253, 0.05) 100%);
+					border-radius: 50%;
+				}
+			}
+		
+			.findView{
+				// width: 100%;
+		
+				.findTop{
+							background-color: #5f6ea8;
+							border-top-right-radius:8px;
+							border-top-left-radius: 8px;
+					color: #FFFFFF;
+					line-height:40px;
+					display: flex;
+					align-items: center;
+					// background-color: #161E35;
+					justify-content: center;
+					.more{
+						.tet{
+							font-size: 18px;
+							color: #AFDDFF;
+						}
+						
+					}
+				}
+				.findList{
+					margin-bottom: 10px;
+					.list:not(:first-child){
+					}
+					.list{
+						display: flex;
+						margin-bottom: 6px;
+						padding: 4px;
+						background-color: #3e4558;
+						border: 0.5px solid #161E35;
+						border-radius: 4px;
+						font-size: 16px;
+						box-shadow:#161E35 0px 2px 5px 0px;
+						.lefView{
+							width: 65px;
+							height: 55px;
+							border-radius: 4px;
+							margin-right: 16px;
+							position: relative;
+							.lefimg{
+							width: 65px;
+							height: 55px;
+								border-radius: 4px;
+							}
+							.lefimgs{
+						width: 18px;
+						height: 18px;
+							}
+						}
+						
+						.lefViews{
+							width: 30px;
+							height: 30px;
+							border-radius: 4px;
+							margin-right: 16px;
+							position: relative;
+							.lefimgs{
+						width: 30px;
+						height: 30px;
+							}
+						}
+						.more-icons{
+							width: 25px;
+							height: 25px;
+							margin-left: -10px;
+							color: #FFFFFF;
+						}
+						.info{
+						font-size: 16px;
+							display: flex;
+							margin-left:28px;
+							flex-direction: column;
+								color: #AFDDFF;
+							justify-content: center;
+							flex: 1;
+							.showone{
+								font-size:18px;
+							}
+							.showones{
+								color: #FFFFFF;
+								font-size:14px ;
+							}
+							
+						}
+					}
+				}
+				.findListtow{
+					margin-bottom: 10px;
+					.list:not(:first-child){
+					}
+					.list{
+						display: flex;
+						margin-bottom: 6px;
+						padding: 4px;
+						background-color: #3e4558;
+						border: 0.5px solid #161E35;
+						border-radius: 4px;
+						font-size: 16px;
+						box-shadow:#161E35 0px 2px 5px 0px;
+						.lefView{
+							width: 65px;
+							height: 55px;
+							border-radius: 4px;
+							margin-right: 16px;
+							position: relative;
+							.lefimg{
+							width: 65px;
+							height: 55px;
+								border-radius: 4px;
+							}
+							.lefimgs{
+						width: 18px;
+						height: 18px;
+							}
+						}
+						
+						.lefViews{
+							width: 30px;
+							height: 30px;
+							border-radius: 4px;
+							margin-right: 16px;
+							position: relative;
+							.lefimgs{
+						width: 30px;
+						height: 30px;
+							}
+						}
+						.more-icons{
+							width: 25px;
+							height: 25px;
+							margin-left: -10px;
+							color: #FFFFFF;
+						}
+						.info{
+						font-size: 16px;
+							display: flex;
+							margin-left:80px;
+							flex-direction: column;
+								color: #AFDDFF;
+							justify-content: center;
+							flex: 1;
+							.showone{
+								font-size:18px;
+							}
+							.showones{
+								color: #FFFFFF;
+								font-size:14px ;
+							}
+							
+						}
+					}
+				}
+			}
+			// 图表位置
+					.data-content{
+						text-align: center;
+						font-size: 16px;
+						font-weight: bold;
+						color: #AFDDFF;
+						// width: 100%;
+						// height: 100%;
+						
+						
+						.chartss{
+							font-size: #AFDDFF;
+							margin-top: -50px;
+						
+						}
+						
+					}
+					// 异常选项列表
+					.abnormal-list{
+					
+						margin-top:4px;
+						// border: 1rpx solid #3e4558;
+						width: 100%;
+						.list-box{
+							
+							.list-contents{
+								padding:4px 10px;
+								display: flex;
+								align-items: center;
+								justify-content: space-between;
+								font-size: 16px;
+								color: #AFDDFF;
+								margin-bottom:5px;
+								background-color: #3d4457;
+									
+								.contents-nubers{
+									color: #000000;
+									box-shadow:#161E35 0px 2px 5px 0px;
+									border: 1px solid #999999;
+								}
+								.contents-nubers1{
+									color: #000000;
+									padding:4px;
+									display: flex;
+									align-items: center;
+									justify-content: center;
+									font-size: 13px;
+									width: 25px;
+									height: 25px;
+									background-color:#23DF29;
+									border-radius: 50%;
+								}
+								.contents-icnt{
+									.icontsimgs{
+										width: 20px;
+										height: 20px;
+									}
+									
+               .iconimg{
+	              width: 20px;
+	              height: 20px;
+               }
+								}
+							}
+							
+						}
+					}
+		
+		}
+	
+	}
+
+}
+
+.contents-nubers{
+padding:4px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 13px;
+width: 25px;height: 25px;
+background-color:#23DF29;
+border-radius: 50%;
+}
+
+
+	
+.icontsimgsed{
+	width: 20px;
+	height: 20px;
+}
+
+	.iconimg{
+		width: 20px;
+		height: 20px;
+	}

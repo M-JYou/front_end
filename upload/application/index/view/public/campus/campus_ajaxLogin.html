@@ -1,0 +1,70 @@
+<div class="i_login" v-if="loginUtype==0">
+  <div class="login_img_box">
+    <img src="__ROOT__/assets/images/campus/def_login.jpg" alt="" class="img" />
+  </div>
+  <div class="login_text"> Hi ! 你好 </div>
+  <div class="i_btns">
+    <a class="btn btn_act" target="_blank" :href="qscms.locationList.loginPersonal">登录</a>
+    <a class="btn" target="_blank" :href="qscms.locationList.regPersonal">注册</a>
+  </div>
+</div>
+
+<!--登录成功 -->
+<div class="success" v-if="loginUtype==1">
+  <div class="clearfix i_user">
+    <div class="left img">
+      <img :src="statAfterLogin.photo" alt="" />
+    </div>
+    <div class="left user_text">
+      <a class="i_user_name substring">{{userName}}</a>
+      <p class="i_user_text substring">欢迎加入我们</p>
+    </div>
+  </div>
+  <div class="clearfix i_oth_box">
+    <div class="left oth_it">
+      <div class="it_num it_num_bg_1">{{statAfterLogin.jobapply}}</div>
+      <p class="oth_it_text">收到投递</p>
+    </div>
+    <div class="left oth_it oth_it_mg">
+      <div class="it_num it_num_bg_2">{{statAfterLogin.interview}}</div>
+      <p class="oth_it_text">面试邀请</p>
+    </div>
+    <div class="left oth_it">
+      <div class="it_num it_num_bg_3">{{statAfterLogin.view}}</div>
+      <p class="oth_it_text">浏览记录</p>
+    </div>
+  </div>
+</div>
+
+<div class="success" v-if="loginUtype==2">
+  <div class="clearfix i_user">
+    <div class="left img">
+      <img :src="statAfterLogin.photo" alt="" />
+    </div>
+    <div class="left user_text">
+      <a class="i_user_name substring">{{userName}}</a>
+      <p class="i_user_text substring">欢迎加入我们</p>
+    </div>
+  </div>
+  <div class="clearfix i_oth_box">
+    <div class="left oth_it">
+      <div class="it_num it_num_bg_1">{{statAfterLogin.jobapply}}</div>
+      <p class="oth_it_text">我的投递</p>
+    </div>
+    <div class="left oth_it oth_it_mg">
+      <div class="it_num it_num_bg_2">{{statAfterLogin.interview}}</div>
+      <p class="oth_it_text">面试邀请</p>
+    </div>
+    <div class="left oth_it">
+      <div class="it_num it_num_bg_3">{{statAfterLogin.view}}</div>
+      <p class="oth_it_text">我的足迹</p>
+    </div>
+  </div>
+</div>
+<style>
+  .distc {
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>

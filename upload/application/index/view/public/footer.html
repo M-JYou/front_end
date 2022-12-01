@@ -1,0 +1,78 @@
+<div class="footer" id="footWarp">
+  <hr>
+  <div class="footNav">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
+      background-color="#007768" text-color="#fff">
+      <el-menu-item index="1">常见问题</el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">帮助中心</template>
+        <el-menu-item index="2-1">常见问题列表</el-menu-item>
+        <el-menu-item index="2-2">AI客服</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="3">意见反馈</el-menu-item>
+      <el-menu-item index="4"><a href="/understand">了解籽虾</a></el-menu-item>
+      <el-menu-item index="5"><a href="/join">加入籽虾</a></el-menu-item>
+      <el-submenu index="6">
+        <template slot="title">商务合作</template>
+        <el-menu-item index="6-1">在线对话框</el-menu-item>
+        <el-menu-item index="6-2">手机验证码提交申请</el-menu-item>
+        <el-menu-item index="6-2">
+          <el-button type="text" @click="open" class="text-color">一键拨打客服电话</el-button>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="7">
+        <template slot="title">维权中心</template>
+        <el-menu-item index="7-1"><a href="/complaint" class="text-color">投诉举报</a></el-menu-item>
+        <el-menu-item index="7-2"><a href="/appeal" class="text-color">申诉复议</a></el-menu-item>
+      </el-submenu>
+      <el-menu-item index="8">知识产权投诉</el-menu-item>
+    </el-menu>
+  </div>
+  <p>版权所有：一站办企业服务有限责任公司</p>
+  <ol>
+    <li><a href="">增值电信业务许可证</a></li>
+    <li><a href="">人力资源服务许可证</a></li>
+    <li><a href="">代理记账许可证</a></li>
+    <li><a href="">劳务派遣许可证</a></li>
+    <li class="none"><a href="">国家知识产权局商标局备案代理机构</a></li>
+
+  </ol>
+  <div class="foot-text">
+    <div>
+      <span>青ICP备19000594</span></a>
+      <span>政府王总标识码：63000066</span></a>
+      <span>青公安网备：63010302000341</span></a>
+    </div>
+    <div>
+      <span>违法信息/未成年人举报：4008135858jubao@58ganji.com</span>|
+      <span>员工舞弊举报：wb@58.com</span>
+    </div>
+  </div>
+</div>
+<script>
+  var app = new Vue({
+    el: "#footWarp",
+    data: {
+      activeIndex: '1',
+    },
+    methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      // 一键拨打客服电话
+      open() {
+        this.$alert('13818845158', '客服电话', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              // message: `action: ${ action }`
+              message: '拨打客服电话'
+            });
+          }
+        });
+      },
+    }
+  })
+
+</script>

@@ -1,0 +1,136 @@
+.pages{
+	background-color: #262b41;
+	width: 100vw;
+	height:100vh;
+	.content-titles{
+		color: #AFDDFF;
+		font-size: 16px;
+		height: 40px;
+		width: 100%;
+		// margin-top: 10px;
+		line-height: 40px;
+		text-align: center;
+		background-color: #3e4558;
+		border-top-left-radius:15px;
+		border-top-right-radius: 15px;
+		
+	}
+	.content{
+			background-color: #262b41;
+		position: relative;
+		padding: 5px;
+		padding-top:100px;
+		.arrondi{
+			color: #FFFFFF;
+			font-size: 16px;
+			background: #3e4558;
+			box-shadow: 0px 10px 20px 1px rgba(35, 36, 37, 0.04);
+			border-radius: 10px;
+			border: 1px solid #FAFAFA;
+			padding:8px;
+			align-items: flex-start;
+			border: 0.5px solid #161E35;
+			box-shadow:#161E35 0px 2px 5px 0px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+			.arrondi-left{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				
+				.left-imgs{
+					.imgss{
+						width:40px;
+						height: 40px;
+					}
+				}
+				.left-titles{
+					font-size: 16px;
+					margin-left:28px;
+					display: flex;
+					flex-direction: column;
+					.titles{
+						font-size: 16px;
+					}
+                    .contents{
+						font-size: 14px;
+					}
+					
+				}
+			}
+			.arrondi-rights{
+				.imgss{
+					width: 18px;
+					height: 18px;
+				}
+			}
+			
+			
+			
+		}
+		
+		
+	}
+}
+/deep/image,/deep/img,/deep/video{
+	max-width: 100% !important;
+}
+
+
+	
+		
+		//自定投头部导航
+			.hadercontents{
+				position: fixed;
+					top: 0;
+					left: 0;
+					right: 0;
+				  width: 100%;
+					height:85px;
+					z-index: 6;
+				font-size: 16px;
+				color: #FFFFFF;
+				background-color: #333333;
+				
+				.haderbox{
+					display: flex;
+					justify-content:center;
+					align-items: center;
+		      width: 100%;
+					height:100%;
+					justify-content: center;
+					margin-top:10px;
+					flex-direction: row;
+						.hadercontent-left{
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						flex:20%;
+						height:98%;
+							
+						.imgsss{
+							width: 22px;
+							height: 22px;
+							top:2px;
+						}
+					}
+			.hadercontent-center{
+				display: flex;
+				flex:60%;
+					 overflow : hidden;  
+									 text-overflow: ellipsis;  
+									 display: -webkit-box;  
+									 -webkit-line-clamp:1;  
+									 -webkit-box-orient: vertical;	
+			}
+			.hadercontent-right{
+				display: flex;
+				flex:2%;
+			}
+				}
+				
+				
+			}

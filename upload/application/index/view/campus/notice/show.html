@@ -1,0 +1,38 @@
+{#layout name="public/campus/campus_layout" /#} {#load href="__ROOT__/assets/css/campus/campus_noticeshow.css" /#}
+<div class="s_content">
+  <div class="w1200 con_min">
+    <div class="details_title">
+      <h2>{#$info.title#}</h2>
+      <div class="clearfix time">
+        <div class="left l_text">
+          网络申请起止时间：<span class="text_color"><span>{#:date('Y-m-d',$info['holddate_start'])#}</span> — <span>{#:date('Y-m-d',$info['holddate_end'])#}</span></span>
+        </div>
+        <div class="left r_text j_share">
+          分享
+          <div class="share_box">
+            <div class="share_code">
+              <div class="share_img">
+                <img src="" alt="" />
+              </div>
+              <p class="code_tip">请用微信扫一扫</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details_con editor-content-view"> {#$info.content#} </div>
+  </div>
+</div>
+<div class="guider">
+  <div class="w1200 guider_min clearfix">
+    <img src="__ROOT__/assets/images/campus/guider_bg.png" alt="" class="guider_img left" />
+    <a class="guider_btn left">申请职位</a>
+  </div>
+</div>
+
+<script>
+  var shareQrcode = "";
+  var share_img = "{#$info.share_url#}";
+  shareQrcode = qscms.apiUrl + qscms.apiList.qrcode + "?type=normal&url=" + share_img;
+  $(".share_code img").attr("src", shareQrcode);
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    >
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+    <title>浮动</title>
+    <style>
+      .wrap {
+        /* 1.第一种清除浮动的方式 */
+        /* overflow: auto; */
+        border: 1px solid #000;
+        /* width: 400px; */
+        /* box-sizing:border-box; */
+      }
+
+      /* 3.第三种清除浮动的方式 */
+      .wrap::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+
+      .box1,
+      .box2 {
+        float: left;
+        width: 200px;
+        height: 200px;
+      }
+
+      .box1 {
+
+        background-color: blue;
+      }
+
+      .box2 {
+        background-color: red;
+      }
+
+      /* 2.第二种清除浮动的方式 */
+      /* .clear {
+        clear: both;
+      }
+
+      .clear2 {
+        clear: both;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="box1">1</div>
+      <!-- <div class="clear"></div> -->
+      <div class="box2">2</div>
+      <!-- <div class="clear2"></div> -->
+    </div>
+  </body>
+
+</html>

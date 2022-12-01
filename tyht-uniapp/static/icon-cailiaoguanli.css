@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "iconfont";
+  /* Project id 3738967 */
+  src: url('/static/icon-cailiaoguanli.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cailiaoguanli:before {
+  content: "\e629";
+}

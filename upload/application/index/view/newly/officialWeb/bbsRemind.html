@@ -1,0 +1,122 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/bbsRemind.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <!-- <div class="search">
+            <div class="search-input">
+                <div>
+                    <select name="" id="">
+                        <option value="">用户</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                    </select>
+                    <input type="text" placeholder="请输入要搜索的用户">
+                </div>
+                <button>搜索（用户/内容）</button>
+            </div>
+        </div> 
+         <div class="release">
+            <button>我要发布</button>
+            <p><img src="/assets/images/home/shop_2.png" alt=""><a href="/officialWeb/shopMy">我的</a></p> 
+         </div> -->
+    </div>
+    <div class="main">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href=""><a href="/officialWeb/bbsTime">虾时光</a></a></el-breadcrumb-item>
+            <el-breadcrumb-item>提醒</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="mainContent">
+            <div class="left">
+                <div class="user">
+                    <img src="/assets/images/home/ask_01.png" alt="">
+                    <h2>尼古丁·凯奇</h2>
+                    <div><span>关注 999</span><span>粉丝 9999</span></div>
+                    <p>籽虾号：12345678</p>
+                    <p>虾币：1376</p>
+                </div>
+                <div class="nav">
+                    <h2>全部动态</h2>
+                    <span class="current">关注</span>
+                    <span>推荐</span>
+                </div>
+            </div>
+            <div class="right">
+                <div class="formContent">
+                    <div class="formOther">
+                        <div class="item">
+                            <div class="calendar">
+                                <el-calendar></el-calendar>
+                            </div>
+                            <div class="add-ite">
+                                <div class="add" @click="dialogVisible1=true">
+                                    <i class="el-icon-circle-plus-outline"></i>新增记录
+                                </div>
+                                <div class="list">
+                                    <div class="ite" v-for="i in 4"  @click="dialogTableVisible2 = true">
+                                        <p @click="dialogTableVisible2 = true">这是记录</p>
+                                        <span>2022-9-16 10:09:23</span>
+                                        <el-dialog title="记录详情" :visible.sync="dialogVisible2">
+                                            <div class="listDet">
+                                                <div class="child_1">
+                                                    <h1>去取快递去取快递去取快递</h1>
+                                                    <span>2022-9-17 18:00:05</span>
+                                                </div>
+                                                <div class="child_2">
+                                                    今晚20:00之前去菜鸟驿站取快递
+                                                </div>
+
+                                            </div>
+
+                                        </el-dialog>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <el-dialog title="添加" :visible.sync="dialogVisible1" width="30%">
+                            <div class="">
+                                <textarea style="width: 100%;border-radius: 5px;" placeholder="请输入内容" id="" cols="30"
+                                    rows="10"></textarea>
+                            </div>
+                        </el-dialog>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                dialogVisible1:false,
+                dialogVisible2:false,
+            }
+        },
+        methods: {
+
+        }
+    })
+
+</script>

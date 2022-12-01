@@ -1,0 +1,540 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+a{
+    color: #fff;
+}
+.main{
+    width: 100%;
+    background-color:#fff ;
+
+}
+.container{
+    width: 990px;
+    min-height: 1360px;
+    background-image: url(../images/home/caishui_bk.png);
+    margin: 0 auto;
+    position: relative;
+}
+/* 办事官网 */
+.box_1{
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    writing-mode:vertical-lr;
+    top: 60px;
+    left:360px;  
+}
+/* 网站导航 */
+.web-nav{
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    writing-mode:vertical-lr;
+    top: 60px;
+    left:433px;
+}
+/* 升国旗 */
+.box_2{
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    writing-mode:vertical-lr;
+    top:72px;
+    left:500px;  
+}
+/* 应用中心 */
+.app-center{
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    writing-mode:vertical-lr;
+    top: 60px;
+    left:570px;
+}
+/* 便捷窗口 */
+.window{
+    color: #fff;
+    font-size: 18px;
+    position: absolute;
+    writing-mode:vertical-lr;
+    top: 60px;
+    left:640px;
+}
+
+
+
+/* 虾时光 */
+.time{
+    font-size: 18px;
+    position: absolute;
+    top:67px;
+    left:174px;
+}
+/* 财税游戏 */
+.fiscal-game{
+    font-size: 18px;
+    position: absolute;
+    top: 127px;
+    left:170px;
+
+}
+/* 籽虾早报 */
+.morning-paper{
+    font-size: 18px;
+    position: absolute;
+    top: 190px;
+    left:172px;
+
+}
+/* 籽虾月刊 */
+.getMonth{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 248px;
+    left:173px;
+
+}
+/* 戏说财税 */
+.box_3{
+    font-size: 18px;
+    position: absolute;
+    top: 307px;
+    left:172px;
+
+}
+
+
+
+/* 找代账 */
+.bookkeeping{
+    font-size: 18px;
+    position: absolute;
+    top: 63px;
+    left:841px;
+
+}
+
+/* 籽虾记账 */
+.box_4{
+    font-size: 18px;
+    position: absolute;
+    top: 126px;
+    left:834px;
+}
+/* 云审计 */
+.box_5{
+    font-size: 18px;
+    position: absolute;
+    top: 188px;
+    left:845px;
+}
+/* 云库管 */
+.box_6{
+    font-size: 18px;
+    position: absolute;
+    top: 250px;
+    left:845px;
+}
+/* 云记账 */
+.box_7{
+    font-size: 18px;
+    position: absolute;
+    top: 316px;
+    left:845px;
+}
+/*财务外包  */
+.financial-outsourc{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 377px;
+    left:837px;
+}
+/* 云财税 */
+.box_8{
+    font-size: 18px;
+    position: absolute;
+    top: 398px;
+    left:840px;
+}
+
+/* 财税购物 */
+.tax-shopping{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 379px;
+    left:92px;
+}
+/* 发票查验 */
+.invoice-query{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 442px;
+    left:56px;
+}
+/* 云开票 */
+.box_10{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 501px;
+    left:63px;
+}
+/* 企业服务 */
+.box_11{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 564px;
+    left:71px;
+}
+/* 名称查测 */
+.box_12{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 620px;
+    left:71px;
+}
+/* 转让求购 */
+.box_13{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 680px;
+    left:71px;
+}
+/* 学术研究 */
+.box_14{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 774px;
+    left:677px;
+}
+/* 银行咨询 */
+.box_15{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 737px;
+    left:184px;
+    transform: rotate(-12deg);
+
+}
+
+
+
+
+/*云开票  */
+.enterprise-service{
+    color: #feffff;
+    font-size: 18px;
+    transform: rotate(-8deg);
+    position: absolute;
+    top: 479px;
+    left:90px;
+}
+/*企业服务  */
+.bank-consultation{
+    color: #feffff;
+    font-size: 18px;
+    transform: rotate(-13deg);
+    position: absolute;
+    top: 593px;
+    left:153px;
+}
+
+/* 法规库 */
+.regulations{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top:486px;
+    left:844px;
+}
+/* 免费学习 */
+.free-study{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 547px;
+    left:837px;
+}
+/* 有问必答 */
+.question{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 600px;
+    left:837px;
+}
+/*籽虾文库  */
+.download-center{
+    color: #feffff;
+    font-size: 18px;
+    position: absolute;
+    top: 662px;
+    left:837px;
+}
+
+
+
+.circle-center{
+    color: #feffff;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 436px;
+    left:456px;
+}
+.other{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 255px;
+    left:483px; 
+}
+.wealth{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 279px;
+    left:618px; 
+}
+.tax{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 363px;
+    left:689px; 
+}
+.teach{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top:467px;
+    left:712px; 
+
+}
+.learn{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 581px;
+    left:679px; 
+
+}
+.study{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top:660px;
+    left:609px; 
+
+}
+.hire{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 671px;
+    left:495px; 
+
+}
+.sliver{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 638px;
+    left:381px;
+
+}
+.trade{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 568px;
+    left:304px;
+
+}
+.ticket{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top: 474px;
+    left:265px;
+
+}
+.matter{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top:375px;
+    left:298px;
+
+}
+.life{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+    top:286px;
+    left:364px;
+
+}
+.center-text{
+    width: 118px;
+    color: #feffff;
+    font-size: 20px;
+    position: absolute;
+    top: 1030px;
+    left:467px;
+    text-align: center;
+
+}
+.internship{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    position: absolute;
+    top:867px;
+    left:475px;
+
+}
+.employment{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(14deg);
+    position: absolute;
+    top:882px;
+    left:645px;
+}
+.dispatched{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 960px;
+    left:774px;
+
+}
+.company{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+   font-weight: 700;
+    /* transform: rotate(42deg); */
+    position: absolute;
+    top: 1075px;
+    left:836px;
+
+}
+.free-recruitment{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(-38deg);
+    position: absolute;
+    top: 1200px;
+    left:755px;
+
+}
+.substitute-recruitment{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(-17deg);
+    position: absolute;
+    top: 1261px;
+    left:624px;
+
+}
+.agency-account{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    position: absolute;
+    top: 1282px;
+    left:487px;
+
+}
+.financial-outsourcing{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(20deg);
+    position: absolute;
+    top: 1260px;
+    left:322px;
+
+}
+.dispatched-labor{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(48deg);
+    position: absolute;
+    top: 1184px;
+    left:198px;
+
+}
+.personnel{
+    color: #feffff;
+    font-size: 26px;
+    text-align: center;
+   font-weight: 700;
+    position: absolute;
+    top: 1056px;
+    left:144px;
+
+}
+.free-job{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(-44deg);
+    position: absolute;
+    top: 944px;
+    left:190px;
+
+}
+.job-hunting{
+    color: #feffff;
+    font-size: 18px;
+    text-align: center;
+    transform: rotate(-23deg);
+    position: absolute;
+    top: 886px;
+    left:316px;
+}

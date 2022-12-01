@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 全局组件的引用 -->
+        <v-one></v-one>
+        <hr />
+        <!-- 局部组件的引用 -->
+        <v-two></v-two>
+        <hr />
+        <v-four></v-four>
+    </div>
+    <div id="box">
+        <v-three></v-three>
+        <!-- 局部组件不能在其他div中引用，但是全局组件可以。 -->
+        <!-- <v-two></v-two> -->
+        <hr />
+        <v-one></v-one>
+        <hr />
+        <v-four></v-four>
+    </div>
+
+    <!-- template组件用来定义组件的结构 -->
+    <template id="wrap">
+        <div>
+            <h1>第二个全局组件</h1>
+        </div>
+    </template>
+    <script>
+        // 全局组件
+        Vue.component("vOne", {
+            // 组件模板
+            template: "<div><h1>这是全局组件</h1></div>",
+        }),
+            // 另一个全局组件
+            Vue.component("vFour", {
+                // 组件模板
+                template: "#wrap",
+            }),
+            new Vue({
+                el: "#app",
+                data: {},
+                // 局部组件
+                components: {
+                    vTwo: {
+                        template: "<div> <h1> 这是局部组件 </h1></div>",
+                    },
+                },
+            }),
+            new Vue({
+                el: "#box",
+                data: {},
+                components: {
+                    vThree: {
+                        template: "<div><h1>这是box盒子的局部组件</h1></div>",
+                    },
+                },
+            });
+    </script>
+</body>
+
+</html>

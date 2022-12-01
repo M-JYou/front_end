@@ -1,0 +1,97 @@
+{#layout name="public/freelance/freelance_layout" /#} {#load href="__ROOT__/assets/css/freelance/subject.css" /#}
+<div class="list_container clearfix" id="app">
+  <div class="lc_left">
+    <!--搜索-->
+    <div class="is_box">
+      <label><input type="text" placeholder="请输入关键词" class="is_input" @keyup.enter="handlerSearch" v-model="keyword" /></label>
+      <div class="is_btn" @click="handlerSearch">搜 索</div>
+    </div>
+    <div class="vo_group">
+      {#if condition="count($pager->items()) gt 0"#} {#volist name="$pager->items()" id="item"#}
+      <div class="vo_list">
+        <p class="vo_name clearfix">
+          <a href="{#:url('index/freelance/subject_show',['id'=>$item.id])#}" target="_blank" class="substring">{#$item.title#}</a>
+          {#if condition="$item.is_top"#}<a class="is_top"></a>{#/if#}
+        </p>
+        <p class="vo_wage">￥ {#$item.price#}</p><p class="vo_time">预计工期 <span>{#$item.period#}天</span></p> <p class="vo_date_txt">接单截止</p><p class="vo_date">{#$item.endtime#}</p>
+        <a href="{#:url('index/freelance/subject_show',['id'=>$item.id])#}" target="_blank" class="vo_btn">查看详情</a>
+      </div>
+      {#/volist#} {#else#}
+      <div class="list_empty">
+        <div class="emp_text">暂时没有数据哦</div>
+      </div>
+      {#/if#}
+    </div>
+    {#$pager->render()#}
+  </div>
+  <div class="lc_right">
+    <div class="r1">
+      <div class="link_btn" @click="handlerLink(1)">发布零工项目</div>
+      <div class="link_btn d" @click="handlerLink(2)">登记信息赚钱</div>
+    </div>
+    <div class="r2">
+      <p class="t1">使用微信扫一扫</p><p class="t2">查看更多内容</p>
+      <img :src="rightQrcode" alt="微信扫一扫" class="qr_img" />
+    </div>
+    {#if condition="count($hot) gt 0"#}
+    <div class="r3">
+      <div class="p_title">
+        <div class="t_cn">热门项目</div>
+      </div>
+      <div class="r3_group">
+        {#volist name="hot" id="item"#}
+        <a href="{#:url('index/freelance/subject_show',['id'=>$item.id])#}" target="_blank" class="r3_item">
+          <div class="p_name clearfix">
+            <p class="name_cn substring">{#$item.title#}</p>
+          </div>
+          <p class="i_wage">￥ {#$item.price#}</p>
+          <p class="i_time">截止时间 <span class="t t1">{#$item.endtime#}</span>预计工期 <span class="t">{#$item.period#}天</span></p>
+        </a>
+        {#/volist#}
+      </div>
+    </div>
+    {#/if#}
+  </div>
+</div>
+<script>
+  var vm = new Vue({
+    el: "#app",
+    data: {
+      keyword: "",
+      searchAlias: "subject",
+      rightQrcode: "",
+    },
+    created: function () {
+      var locationUrl = "{#$share_url#}";
+      this.rightQrcode = qscms.apiUrl + qscms.apiList.qrcode + "?alias=sub_fl_subject_list&url=" + locationUrl;
+      this.keyword = decodeURI(this.getQueryVariable("keyword"));
+    },
+    methods: {
+      handlerSearch: function () {
+        if (this.keyword) {
+          location.href = window.location.origin + window.location.pathname + "?keyword=" + this.keyword;
+        } else {
+          location.href = window.location.origin + window.location.pathname;
+        }
+      },
+      handlerLink: function (type) {
+        if (parseInt(type) === 1) {
+          location.href = qscms.locationList.freelanceAddSubject;
+        } else {
+          location.href = qscms.locationList.freelanceAddResume;
+        }
+      },
+      getQueryVariable: function (variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] === variable) {
+            return pair[1];
+          }
+        }
+        return "";
+      },
+    },
+  });
+</script>

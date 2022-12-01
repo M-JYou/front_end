@@ -1,0 +1,22 @@
+{
+  // "files.exclude": {
+  //   "**/node_modules": true,
+  //   "thinkphp": true,
+  //   "vendor": true,
+  //   "extend": true,
+  //   "runtime": true,
+  //   "*.*":true
+  // },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.hg/store/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/.git": true
+  }
+}

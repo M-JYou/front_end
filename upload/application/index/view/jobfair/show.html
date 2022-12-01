@@ -1,0 +1,458 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/jobfair.css" /#}
+{#load href="__ROOT__/assets/css/highslide.css" /#}
+<div class="content_wrapper" id="app">
+	<div class="content">
+		<div class="jobFair_box clearfix">
+			<div class="jobFair_img float">
+				<img src="{#$info.thumb#}" />
+			</div>
+			<div class="jobFair_text_box float">
+				<p class="title">{#$info.title#}</p>
+				<div class="total">
+					<p>参会企业<span>{#$info.company_num#}</span></p>
+					<p>招聘职位<span>{#$info.jobs_num#}</span></p>
+					<p>浏览次数<span>{#$info.click#}</span></p>
+				</div>
+				<p class="sponsor">主办方：{#$info.sponsor#}</p>
+				<p class="time">举办时间：{#:date('Y-m-d H:i:s',$info['holddate_start'])#} 至 {#:date('Y-m-d
+					H:i:s',$info['holddate_end'])#} </p>
+				<p class="reserve_status status{#$info.friendly_tips#}">{#$info.friendly_tips_text#}</p>
+			</div>
+			<div class="jobFair_btn">
+				{#switch name="$info['predetermined']"#}
+				{#case value="0"#}<button class="not">报名未开始</button><br />{#/case#}
+				{#case value="1"#}<button @click="changeTab('reserve')">在线预定</button><br />{#/case#}
+				{#case value="2"#}<button class="stop">已停止报名</button><br />{#/case#}
+				{#/switch#}
+				<span @click="changeTab('comlist')">参会企业</span>
+			</div>
+			{#switch name="$info['holddate']"#}
+			{#case value="0"#}<img class="right_img" src="__ROOT__/assets/images/JobFair_img0.png" />{#/case#}
+			{#case value="1"#}<img class="right_img" src="__ROOT__/assets/images/JobFair_img1.png" />{#/case#}
+			{#case value="2"#}<img class="right_img" src="__ROOT__/assets/images/JobFair_img2.png" />{#/case#}
+			{#/switch#}
+		</div>
+
+		<ul id="jobfairNav" class="box2_nav clearfix">
+			<li :class="tab=='show'?'nav_active':''" @click="changeTab('show')">招聘会详情</li>
+			<li :class="tab=='comlist'?'nav_active':''" @click="changeTab('comlist')">参会企业</li>
+			{#if condition="$info['predetermined'] eq 1"#}
+			<li :class="tab=='reserve'?'nav_active':''" @click="changeTab('reserve')">在线预定</li>
+			{#/if#}
+			<li :class="tab=='traffic'?'nav_active':''" @click="changeTab('traffic')">交通路线</li>
+			{#if condition="$info['retrospect'] eq 1"#}
+			<li :class="tab=='retrospect'?'nav_active':''" @click="changeTab('retrospect')">精彩回顾</li>
+			{#/if#}
+		</ul>
+		<div class="join_con {#if condition="$info['intro_img'] neq ''"#}intro{#/if#}" v-show="tab=='show'">
+      {#if condition="$info['intro_img'] neq ''"#}<img src="{#$info.intro_img#}" alt="" class="intro_img">{#/if#}
+      <div class="jc_title">招聘会简介</div>
+			<div class="jc_content editor-content-view">
+				{#$info.introduction#}
+			</div>
+      {#if condition="$info['participants_object'] neq ''"#}
+        <div class="jc_title">参会对象</div>
+        <div class="jc_content">
+          {#$info.participants_object#}
+        </div>
+      {#/if#}
+      {#if condition="$info['price'] neq ''"#}
+        <div class="jc_title">摊位设置及费用</div>
+        <div class="jc_content">
+          {#$info.price#}
+        </div>
+      {#/if#}
+      {#if condition="$info['registration_method'] neq ''"#}
+        <div class="jc_title">参会报名办法</div>
+        <div class="jc_content">
+          {#$info.registration_method#}
+        </div>
+      {#/if#}
+		</div>
+		<div class="join_meeting_wrapper" v-show="tab=='comlist'">
+			<div class="recommend_box">
+				<div class="clearfix" v-if="recommend.length>0">
+					<div class="recommend_title">推荐企业</div>
+					<template v-for="(item,index) in recommend" :key="index">
+						<div class="recommend_list float">
+							<a class="comUrl" :href="companyUrl(item.id)" target="_blank">
+								<div class="recommend_img">
+									<img :src="item.logo" />
+								</div>
+								<p>{{item.companyname}}</p>
+							</a>
+						</div>
+					</template>
+				</div>
+				<div class="join_list_wrapper clearfix">
+					<div class="join_sum">
+						已有 <span>{#$info.company_num#}</span> 家企业参会，正在陆续增加中……
+					</div>
+					<div class="join_list_box " v-for="(item,index) in companylist" :key="index">
+						<div class="join_list float">
+							<p class="join_company clearfix">
+								<a :href="companyUrl(item.id)" target="_blank">{{item.companyname}}</a>
+								<span class="BoothNo">展位号：{{item.position}}</span>
+							</p>
+							<div v-if="item['jobs_num']>0" class="recruit_post_list">
+								<template v-for="(job,i) in item['jobs_list']" :key="i">
+									<a class="joburl" :href="jobsUrl(job.id)" target="_blank">{{job.jobname}}</a>
+								</template>
+							</div>
+							<p class="post_sum">
+								该企业共有<span>{{item.jobs_num}}</span>个职位正在热招，
+								<a :href="companyUrl(item.id)" target="_blank">了解更多&gt;&gt;</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="paging1 clearfix">
+				<div class="paging_box clearfix">
+					<button class="paging_pre enable" v-if="page>1" @click="page--,pageClick()">上一页</button>
+					<button class="paging_pre" v-if="page==1">上一页</button>
+					<div class="paging_num" v-for="(item,index) in pagination" :key="index"
+						:class="{ 'active': page == item}" @click="btnClick(item)">{{item}}</div>
+					<button v-if="page!=total_page" class="paging_next enable" @click="page++,pageClick()">下一页</button>
+					<button v-if="page==total_page" class="paging_next">下一页</button>
+				</div>
+			</div>
+		</div>
+		<div class="itinerary_con" v-show="tab=='traffic'">
+			<div class="title">交通路线</div>
+			<div class="">
+				<p class="address">{#$info.address#}</p>
+				<div id="bdMap" class="map"></div>
+			</div>
+		</div>
+		{#if condition="$info['retrospect'] eq 1"#}
+		<div class="review" v-show="tab=='retrospect'" v-for="(item,index) in retrospectList" :key="index">
+			<img :src="item" />
+		</div>
+		{#/if#}
+		<div class="book_online_wrapper" v-show="tab=='reserve'">
+			{#if condition="$info['position_img']"#}
+			<div class="booth">
+				<div class="title">招聘会展位</div>
+				<div class="booth_img">
+					{#volist name="info['position_img']" id="img"#}
+					<a href="{#$img#}" class="highslide" onclick="return hs.expand(this)">
+					<img src="{#$img#}"/>
+					</a>
+					{#/volist#}
+
+				</div>
+			</div>
+			{#/if#}
+			<div class="reserve_wrapper">
+				<div class="title">
+					在线预定
+				</div>
+				<div class="reserve">
+					<div class="reserve_state clearfix">
+						<div class="explain">展会预定状态说明：</div>
+						<div class="reserve_state_item">
+							<div class="reserve_state1"></div>
+							<span>可预定</span>
+						</div>
+						<div class="reserve_state_item">
+							<div class="reserve_state2"></div>
+							<span>已预定<span>
+						</div>
+						<div class="reserve_state_item">
+							<div class="reserve_state3"></div>
+							<span>审核中</span>
+						</div>
+						<div class="reserve_state_item">
+							<div class="reserve_state4"></div>
+							<span>暂停预定</span>
+						</div>
+					</div>
+					<div class="reserve_sum">
+						线上预定企业数：<span>{#$info.company_num#}</span>
+					</div>
+					<div class="seat clearfix">
+						<div class="region float">
+							<template v-for="(item,i) in position" :key="i">
+								<button :class="area==i?'activeButton':''" @click="changeArea"
+									:data-type="i">{{item.area}}</button>
+							</template>
+						</div>
+						<div class="storey_sum float">
+							<div class="region_list">
+								<template v-for="(item,i) in position[area]['positions']" :key="i">
+									<div :class="'region_item status'+item.status">
+										{{item.position}}
+										<div class="tip">
+											<template v-if="item.status==0">
+												<div class="arrow arrow_bookable"></div>
+												<div class="box bookable">
+													<div class="t t_bookable">
+														状态：可预定
+													</div>
+													<div class="restxt">
+														<span>展位号：{{item.position}}</span>
+														<span class="btn" @click="reserveDig(i,item)">立即预定</span>
+													</div>
+												</div>
+											</template>
+											<template v-if="item.status==1">
+												<div class="arrow arrow_succeed"></div>
+												<div class="box succeed">
+													<div class="t t_succeed">
+														状态：已预定
+													</div>
+													<div class="restxt">
+														<a :href="companyUrl(item.company_id)"
+															target="_blank">{{item.company_name}}</a>
+													</div>
+												</div>
+											</template>
+											<template v-if="item.status==2">
+												<div class="arrow arrow_audit"></div>
+												<div class="box audit">
+													<div class="t t_audit">
+														状态：审核中
+													</div>
+													<div class="restxt">
+														<a :href="companyUrl(item.company_id)"
+															target="_blank">{{item.company_name}}</a>
+													</div>
+												</div>
+											</template>
+										</div>
+									</div>
+								</template>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<el-dialog :visible.sync="visible" center title="预订展位" width="530px">
+		<div class="item">
+			<span class="keyName">展位号：</span><span>{{positionInfo.position}}</span>
+		</div>
+		<div class="item">
+			<span class="keyName">联系人：</span>
+			<input class="inputWidth el-input__inner" v-model="reserve.contact"></input>
+		</div>
+		<div class="item">
+			<span class="keyName">联系电话：</span>
+			<input class="inputWidth el-input__inner" v-model="reserve.mobile"></input>
+		</div>
+		<div class="btn_wrapper">
+			<el-button type="primary" @click="setReserve">立即预定</el-button>
+		</div>
+	</el-dialog>
+</div>
+{#load href="__ROOT__/assets/js/highslide-with-gallery.js" /#}
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(function () {
+			hs.graphicsDir = "__ROOT__/assets/js/graphics/";
+			hs.align = 'center';
+			hs.transitions = ['expand', 'crossfade'];
+			hs.outlineType = 'rounded-white';
+			hs.fadeInOut = true;
+			hs.addSlideshow({
+				interval: 5000,
+				repeat: false,
+				useControls: true,
+				fixedControls: 'fit',
+				overlayOptions: {
+					opacity: 0.75,
+					position: 'bottom center',
+					hideOnMouseOut: true
+				}
+			});
+		})
+	})
+	function loadBdMap() {
+		if (window.BMap !== undefined) {
+			return
+		}
+		var script = document.createElement('script')
+		script.type = 'text/javascript'
+		script.src = '//api.map.baidu.com/api?v=2.0&ak={#$global_config.map_ak#}&callback=initBdMap'
+		document.body.appendChild(script)
+	}
+	function initBdMap() {
+		var opts = {
+			width: 300,     // 信息窗口宽度
+			height: 80,     // 信息窗口高度
+			title: "{#$info['title']#}"  // 信息窗口标题
+		}
+		var infoWindow = new BMap.InfoWindow("举办地址：{#$info['address']#}<br />举办时间：{#:date('m月d日 H时i分',$info['holddate_start'])#}", opts);  // 创建信息窗口对象
+		var map = new BMap.Map('bdMap') // 创建Map实例
+		var lng = parseFloat("{#$info.map_lng#}")
+		var lat = parseFloat("{#$info.map_lat#}")
+		var zoom = parseInt("{#$info.map_zoom#}") > 0 ? parseInt("{#$info.map_zoom#}") : parseInt("{#$global_config.map_zoom#}")
+		var point = new BMap.Point(lng, lat) // 创建点坐标
+		map.centerAndZoom(point, zoom)
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker);
+		map.openInfoWindow(infoWindow, point);
+		map.setCenter(point);
+		map.addControl(new BMap.NavigationControl());//添加鱼骨
+		map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用。
+	}
+	loadBdMap()
+</script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			isLogin: false,
+			utype: 0,
+			id: "{#$info.id#}",
+			tab: "{#$tab|default='show'#}",
+			recommend: [],
+			companylist: [],
+			retrospectList: [],
+			position: [
+				{ positions: [] }
+			],
+			area: 0,
+			page: 1,
+			pagesize: 5,
+			total: 0,
+			total_page: 0,
+			company_url: "{#:url('index/company/show',['id'=>'_id'])#}",
+			jobs_url: "{#:url('index/job/show',['id'=>'_id'])#}",
+			visible: !1,
+			positionIndex: 0,
+			positionInfo: {},
+			reserve: {
+				contact: '',
+				mobile: ''
+			},
+			companyContent: {
+				contact: "{#$company_contact.contact|default=''#}",
+				mobile: "{#$company_contact.mobile|default=''#}",
+			}
+		},
+		created: function () {
+			this.getUserInfo()
+			this.getRetrospect()
+			this.getRecommend()
+			this.getCompanylist()
+			this.getPosition()
+		},
+		computed: {
+			//分页
+			pagination: function () {
+				var left = 1;
+				var right = this.total_page;
+				var ar = [];
+				if (this.total_page >= 5) {
+					if (this.page > 3 && this.page < this.total_page - 2) {
+						left = this.page - 2
+						right = this.page + 2
+					} else {
+						if (this.page <= 3) {
+							left = 1
+							right = 5
+						} else {
+							right = this.total_page
+							left = this.total_page - 4
+						}
+					}
+				}
+				while (left <= right) {
+					ar.push(left)
+					left++
+				}
+				return ar
+			}
+		},
+		methods: {
+			getUserInfo: function () {
+				var t = this;
+				httpget(qscms.apiList.userinfo).then(function (res) {
+					if (res.data.login === true) {
+						t.isLogin = true,
+							t.utype = res.data.userinfo.utype,
+							t.companyContent.contact = t.companyContent.contact || res.data.show_username,
+							t.companyContent.mobile = t.companyContent.mobile || res.data.userinfo.mobile
+					}
+				}).catch(function () { })
+			},
+			//分页
+			btnClick: function (data) {//页码点击事件
+				if (data !== this.page) {
+					this.page = data
+					//根据点击页数请求数据
+					this.getCompanylist();
+				}
+			},
+			pageClick: function () {
+				//根据点击页数请求数据
+				this.getCompanylist();
+			},
+			changeTab: function (type) {
+				this.tab = type
+			},
+			getRecommend: function () {
+				var t = this;
+				httpget(qscms.apiList.jobfairRecommend, { id: t.id }).then(function (r) {
+					t.recommend = r.data.items
+				}).catch(function () { })
+			},
+			getCompanylist: function () {
+				var t = this;
+				httpget(qscms.apiList.jobfairCompanylist, { id: t.id, page: t.page, pagesize: t.pagesize }).then(function (r) {
+					t.companylist = r.data.items,
+						t.total = r.data.total,
+						t.total_page = r.data.total_page
+				}).catch(function () { })
+			},
+			getRetrospect: function () {
+				var t = this;
+				httpget(qscms.apiList.jobfairRetrospect, { id: t.id }).then(function (r) {
+					t.retrospectList = r.data.items
+				}).catch(function () { })
+			},
+			changeArea: function (e) {
+				this.area = e.target.dataset.type
+			},
+			getPosition: function () {
+				var t = this;
+				httpget(qscms.apiList.jobfairPosition, { id: t.id }).then(function (r) {
+					t.position = r.data.items
+				}).catch(function () { })
+			},
+			reserveDig: function (i, d) {
+				this.visible = !0,
+					this.positionIndex = i,
+					this.positionInfo = d,
+					this.reserve.contact = this.companyContent.contact,
+					this.reserve.mobile = this.companyContent.mobile
+			},
+			setReserve: function () {
+				var t = this;
+				if ('' == $.trim(t.reserve.contact)) {
+					window.ELEMENT.Message.error('请填写联系人');
+					return !1
+				}
+				if ('' == $.trim(t.reserve.mobile)) {
+					window.ELEMENT.Message.error('请填写联系电话');
+					return !1
+				}
+				t.reserve.errStatus = !1;
+				httppost(qscms.apiList.jobfairReserve, { jobfair_id: t.id, position_id: t.positionInfo.id, contact: t.reserve.contact, mobile: t.reserve.mobile }).then(function (r) {
+					t.visible = !1,
+						t.position[t.area]['positions'][t.positionIndex] = r.data
+				}).catch(function () { })
+			},
+			companyUrl: function (id) {
+				return this.company_url.replace('_id', id)
+			},
+			jobsUrl: function (id) {
+				return this.jobs_url.replace('_id', id)
+			}
+		}
+	})
+</script>

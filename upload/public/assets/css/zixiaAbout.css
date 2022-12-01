@@ -1,0 +1,263 @@
+.logoPart {
+    height: 130px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+/* #region   轮播 */
+.el-breadcrumb {
+    margin-top: 10px;
+}
+
+.banner {
+    width: 70%;
+    height: 100%;
+    margin-left: 30px;
+}
+
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 130px;
+    margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+}
+
+/* #endregion   */
+
+.main {
+    width: 1400px;
+    background-color: #FFFFFF;
+    padding: 20px 0px;
+}
+
+.main .top {
+    width: 100%;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+}
+
+.main .tabs {
+    display: flex;
+}
+
+.main .tabs span {
+    display: inline-block;
+    font-size: 20px;
+    color: #777777;
+    padding: 10px 5px;
+    margin-right: 30px;
+}
+
+.main .tabs span.active {
+    font-size: 20px;
+    font-weight: 700;
+    color: #007768;
+    border-bottom: 3px solid #007768;
+}
+
+
+
+
+.main .mainContent {
+    width: 100%;
+    display: flex;
+    background-color: #FFFFFF;
+    justify-content: space-evenly;
+}
+
+.main .mainContent .nav {
+    width: 20%;
+    min-height: 845px;
+    background-color: #F7F7F7;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .mainContent .nav h2 {
+    width: 100%;
+    height: 80px;
+    color: #007768;
+    font-size: 28px;
+    border-bottom: 1px solid #E9E9E9;
+    line-height: 80px;
+    text-align: center;
+}
+
+.main .mainContent .nav span {
+    font-size: 20px;
+    color: #777777;
+    margin-top: 40px;
+    font-family: 'Microsoft YaHei';
+}
+
+.main .mainContent .nav .current {
+    margin-top: 40px;
+    font-weight: 700;
+    font-family: 'Microsoft YaHei';
+    color: #007768;
+    font-size: 22px;
+}
+
+.main .mainContent .nav .current a {
+    color: #007768;
+    font-size: 22px;
+}
+
+.formContent {
+    width: 75%;
+    min-height: 845px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #F7F7F7;
+}
+
+.formContent .con_1{
+    width: 100%;
+    min-height: 830px;
+    background-color: #FFFFFF;
+    padding: 15px;
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+
+}
+.con_1 .listTitle{
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #F1F1F1;
+    font-size: 24px;
+    color: #333;
+    line-height: 60px;
+    text-align: center;
+}
+
+/* #region 了解籽虾 */
+.con_1 .list1{
+    width: 92%;
+    margin-top: 35px;
+    display: flex;
+    flex-direction:column ;
+}
+.con_1 .list1 .title{
+    padding-left: 30px;
+    margin-bottom: 20px;
+    color: #007768;
+    font-size: 20px;
+    font-weight: 700;
+    border-left: 6px solid #007768;
+}
+.con_1 .list1 img{
+    width: 600px;
+    height: 300px;
+}
+/* #endregion */
+
+
+/* #region 商务合作 */
+.list2{
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
+
+}
+.list2>div{
+    display: flex;
+    margin-top: 30px;
+}
+
+.list2>div span{
+    font-size: 20px;
+    color: #777777;
+    text-align: right;
+    width: 200px;
+    padding: 10px 0;
+    margin-right: 15px;
+}
+.list2>div input{
+   width: 406px;
+    height: 40px;
+    border: 1px solid #777777;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #777777;
+
+}
+.list2>div .input2{
+    height: 100px;
+    overflow-y: auto;
+}
+.list2>div .input4{
+    width: 275px;
+}
+.list2>div button{
+    width: 114px;
+    height: 35px;
+    background-color: #C4DFDC;
+    font-size: 12px;
+    color: #007768;
+    border-radius: 18px;
+    margin-left: 15px;
+}
+.list2 .tijiao{
+    width: 270px;
+    height: 35px;
+    background-color: #007768;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-top:50px;
+    border-radius: 8px;
+    /* margin-left: 30px; */
+}
+
+/* #endregion */
+/* #region  帮助中心*/
+.tubiao{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 300px;
+    right: 100px;
+}
+.tubiao .el-tooltip {
+    margin-bottom: 20px;
+}
+.list3{
+    width: 95%;
+    padding: 20px;
+border-bottom: 1px solid #F1F1F1;
+
+}
+.list3 a{
+   
+font-size: 20px;
+color: #777777;
+
+
+}
+
+
+
+/* #endregion */
+/* #region  加入籽虾*/
+
+
+
+
+/* #endregion */

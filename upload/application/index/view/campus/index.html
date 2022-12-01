@@ -1,0 +1,269 @@
+{#layout name="public/campus/campus_layout" /#}
+{#load href="__ROOT__/assets/css/swiper-bundle.min.css" /#}
+{#load href="__ROOT__/assets/css/campus/campus_index.css" /#}
+  <!-- 内容 -->
+  <div class="i_con" id="app">
+    <div class="i_con_min w1200">
+      <div class="clearfix">
+        <!-- 分类 -->
+        <div class="left i_cat_nav">
+          <ul class="cat_nav_list">
+            {#foreach name="category_jobs[0]" item="c1" key="k1" length="8" #}
+            <li class="cnl_item">
+              <div class="cnl_item_text">{#$c1#}</div>
+              {#if condition="isset($category_jobs[$k1])"#}
+              <div class="cnl_item_pop">
+                {#foreach name="category_jobs[$k1]" item="c2" key="k2"#}
+                <div class="cnl_item_pop_con">
+                  <div class="cnl_item_pop_title">{#$c2#}</div>
+                  {#if condition="isset($category_jobs[$k2])"#}
+                  <div class="jno_item_pop_list">
+                    {#foreach name="category_jobs[$k2]" item="c3" key="k3"#}
+                    <a  href="{#:url('index/campus/job',['c1'=>$k1,'c2'=>$k2,'c3'=>$k3])#}" target="_blank" class="jno_item_pop_link">{#$c3#}</a>
+                    {#/foreach#}
+                  </div>
+                  {#/if#}
+                </div>
+                {#/foreach#}
+              </div>
+              {#/if#}
+            </li>
+            {#/foreach#}
+
+
+            <li class="cnl_item">
+              <a class="cnl_item_text all_job" href="{#:url('index/campus/job')#}" target="_blank">全部职位</a>
+            </li>
+          </ul>
+        </div>
+        <!-- 轮播图 -->
+        <div class="left i_sw_con swiper-container" id="j_sw_1">
+          <div class="i_sw_wrapper swiper-wrapper">
+          {#volist name="banner_list['QS_campus_top_slide@web']" id="vo"#}
+          <div class="swiper-slide i_sw_item">
+              <a class="sw_link" target="_blank" href="{#$vo.web_link_url#}">
+                <img src="{#$vo.image_src#}" alt="">
+              </a>
+          </div>
+          {#/volist#}
+          </div>
+          <div class="swiper-pagination i_sw_page j_sw_pagination"></div>
+        </div>
+
+        <!-- 登录注册 -->
+        <div class="left i_login_box">
+
+          <!-- 登录 -->
+          {#include file="public/campus/campus_ajaxLogin" /#}
+
+          <div class="i_info">
+            <div class="i_info_text clearfix">
+              <span class="left">校招资讯</span>
+              <a class="right i_info_more" href="{#:url('index/campus/notice')#}">更多>></a>
+            </div>
+            <ul class="i_info_list">
+              {#volist name="notice_list" id="item" #}
+              <li class="substring list_it">
+                <a target="_blank" href="{#:url('index/campus/notice_show',['id'=>$item.id])#}" class="it_link">{#$item.title#}</a>
+              </li>
+              {#/volist#}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 名企校招 -->
+      <div class="famous_recruit">
+        <div class="fr_title">
+          <span>名企校招</span>
+        </div>
+
+        <div class="fr_list clearfix">
+          <div :class="(index+1) % 5 == 0 ? 'fr_list_item left no_mr':'fr_list_item left' " v-for="(item ,index) in data['QS_campus_famous@web']" :key="index" @click="campusFamousJump(item.web_link_url)">
+            <div class="fr_item_img">
+              <a class="fr_item_link">
+                <img :src="item.image_src" alt="">
+              </a>
+            </div>
+            <p class="fr_item_text substring">
+              <a>{{item.bottom_text}}</a>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 校招宣讲会 -->
+      <div  class="pubilc_meet">
+        <div class="i_title clearfix">
+          <span class="i_text">校招宣讲会</span>
+          <a class="i_more right" href="{#:url('index/campus/school')#}">
+            <span class="more_text" >查看更多</span>
+            <span class="more_icon">···</span>
+          </a>
+        </div>
+        <div class="pm_list clearfix">
+          {#volist name="school_list" id="vo"#}
+          <div class="pm_list_item clearfix left {#if condition="($key+1)%4 eq 0"#}no_mr{#/if#} " onclick="javascript:window.open('{#:url(\'index/campus/school_show\',[\'id\'=>$vo.id])#}')">
+            <div class="pm_img left">
+              <img src="{#$vo.logo_url#}" alt="">
+            </div>
+            <div class="left pm_text">
+              <a class="pm_com_name substring">{#$vo.school_name#}</a>
+              <p class="pm_meet_text substring">该校近期有<span>{#$vo.total#}</span>场宣讲会</p>
+            </div>
+          </div>
+          {#/volist#}
+        </div>
+      </div>
+
+      <!-- 校招职位 -->
+      <div class="school_recruit_job">
+        <div class="i_title clearfix">
+          <span class="i_text">校招职位</span>
+          <a class="i_more right" href="{#:url('index/campus/job')#}">
+            <span class="more_text">查看更多</span>
+            <span class="more_icon">···</span>
+          </a>
+        </div>
+        <div class="srj_list clearfix">
+          {#volist name="job_list" id="item"#}
+          <div class="srj_list_item left {#if condition="($key+1)%3 eq 0"#}no_mr{#/if#}  " onclick="javascript:window.open('{#:url(\'index/job/show\',[\'id\'=>$item.id])#}')">
+            <div class="clearfix srj_job_info">
+              <a class="left job_name substring ">{#$item.jobname#}</a>
+              <span class="right job_salary substring">{#$item.wage_text#}</span>
+            </div>
+            <div class="clearfix srj_com_name">
+              <a class="left com_name substring">{#$item.companyname#}</a>
+              <span class="right com_time">{#$item.refreshtime#}</span>
+            </div>
+          </div>
+          {#/volist#}
+        </div>
+      </div>
+
+      <!-- 院校双选会 -->
+      <div class="schools_two_meet">
+        <div class="i_title clearfix">
+          <span class="i_text">院校双选会</span>
+          <a class="i_more right" href="{#:url('index/campus/election')#}">
+            <span class="more_text">查看更多</span>
+            <span class="more_icon">···</span>
+          </a>
+        </div>
+        <div class="stm_list clearfix">
+          {#volist name="election_list" id="item"#}
+          <div class="stm_list_item left {#if condition="($key + 1 ) % 4 eq 0"#}no_mr{#/if#}" onclick="javascript:window.open('{#:url(\'index/campus/election_show\',[\'id\'=>$item.id])#}')">
+            <div class="meet_info_address">
+              {#if condition="$item.score === 0 "#}
+              <img src="__ROOT__/assets/images/campus/stm_img_0.png" alt="" class="img">
+              {#/if#}
+              {#if condition="$item.score === 1 "#}
+              <img src="__ROOT__/assets/images/campus/stm_img_1.png" alt="" class="img">
+              {#/if#}
+              {#if condition="$item.score === 2 "#}
+              <img src="__ROOT__/assets/images/campus/stm_img_2.png" alt="" class="img">
+              {#/if#}
+              <div class="stm_title_1 substring">{#$item.school_name#}</div>
+              <div class="stm_title_2 substring">{#$item.subject#}</div>
+              <div class="stm_text substring">
+                <p class="substring">举办时间：{#:date('Y-m-d',$item['starttime'])#}</p>
+                <p class="substring">举办地址：{#$item.address#}</p>
+              </div>
+            </div>
+            <div class="stm_text_box">
+              <a class="meet_name substring" href="{#:url('index/campus/election_show',['id'=>$item.id])#}">{#$item.subject#}</a>
+              <p class="oth_text">
+                <span class="text_1">单位：<span>{#$item.company_count#}</span></span>
+                <span class="text_2">个人：<span>{#$item.graduate_count#}</span></span>
+              </p>
+            </div>
+          </div>
+          {#/volist#}
+        </div>
+      </div>
+    </div>
+  </div>
+{#load href="__ROOT__/assets/js/jquery.hoverdir.js" /#}
+{#load href="__ROOT__/assets/js/swiper-bundle.min.js" /#}
+<script>
+$(document).ready(function () {
+  $(function(){
+    // 职位分类侧拉位置调整
+    var topArr = [10, 54, 98, 142, 186, 230, 274, 318];
+    $(".cnl_item_pop").each(function (index) {
+      $(this).css("top", "-" + topArr[index] + "px");
+    });
+    // 轮播图
+    var swiper_1 = new Swiper("#j_sw_1", {
+      autoplay: true,
+      loop:true,
+      pagination: {
+        el: '.j_sw_pagination',
+        clickable :true,
+      }
+    });
+    // 鼠标离开 停止轮播
+    $("#j_sw_1").mouseenter(function () {
+      swiper_1.autoplay.stop();
+    });
+    // 鼠标离开 继续轮播
+    $("#j_sw_1").mouseleave(function () {
+      swiper_1.autoplay.start();
+    });
+        
+  })
+})
+
+var vm = new Vue({
+  el:'#app',
+  data: {
+    data: [],
+    loginUtype: 0,
+    statAfterLogin: {},
+    userName: null
+  },
+  mounted: function () {
+    this.getData()
+    this.getUserInfo()
+  },
+  methods: {
+    getData :function() {
+      var _this = this
+      httppost(qscms.apiList.campusAdList,{ 
+        "alias": [
+          "QS_campus_top_slide@web",
+          "QS_campus_famous@web",
+          "QS_campus_top_slide@mobile",
+          "QS_campus_famous@mobile"
+        ]
+      }).then( function(res){
+        _this.data = res.data.items
+      }).catch( function(){})
+    },
+    campusFamousJump: function(link) {
+      if (link) {
+        window.open(link)
+      }
+    },
+    getUserInfo: function () {
+      var that = this
+      httpget(qscms.apiList.userinfo).then(function (res) {
+        if (res.data.login === true) {
+          that.userName = res.data.show_username
+          that.loginUtype = res.data.userinfo.utype
+          that.getStatAfterLogin()
+        }
+      }).catch(function () { })
+    },
+    getStatAfterLogin: function () {
+      var that = this
+      httpget(qscms.apiList.statAfterLogin).then(function (res) {
+        that.statAfterLogin = res.data
+      }).catch(function () { })
+    },
+  }
+})
+</script>

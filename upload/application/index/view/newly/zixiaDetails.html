@@ -1,0 +1,76 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/zixiaDetails.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div>
+            <div class="logo">
+                <img src="/assets/images/home/logo_xiazi.png" alt="">
+                <span>打造财税生态链</span>
+            </div>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/zixiaAbout">关于籽虾</a></el-breadcrumb-item>
+                <el-breadcrumb-item>帮助中心</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="banner">
+            <el-carousel trigger="click" height="130px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                    <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+    </div>
+    <div class="main">
+       
+        <div class="mainContent">
+            <div class="nav">
+                <h2>关于籽虾</h2>
+                <span>了解籽虾</span>
+                <span>商务合作</span>
+                <span class="current">帮助中心</span>
+                <span>加入籽虾</span>
+            </div>
+            <div class="formContent">
+                <div class="con_1 ">
+                    <span class="listTitle">问题题目</span>
+                    <div class="list1">
+                        <p>达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念。
+                        </p>
+                        <img src="/assets/images/home/academic_02.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                input: '',
+                itemIndex: 1,
+
+
+            }
+        },
+        methods: {
+            clickTab(index) {
+                this.itemIndex = index
+            },
+
+        }
+    })
+
+</script>

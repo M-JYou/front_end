@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件嵌套</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <v-head></v-head>
+        <hr>
+        <v-content></v-content>
+        <hr>
+        <v-foot></v-foot>
+    </div>
+
+
+    <template id="head">
+        <div>
+            <h1>head头部</h1>
+        </div>
+    </template>
+    <template id="content">
+        <div>
+            <h1>content{{msg}}</h1>
+        </div>
+    </template>
+    <template id="foot">
+        <div>
+            <h1>foot底部</h1>
+        </div>
+    </template>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {},
+            components: {
+                vHead: {
+                    template: '#head'
+                },
+                vContent: {
+                    template: '#content',
+                    data() {
+                        return {
+                            msg: '内容信息'
+                        }
+                    }
+                },
+                vFoot: {
+                    template: '#foot'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

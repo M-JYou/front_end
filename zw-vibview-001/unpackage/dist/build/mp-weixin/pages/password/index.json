@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "重置密码",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#3e4558",
+  "disableScroll": true,
+  "usingComponents": {
+    "uni-forms": "/uni_modules/uni-forms/components/uni-forms/uni-forms",
+    "u-icon": "/components/u-icon/u-icon"
+  }
+}

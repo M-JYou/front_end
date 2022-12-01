@@ -1,0 +1,313 @@
+{
+  "pages": [{
+      "path": "pages/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    }, {
+      "path": "pages/work/index",
+      "style": {
+        "navigationBarTitleText": "工作台"
+      }
+    }, {
+      "path": "pages/mine/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    }, {
+      "path": "pages/mine/avatar/index",
+      "style": {
+        "navigationBarTitleText": "修改头像"
+      }
+    }, {
+      "path": "pages/mine/info/index",
+      "style": {
+        "navigationBarTitleText": "个人信息"
+      }
+    }, {
+      "path": "pages/mine/info/edit",
+      "style": {
+        "navigationBarTitleText": "编辑资料"
+      }
+    }, {
+      "path": "pages/mine/pwd/index",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
+    }, {
+      "path": "pages/mine/about/index",
+      "style": {
+        "navigationBarTitleText": "关于我们"
+      }
+    }, {
+      "path": "pages/common/webview/index",
+      "style": {
+        "navigationBarTitleText": "浏览网页"
+      }
+    }, {
+      "path": "pages/common/textview/index",
+      "style": {
+        "navigationBarTitleText": "浏览文本"
+      }
+    }, {
+      "path": "pages/work/finance/index",
+      "style": {
+        "navigationBarTitleText": "财务管理",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/epc/index",
+      "style": {
+        "navigationBarTitleText": "工程管理",
+        // 下拉刷新
+        "enablePullDownRefresh": true,
+        // 上拉触底刷新
+        "onReachBottomDistance": 50
+        // "backgroundTextStyle": "dark"
+      }
+    }, {
+      "path": "pages/work/epc/epcDetails/index",
+      "style": {
+        "navigationBarTitleText": "工程管理详情",
+        "enablePullDownRefresh": true
+      }
+    },
+    // {
+    //   "path": "pages/work/epc/epcDetails/index",
+    //   "style": {
+    //     "navigationBarTitleText": "工程管理详情"
+    //     // 下拉刷新
+    //     // "enablePullDownRefresh": true,
+    //   }
+    // }, 
+    {
+      "path": "pages/work/hr/index",
+      "style": {
+        "navigationBarTitleText": "人资管理",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/hr/staff/index",
+      "style": {
+        "navigationBarTitleText": "内部员工",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/hr/cooperative/index",
+      "style": {
+        "navigationBarTitleText": "协作队伍",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/hr/cooperative/indexDetails",
+      "style": {
+        "navigationBarTitleText": "协作队伍详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/equ/index",
+      "style": {
+        "navigationBarTitleText": "设备管理",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/equ/inventory/index",
+      "style": {
+        "navigationBarTitleText": "自有设备详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/equ/lease/index",
+      "style": {
+        "navigationBarTitleText": "设备租赁详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/material/index",
+      "style": {
+        "navigationBarTitleText": "材料管理",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/material/inventory/index",
+      "style": {
+        "navigationBarTitleText": "库存材料详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/material/purchase/index",
+      "style": {
+        "navigationBarTitleText": "材料购置详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/security/index",
+      "style": {
+        "navigationBarTitleText": "安全管理",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/security/person/index",
+      "style": {
+        "navigationBarTitleText": "安全人员详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/security/train/index",
+      "style": {
+        "navigationBarTitleText": "安全培训详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/security/patrol/index",
+      "style": {
+        "navigationBarTitleText": "安全巡检详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/security/securityEpc/index",
+      "style": {
+        "navigationBarTitleText": "工程安全详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/law/index",
+      "style": {
+        "navigationBarTitleText": "法务管理",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/law/debt/index",
+      "style": {
+        "navigationBarTitleText": "债务清欠详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/law/cr/index",
+      "style": {
+        "navigationBarTitleText": "合同评审详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/law/ch/index",
+      "style": {
+        "navigationBarTitleText": "案件处理详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/law/exigency/index",
+      "style": {
+        "navigationBarTitleText": "紧急事件详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/manage/index",
+      "style": {
+        "navigationBarTitleText": "经营管理",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/manage/manageSubcontract/index",
+      "style": {
+        "navigationBarTitleText": "分包项目",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/manage/manageSubcontract/indexDetails",
+      "style": {
+        "navigationBarTitleText": "分包项目详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/manage/manageBidding/index",
+      "style": {
+        "navigationBarTitleText": "投标项目",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/manage/manageBidding/indexDetails",
+      "style": {
+        "navigationBarTitleText": "投标项目详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/manage/manageLease/index",
+      "style": {
+        "navigationBarTitleText": "租赁项目",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/manage/manageLease/indexDetails",
+      "style": {
+        "navigationBarTitleText": "租赁项目详情",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/work/test/index1",
+      "style": {
+        "navigationBarTitleText": "测试页面1",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/test/index2",
+      "style": {
+        "navigationBarTitleText": "测试页面2",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/test/index3",
+      "style": {
+        "navigationBarTitleText": "测试页面3",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }, {
+      "path": "pages/work/test/index4",
+      "style": {
+        "navigationBarTitleText": "测试页面4",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 50
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [{
+      "pagePath": "pages/work/index",
+      "iconPath": "static/images/tabbar/work.png",
+      "selectedIconPath": "static/images/tabbar/work_.png",
+      "text": "工作台"
+    }, {
+      "pagePath": "pages/mine/index",
+      "iconPath": "static/images/tabbar/mine.png",
+      "selectedIconPath": "static/images/tabbar/mine_.png",
+      "text": "我的"
+    }]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "tyht",
+    "navigationBarBackgroundColor": "#FFFFFF"
+  }
+  // "easycom": {
+  //   "autoscan": true,
+  //   "custom": {
+  //     "^fq-(.*)": "@/components/fq-$1.vue", // 匹配components目录内的vue文件
+  //     "^uni-(.*)": "@/components/uni-$1.vue", // 匹配components目录内的vue文件
+  //     "^vue-file-(.*)": "packageName/path/to/vue-file-$1.vue" // 匹配node_modules内的vue文件
+  //   }
+  // }
+}

@@ -1,0 +1,48 @@
+.logoPart {
+	height: 85px;
+}
+
+.main {
+	width: 100%;
+	overflow: hidden;
+}
+
+.main .top {
+	padding: 15px 60px;
+	background-color: #FFFFFF;
+}
+.box_2{
+   width: 100%;
+   padding: 0px 25px;
+   background-color: #fff;
+   min-height: 550px;
+
+
+}
+table{
+    width: 100%;
+}
+table tr th{
+    font-size: 18px;
+    color: #666;
+    height: 60px;
+    background-color: #f2f2f2f1;
+    font-family: "微软雅黑";
+}
+table tr td{
+    font-size: 14px;
+    color: #666;
+    border-bottom: 1px solid rgb(181, 177, 177);
+    text-align: center;
+    height: 70px;
+}
+table tr td span{
+    color: #409eff;
+    font-size: 14px;
+    margin-right: 10px;
+}
+table tr td span:hover{
+    cursor: pointer;
+}
+
+

@@ -1,0 +1,88 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/serviceHome.css" /#}
+<div class="wrap" id="app">
+    <div class="logoPart">
+        <div class="logo">
+            <a href=""><img src="/assets/images/home/logo_xiazi.png" alt=""></a>
+        </div>
+        <div class="banner">
+            <div class="block">
+                <el-carousel height="150px">
+                    <el-carousel-item v-for="item in list" :key="item">
+                        <h3 class="small"><img src="{{item.url}}" alt=""></h3>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>企业服务</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="mainContent">
+            <div class="box_1">
+                <p>
+                    <a href="">
+                        <img src="/assets/images/home/y_05.png" alt="">
+                        <span>公司名称</span>
+                    </a>
+                </p>
+                <div class="box_2"><a href="" v-for="list in list1">{{list}}</a></div>
+            </div>
+            <div class="box_1">
+                <p>
+                    <a href="">
+                        <img src="/assets/images/home/y_01.png" alt="">
+                        <span>转让求购</span>
+                    </a>
+                </p>
+                <div class="box_2"><a href="" v-for="list in list2">{{list}}</a></div>
+            </div>
+            <div class="box_1">
+                <p>
+                    <a href="">
+                        <img src="/assets/images/home/y_02.png" alt="">
+                        <span>财税游戏</span>
+                    </a>
+                </p>
+                <div class="box_2"><a href="" v-for="list in list3">{{list}}</a></div>
+            </div>
+            <div class="box_1">
+                <p>
+                    <a href="/officialWeb/service">
+                        <img src="/assets/images/home/y_03.png" alt="">
+                        <span>企业服务</span>
+                    </a>
+                </p>
+                <div class="box_2"><a href="" v-for="list in list4">{{list}}</a></div>
+            </div>
+           
+
+
+        </div>
+    </div>
+
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                list1: ['查询公司名能否注册', '起名/测名',],
+                list2: ['公司转让', '用求购公司友', '商标转让', '求购商标',],
+                list3: ['贪吃虾', '会消消', ],
+                list4: ['注册', '变更', '转让', '注销', '地理标志','商标','专利','版权','社保','资质','许可证','法律','审计资讯','评估咨询','验资资讯','政采云入围',],
+                list: [
+                    { url: 'https://img1.baidu.com/it/u=1966616150,2146512490&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1663693200&t=e9095f80ce3ae7307bc698d49c1bcd08' }, { src: 'https://img1.baidu.com/it/u=1966616150,2146512490&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1663693200&t=e9095f80ce3ae7307bc698d49c1bcd08' },
+                    { url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic345.nipic.com%2Ffile%2F20201122%2F710996_113719685080_2.jpg&refer=http%3A%2F%2Fpic345.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666148256&t=020170c72d470104f6f89b9971eb91c9' },
+                    { url: 'https://pics7.baidu.com/feed/377adab44aed2e73a2b38b038a36038c87d6fa01.jpeg?token=bff194533fbee54db4f5ffa0097340b2' },
+                    { url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic163.nipic.com%2Ffile%2F20180507%2F25119406_083757974000_2.jpg&refer=http%3A%2F%2Fpic163.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666148256&t=e0ec68e2f299369a96171eb375d7c91c' },
+                ]
+            }
+        }
+    });
+</script>

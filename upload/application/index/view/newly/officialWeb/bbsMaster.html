@@ -1,0 +1,369 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/bbsMaster.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <!-- <div class="search">
+            <div class="search-input">
+                <div>
+                    <select name="" id="">
+                        <option value="">用户</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                        <option value="">关键字词</option>
+                    </select>
+                    <input type="text" placeholder="请输入要搜索的用户">
+                </div>
+                <button>搜索（用户/内容）</button>
+            </div>
+        </div>
+        <div class="release">
+            <button>我要发布</button>
+            <p><img src="/assets/images/home/shop_2.png" alt=""><a href="/officialWeb/shopMy">我的</a></p>
+        </div> -->
+    </div>
+    <div class="main">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="/officialWeb/bbsTime">虾时光</a></el-breadcrumb-item>
+            <el-breadcrumb-item>籽虾达人</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="mainContent">
+            <div class="left">
+
+                <div class="nav">
+                    <h2>籽虾达人</h2>
+                    <span>财税达人</span>
+                    <span>人气达人</span>
+                </div>
+            </div>
+            <div class="right"  v-if="itemIndex3==1">
+                <div class="formContent" v-if="itemIndex==null">
+                    <div class="box_2">
+                        <a href="/officialWeb/bbsTime">
+                            <div><img src="/assets/images/home/bbs_1.png" alt=""></div>
+                            <span>虾圈</span>
+                        </a>
+                        <a href="/officialWeb/bbsStruggle">
+                            <div><img src="/assets/images/home/bbs_2.png" alt=""></div>
+                            <span>我的奋斗</span>
+                        </a>
+                        <a href="/officialWeb/bbsNotepad">
+                            <div><img src="/assets/images/home/bbs_3.png" alt=""></div>
+                            <span>记事本</span>
+                        </a>
+                        <a href="/officialWeb/bbsRemind">
+                            <div><img src="/assets/images/home/bbs_4.png" alt=""></div>
+                            <span>提醒</span>
+                        </a>
+                        <a href="/officialWeb/bbsMaster">
+                            <div><img src="/assets/images/home/bbs_5.png" alt=""></div>
+                            <span class="now">籽虾达人</span>
+                        </a>
+                        <a href="/officialWeb/bbsSpace">
+                            <div><img src="/assets/images/home/bbs_6.png" alt=""></div>
+                            <span>我的空间</span>
+                        </a>
+                    </div>
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="box_3">
+                        <div class="list2" v-for="n in 6">
+                            <div class="left_le">
+                                <div class="userPic">
+                                    <img src="/assets/images/home/en_02.png" alt="">
+                                    <div class="jia">
+                                        <img src="/assets/images/home/en_03.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="userInfo">
+                                    <h2>尼古丁.凯奇</h2>
+                                    <span><img src="/assets/images/home/bbs_huo.png" alt="">8000</span>
+                                </div>
+                            </div>
+                            <div class="right_ri">
+                                <button>粉丝数 7.2万</button>
+                                <button>点赞 1.2万</button>
+                                <button>分享 3.2万</button>
+                                <button>发布 8000</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==1">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_1 ">
+                        <span class="listTitle">达人说明</span>
+                        <div class="list1">
+                            <div class="title">达人概念</div>
+                            <p>达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念。
+                            </p>
+                            <img src="/assets/images/home/academic_02.png" alt="">
+                        </div>
+                        <div class="list1">
+                            <div class="title">比赛成绩申诉</div>
+                            <p>比赛成绩申诉自成绩公示之日起5个工作日
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==2">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_1 ">
+                        <span class="listTitle">最新活动</span>
+                        <div class="list1">
+                            <div class="title">活动介绍</div>
+                            <p>达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念达人概念。
+                            </p>
+                            <img src="/assets/images/home/academic_02.png" alt="">
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- #endregion -->
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==3">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_2 ">
+                        <select name="" id="">
+                            <option value="">时间</option>
+                        </select>
+                        <div class="list2" v-for="n in 8">
+                            <div class="child_1">
+                                <img src="" alt="">
+                                <div class="child_2">
+                                    <p>活动名称</p>
+                                    <span>2022-9-1</span>
+                                </div>
+                            </div>
+                            <button class="btn_baoming" v-if="n<4" @click="dialogTableVisible1 = true">马上报名</button>
+                            <span v-else="n>4 && n=4">该活动已结束！</span>
+                            <el-dialog title="活动报名" :visible.sync="dialogTableVisible1">
+                                <form action="">
+                                    <div><span>姓名</span><input type="text" placeholder="请输入姓名"></div>
+                                    <div><span>身份证号</span><input type="text" placeholder="请输入身份证号"></div>
+                                    <div><span>个人简介</span><input type="text" placeholder="请输入个人简介，最少10个字符"></div>
+                                    <div><span>手机号</span><input type="text" placeholder="请输入手机号"></div>
+                                    <div><span>验证码</span><input type="text" class="input_2" placeholder="请输入验证码"><button
+                                            class="btn_huoqu">获取验证码</button></div>
+                                    <button class="success" :plain="true" @click="open2">确认报名</button>
+                                </form>
+                            </el-dialog>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==4">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_2 ">
+                        <h1>网络比赛</h1>
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==5">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_2 ">
+                        <h1>投票通道</h1>
+                    </div>
+                </div>
+                <!-- #endregion -->
+
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==6">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_2 ">
+                        <select name="" id="">
+                            <option value="">时间</option>
+                        </select>
+
+                        <!-- <div class="list_3">
+                            <div>科目名称</div>
+                            <div>时间</div>
+                        </div>
+                        <div class="list3" v-for="n in 18">
+                            <div>会计考试成绩</div>
+                            <div class="activeTime">2022-9-13</div>
+                            <button></button>
+                        </div> -->
+                        <table border="0" cellspacing="0">
+                           <tr>
+                            <th>比赛名称</th>
+                            <th>时间</th>
+                            <th>查看成绩</th>
+                           </tr>
+                           <tr>
+                            <td>会计考试</td>
+                            <td>2022-9-15</td>
+                            <td><button @click="viewResults = true">查看成绩</button></td>
+                            <el-dialog title="成绩" :visible.sync="viewResults">
+                                <ul>
+                                    <li><span>姓名</span><p>王星</p></li>
+                                    <li><span>身份证号</span><p>6301052000017558x</p></li>
+                                    <li><span>序号</span><p>1001</p></li>
+                                    <li><span>考试内容</span><p>会计从业资格考试</p></li>
+                                    <li><span>单项成绩</span><p class="p_ach">75分</p></li>
+                                    <li><span>合计分数</span><p class="p_ach">75分</p></li>
+                                    <li><span>奖励</span><p>(后台录入)</p></li>
+                                </ul>
+                                
+                             </el-dialog>
+                           </tr>
+                        </table>
+
+
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <!-- #region -->
+                <div class="formContent" v-if="itemIndex==7">
+                    <div class="tabs">
+                        <span :class="{active:itemIndex==1}" @click="clickTab(1)">达人说明</span>
+                        <span :class="{active:itemIndex==2}" @click="clickTab(2)">最新活动 </span>
+                        <span :class="{active:itemIndex==3}" @click="clickTab(3)">报名通道</span>
+                        <span :class="{active:itemIndex==4}" @click="clickTab(4)">网络投票</span>
+                        <span :class="{active:itemIndex==5}" @click="clickTab(5)">在线比赛</span>
+                        <span :class="{active:itemIndex==6}" @click="clickTab(6)">我的成绩 </span>
+                        <span :class="{active:itemIndex==7}" @click="clickTab(7)">我的证书</span>
+                    </div>
+                    <div class="con_3 ">
+                        <div class="box_8">
+                            <select name="" id="">
+                                <option value="">时间</option>
+                            </select>
+                        </div>
+                       
+                        <div class="list4" v-for="n in 8">
+                            <div class="top">
+                                <img src="" alt="">
+                            </div>
+                            <div class="bottom">
+                                <h2>会计从业证书</h2>
+                                <span>2022-9-17</span>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- #endregion -->
+            </div>
+
+
+            
+
+        </div>
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                itemIndex: null,
+                itemIndex3: 1,
+                dialogTableVisible1: false,
+                dialogTableVisible2: false,
+                viewResults:false,
+
+            }
+        },
+        methods: {
+            clickTab(index) {
+                this.itemIndex = index
+                if (index != 3) {
+                    this.itemIndex3 = 1;
+                }
+                if (index == 1) {
+                    this.dialogTableVisible = true
+                }
+            },
+            clickItem3(e) {
+                this.itemIndex3 = e;
+            },
+            open2() {
+                alert('恭喜您报名成功！如有任何问题请联系赛务组。联系人：刘凯 联系电话：13800001234')
+            },
+
+        }
+    })
+
+</script>

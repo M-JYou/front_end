@@ -1,0 +1,150 @@
+.logoTop {
+  height: 8em;
+  padding-top: 1em;
+}
+.logoTop > .search {
+  height: auto;
+}
+.main {
+  width: 1400px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.main .currentCity {
+  width: 1368px;
+  height: 210px;
+  margin: 15px auto;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: column;
+    justify-content: space-evenly; */
+}
+.main .currentCity .locationCity {
+  width: 20%;
+  height: 100%;
+  padding: 15px 15px 15px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.main .currentCity .cityPic {
+  width: 78%;
+  height: 100%;
+}
+.main .currentCity .cityPic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.main h2 {
+  font-size: 24px;
+  color: #333333;
+  font-family: "Microsoft YaHei";
+}
+
+.main .currentCity p {
+  font-size: 20px;
+  color: #333333;
+  font-family: "Microsoft YaHei";
+}
+
+.main .currentCity p img {
+  margin-right: 30px;
+  vertical-align: middle;
+}
+
+.main .currentCity span a {
+  display: block;
+  width: 203px;
+  height: 67px;
+  text-align: center;
+  line-height: 67px;
+  color: #333333;
+  font-size: 20px;
+  font-family: "Microsoft YaHei";
+  background-color: #ffffff;
+}
+.main .currentCity span a:hover {
+  box-shadow: #797979 0px 3px 8px;
+}
+
+.main .popularCities {
+  width: 1368px;
+  margin: 15px auto;
+  background-color: #f7f7f7;
+  padding: 40px 15px 15px 30px;
+  overflow: hidden;
+}
+
+.main .popularCities span a {
+  display: block;
+  width: 195px;
+  height: 67px;
+  text-align: center;
+  line-height: 67px;
+  color: #333333;
+  font-size: 20px;
+  font-family: "Microsoft YaHei";
+  background-color: #ffffff;
+  float: left;
+  margin-right: 25px;
+  margin-top: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.main .popularCities span a:hover {
+  box-shadow: #797979 0px 3px 8px;
+}
+
+.main .letter {
+  width: 1368px;
+  height: 96px;
+  margin: 15px auto;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: #797979 0px 3px 8px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.main .letter span {
+  font-size: 24px;
+  color: #333333;
+}
+.main .letter span:hover {
+  color: #4d85ff;
+  cursor: pointer;
+}
+.main .item {
+  width: 1368px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px auto;
+  overflow: hidden;
+}
+.main .item h2 {
+  font-size: 24px;
+  color: #333333;
+  font-family: "Microsoft YaHei";
+}
+.main .item span {
+  display: block;
+  width: 195px;
+  height: 67px;
+  text-align: center;
+  line-height: 67px;
+  color: #333333;
+  font-size: 18px;
+  font-family: "Microsoft YaHei";
+  background-color: #ffffff;
+  float: left;
+  margin-right: 25px;
+  margin-top: 30px;
+}
+.main .item span:hover {
+  box-shadow: #797979 0px 3px 8px;
+}

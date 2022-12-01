@@ -1,0 +1,365 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/resumelist.css" /#}
+<div class="wapper_content" id="app">
+  <!-- #region -->
+  <div class="logoPart">
+    <div class="logo">
+      <img src="/assets/images/home/logo_xiazi.png" alt="">
+      <span>打造财税生态链</span>
+    </div>
+    <div class="search">
+     <div class="search-input">
+        <div>
+          <i class="el-icon-search"></i>
+          <input type="text" v-mordel="input" placeholder="搜索公司、职位">
+        </div>
+        <button>搜索</button>
+      </div>
+      <span>热门推荐：
+        <ul>
+          <li><a href="">财务招聘</a></li>
+          <li><a href="">设计求职</a></li>
+          <li><a href="">银行</a></li>
+          <li class="none"><a href="">前端招聘</a></li>
+        </ul>
+      </span>
+    </div>
+    <div class="release">
+      <button>发布招聘信息</button>
+      <button>发布求职信息</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+        <el-breadcrumb-item>免费招聘</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="main-top">
+      <div class="top-head">
+        <button class="info">招聘信息</button>
+      </div>
+      <div class="classification">
+        <div>
+          <p class="box_1">职位</p>
+          <p class="box_2" :class="jobsClass">
+            <span :style="i.style" v-for="i in jobs" @click="jobClick(i)">{{i.name}}</span>
+          </p>
+          <button @click="jobsClass=jobsClass?'':'cswrap'">{{ jobsClass? '收起' : '更多'}} </button>
+        </div>
+        <div>
+          <p class="box_1">区域</p>
+          <p class="box_2" :class="citysClass">
+            <span>{#$weatherName#}</span>
+            <span :style="i.style" v-for="i in citys" @click="cityClick(i)">{{i.name}}</span>
+          </p>
+          <button @click="citysClass=citysClass?'':'cswrap'">{{ citysClass? '收起' : '更多'}} </button>
+        </div>
+
+        <div>
+          <p class="box_1">年龄</p>
+          <p class="box_2" :class="ageClass">
+            <span :style="i.style" v-for="i in ageList" @click="ageClick(i)">{{i}}</span>
+            <!-- <span>
+              <input type="text">
+              <span class="none">--</span>
+                <input type="text">岁
+            </span> -->
+          </p>
+        </div>
+
+        <div>
+          <p class="box_1">要求</p>
+         
+          <p class="box_2">
+            <el-select @change="jump" v-model="param.education" placeholder="请选择学历要求" size="mini" clearable>
+              <el-option v-for="(i,ii) in education" :key="ii" :label="i" :value="parseInt(ii)"> </el-option>
+            </el-select>
+            <el-select @change="jump" v-model="param.experience" placeholder="请选择工作经验" size="mini" clearable>
+              <el-option v-for="(i,ii) in experience" :key="ii" :label="i" :value="parseInt(ii)"> </el-option>
+            </el-select>
+            <el-select @change="jump" v-model="param.sex" placeholder="性别" size="mini" clearable>
+              <el-option v-for="item in sexList" :key="item" :label="item" :value="item"> </el-option>
+            </el-select>
+
+            <el-select @change="jump" v-model="param.active_time" placeholder="活跃时间" size="mini" clearable>
+              <el-option v-for="item in active_time" :key="item" :label="item" :value="item"> </el-option>
+            </el-select>
+           
+           
+            <el-select @change="jump" v-model="param.qualification" placeholder="资格证书" size="mini" clearable>
+              <el-option v-for="item in qualification" :key="item" :label="item" :value="item"> </el-option>
+            </el-select>
+          </p>
+        </div>
+       
+        <div>
+          <p class="box_1">发布时间</p>
+          <p class="box_2">
+            <el-date-picker
+              size="mini"
+              @change="jump"
+              style="margin-left: 30px"
+              v-model="param.time"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            >
+            </el-date-picker>
+          </p>
+        </div>
+        <div>
+          <p class="box_1">福利</p>
+          <p class="box_2" :class="jobtagClass">
+            <span :style="i.style" v-for="i in jobtag" @click="jobtagClick(i)">{{i.name}}</span>
+          </p>
+          <button @click="jobtagClass=jobtagClass?'':'cswrap'">{{ jobtagClass? '收起' : '更多'}} </button>
+        </div>
+        <div>
+          <p class="box_1">您是不是要找</p>
+          <p class="box_2"><span v-for="list in historyJob">{{list}}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box_3">
+      <button><i class="el-icon-circle-check"></i>全部</button>
+      <button><i class="el-icon-circle-check"></i>有上传证书</button>
+      <button><i class="el-icon-circle-check"></i>已实名认证</button>
+    </div>
+
+    <!-- #endregion -->
+
+    <div class="mainList">
+      <div class="listCon">
+        <div class="list" v-for="n in 1">
+          <div class="listItem">
+            <div class="headPic">
+              <img src="{#$return.base_info.photo_img_src#}" alt="">
+              <div class="jia">
+                <img src="/assets/images/home/en_03.png" alt="">
+              </div>
+            </div>
+            <div class="itemPosition">
+              <p><span class="name">{#$return.base_info.fullname#}</span><span class="salary">4000-5000/月</span><span class="actTime">{#$return.base_info.refreshtime#}活跃</span></p>
+              <ul>
+                <li class="none">{#:show($dataset)#}</li>
+                <li>{#$return.base_info.age#}岁</li>
+                <li>{#$return.base_info.experience_text#}</li>
+                <li>{#$return.base_info.education_text#}</li>
+                <li>{#$return.base_info.current_text#}</li>
+              </ul>
+              <p class="p_ong">期望区域：<span>城西区</span><span>城东区</span><span>城北区</span></p>
+              <p class="p_ong">期职位望：<span>会计</span><span>出纳</span><span>审计</span></p>
+              <p class="p_ong">工作认真踏实，待人热情、真诚。</p>
+              <div class="welfare">
+                <div class="welfareBox">中级会计师</div>
+                <div class="welfareBox">金融投资</div>
+              </div>
+            </div>
+            <div class="btn">
+              <button class="apply">下载简历</button>
+              <button class="apply">沟通</button>
+            </div>
+            <div class="activity">
+              2022-9-15
+            </div>
+          </div>
+        </div>
+      </div>
+      {#include file="public/page" /#} 
+
+    </div>
+  </div>
+</div>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        me: JSON.parse(Cookies.get("qscms_visitor")||"{}"),
+        showRegQuick:false,
+        param:{
+          name:"",
+          job:undefined,
+          city:undefined,
+          time:undefined,
+          jobtag:undefined,
+          active_time:undefined,
+          sex:undefined,
+          education:undefined,
+          experience:undefined,
+          qualification:undefined,
+          age:undefined,
+        },
+        jobs: {#:show($category_job)#},
+        jobsClass: '',
+        citys: {#:show($citys)#},
+        citysClass:'',
+        jobtag: {#:show($jobtag)#},
+        jobtagClass:"",
+        // trade: {#:show($trade)#},
+        // company_type: {#:show($company_type)#},
+        education: {#:show($education)#},
+        experience: {#:show($experience)#},
+        // wage: {#:show($wage)#},
+        historyJob: ['会计', '会计助理', '代理记账', '会计求职',],
+        data:{#:show($data)#},
+        ageClass:'',
+        ageList: ['不限', '16-20岁', '21-30岁', '31-40岁', '41-50岁', '50岁以上'],
+        sexList: ['不限', '男', '女'],
+        active_time: ['不限', '1天内', '3天内', '一周内',],
+        qualification: ['高级及高级以上/注册会计师', '中级', '初级', '从业资格证', '无资格证',],
+        input: '',
+      }
+     
+
+    },
+    created(){
+      this.data.items.forEach(e=>{
+        e.tag=e.tag.split(',').map(e2=>{
+          const t=this.jobtag.find(e3=>e3.id==e2);
+          return t?t.name:undefined;
+        }).filter(e2=>e2);
+      });
+      console.log(this.data);
+    },
+    methods: {
+     
+
+
+      fwage(p){
+        let min =(p.minwage/1000).toString();
+        let t=parseFloat(min).toFixed(1);
+        if (min.length>t.length) {
+          min=t;
+        }
+        let max=(p.maxwage/1000).toString();
+        t=parseFloat(max).toFixed(1);
+        if (max.length>t.length) {
+          max=t;
+        }
+        return `${min}-${max}K/月`;
+      },
+      fdate(p){
+        const d=new Date(p*1000);
+        return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+      },
+      jobClick(p){
+        p.style=p.style?"":"color:#f1b62b;";
+        this.jobs.forEach(e=>{
+          if (e.id!=p.id) {
+            e.style="";
+          }
+        })
+        this.param.job=p.style?p.id:undefined;
+
+        this.jump();
+      },
+      cityClick(p){
+        p.style=p.style?"":"color:#f1b62b;";
+        this.citys.forEach(e=>{
+          if (e.id!=p.id) {
+            e.style="";
+          }
+        });
+        this.param.city=p.style?p.id:undefined;
+        this.jump();
+      },
+      jobtagClick(p){
+        p.style=p.style?"":"color:#f1b62b;";
+        const t=this.jobtag.filter(e=>e.style).map(e=>e.id);
+        this.param.jobtag=t.length?t:undefined;
+        this.jump();
+      },
+      ageClick(p){
+        p.style=p.style?"":"color:#f1b62b;";
+        this.ageList.forEach(e=>{
+          if (e.id!=p.id) {
+            e.style="";
+          }
+        })
+        this.param.age=p.style?p.id:undefined;
+        this.jump();
+
+      },
+
+
+
+
+
+      lastClick(){
+        if (this.data.current_page>1) {
+          this.param.page=--this.data.current_page;
+          this.jump();
+        }
+      },
+      nextClick(){
+        if (this.data.total_page>this.data.current_page) {
+          this.param.page=++this.data.current_page;
+          this.jump();
+        }
+      },
+
+
+      
+      jump(){
+        let t="";
+        for (const key in this.param) {
+          if (Object.hasOwnProperty.call(this.param, key)) {
+            if (this.param[key]||this.param[key]===0) {
+              t+=key+"="+(key!=='time'?this.param[key]:this.param[key].map(e=>parseInt(e/1000)));
+            }
+          }
+        }
+
+        console.log(window.location.origin+"/index"+window.location.pathname+"/json?"+t);
+      },
+      doApplyResume(job) {
+        if (job.apply_text=='投递') {
+          const utype = this.me.utype || 0;
+          if (parseInt(utype) === 0) {
+            // 未登录
+            this.showRegQuick = true;
+            this.$message.error("需要登录求职者");
+          } else if (parseInt(utype) !== 2) {
+            this.$confirm('当前操作需要登录求职者账号', '提示', {
+              type: 'warning',
+              confirmButtonText: '去登录'
+            }).then(()=> {
+              location.href = qscms.locationList.loginPersonal + '?redirect=' + location.href;
+            }).catch(()=>{ });
+          } else {
+            httppost(qscms.apiList.jobapply, {jobid:job.id})
+              .then(function (res) {
+                that.$message({ type: 'success', message: res.message });
+                location.reload();
+              })
+              .catch(function () { });
+          }
+        }else{
+          this.$message.error("请勿重复投递简历");
+        }
+      },
+      favoritesCompany(id){
+        httppost("/member/memberInfo/favorites",{id})
+        .then(r=>{
+          this.$message.success(r.message);
+        }).catch(()=>{});
+      }
+
+
+
+
+
+
+    },
+  })
+
+
+
+
+</script>

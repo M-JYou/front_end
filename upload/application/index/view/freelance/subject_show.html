@@ -1,0 +1,175 @@
+{#layout name="public/freelance/freelance_layout" /#} {#load href="__ROOT__/assets/css/freelance/subject_show.css" /#}
+<div class="ps_container clearfix" id="app">
+  <div class="pc_left">
+    <p class="t1">{#$data.title#}</p>
+    <p class="t2">￥{#$data.price#}<span>（预算价格）</span></p>
+    <div class="t3 clearfix">
+      <div class="ico_b"></div>
+      <div class="t_item"><p class="tx1">{#$data.period#}天</p><p class="tx2">预计工期</p></div>
+      <div class="t_item"><p class="tx1">{#$data.endtime#}</p><p class="tx2">接单截止</p></div>
+      <div class="t_item"><p class="tx1">{#$data.view_times#}次 </p><p class="tx2">浏览</p></div>
+      <div class="t_item last"><p class="tx1">{#$data.refreshtime#} </p><p class="tx2">刷新时间</p></div>
+    </div>
+    <div class="t4">
+      <p class="t_title">项目需求</p>
+      <div class="b_inc">{#$data.desc#}</div>
+    </div>
+    <div class="t5">
+      <p class="t_title">联系方式</p>
+      <div class="sc_content">
+        {#if condition="!$data.show"#}
+        <div class="no_sing" @click="viewContact">
+          <p class="t1">Hi~，你好！ 如果对此项目感兴趣， 请 <span>点击查看联系方式</span> 沟通吧！</p>
+          <div class="c_btn">立即查看</div>
+        </div>
+        {#else#}
+        <div class="coc_b clearfix">
+          <p class="c_tel">{#$data.mobile#}</p>
+          {#if condition="$data.weixin neq ''"#}<p class="c_wx">{#$data.weixin#}</p>{#/if#}
+        </div>
+        {#/if#}
+      </div>
+    </div>
+  </div>
+  <div class="pc_right">
+    <div class="r1">
+      <p class="t1">使用微信扫一扫</p><p class="t2">查看更多内容</p>
+      <img :src="rightQrcode" alt="微信扫一扫" class="qr_img" />
+    </div>
+    {#if condition="count($hot) gt 0"#}
+    <div class="r2">
+      <div class="p_title">
+        <div class="t_cn">热门项目</div>
+      </div>
+      <div class="r2_group">
+        {#volist name="hot" id="item"#}
+        <a href="{#:url('index/freelance/subject_show',['id'=>$item.id])#}" target="_blank" class="r2_item">
+          <div class="p_name clearfix">
+            <p class="name_cn substring">{#$item.title#}</p>
+          </div>
+          <p class="i_wage">￥ {#$item.price#}</p>
+          <p class="i_time">截止时间 <span class="t t1">{#$item.endtime#}</span>预计工期 <span class="t">{#$item.period#}天</span></p>
+        </a>
+        {#/volist#}
+      </div>
+    </div>
+    {#/if#}
+  </div>
+  <el-dialog title="查看联系方式付款" :visible.sync="showPayDialog" width="540px">
+    <div class="fl_pay_box">
+      <p class="t1">查看该联系方式需要支付金额<span>{#$data.view_fee#}</span>元</p>
+      <div class="pt_group clearfix">
+        <div class="pg_l">支付方式</div>
+        <div :class="[submitData.pay_type=='alipay'?'pg_m selected':'pg_m']" @click="choosePayment('alipay')"><div class="pgm_ta">支付宝支付</div></div>
+        <div :class="[submitData.pay_type=='wxpay'?'pg_m selected':'pg_m']" @click="choosePayment('wxpay')"><div class="pgm_tw">微信支付</div></div>
+      </div>
+      <div class="fl_tp" @click="submitPay">立即支付</div>
+    </div>
+  </el-dialog>
+  <el-dialog title="支付提醒" :visible.sync="showWaitingPay" width="400px" :append-to-body="true">
+    <span class="fl_payment_text">请在新打开的页面上完成支付。支付完成后，请根据您支付的情况点击下面按钮。</span>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="handlerPayResult">支付成功</el-button>
+      <el-button @click="handlerPayResult">支付失败</el-button>
+    </span>
+  </el-dialog>
+</div>
+<script>
+  var id = parseInt("{#$data.id#}");
+  var app = new Vue({
+    el: "#app",
+    data: {
+      rightQrcode: "",
+      isLogin: false,
+      showPayDialog: false,
+      submitData: {
+        id: id,
+        pay_type: "alipay",
+        redirect_url: "",
+        order_type: "4",
+      },
+      showWaitingPay: false,
+    },
+    created: function () {
+      this.getUserInfo();
+      var locationUrl = "{#$data.share_url#}";
+      this.rightQrcode = qscms.apiUrl + qscms.apiList.qrcode + "?alias=sub_fl_subject&url=" + locationUrl + "&id=" + id;
+    },
+    methods: {
+      getUserInfo: function () {
+        var that = this;
+        httpget(qscms.apiList.userinfo)
+          .then(function (res) {
+            if (res.data.login === true) {
+              that.isLogin = true;
+            }
+          })
+          .catch(function () {});
+      },
+      viewContact: function () {
+        var that = this;
+        if (that.isLogin) {
+          that.showPayDialog = true;
+        } else {
+          this.$confirm("当前操作需要登录账号", "提示", {
+            type: "warning",
+            confirmButtonText: "去登录",
+          })
+            .then(function () {
+              location.href = qscms.locationList.loginCompany + "?redirect=" + location.href;
+            })
+            .catch(function () {});
+        }
+      },
+      choosePayment: function (payment) {
+        this.submitData.pay_type = payment;
+      },
+      submitPay: function () {
+        this.submitData.redirect_url = location.href;
+        this.handlerPaySubmit(qscms.apiList.freelanceContactPay, this.submitData);
+      },
+      handlerPaySubmit: function (url, data, callback) {
+        var that = this;
+        httppost(url, data)
+          .then(function (res) {
+            if (parseInt(res.data.pay_status) === 1) {
+              that.$message({ type: "success", message: "支付成功" });
+              if (typeof callback === "function") {
+                callback();
+                return false;
+              } else {
+                setTimeout(function () {
+                  location.reload();
+                }, 1500);
+              }
+              return false;
+            } else {
+              that.handlerPay(res.data, callback);
+            }
+          })
+          .catch(function () {});
+      },
+      handlerPay: function (data, callback) {
+        var that = this;
+        that.showPayDialog = false;
+        setTimeout(function () {
+          that.showWaitingPay = true;
+        }, 1500);
+        if (that.submitData.pay_type === "wxpay") {
+          var href =
+            qscms.locationList.wxpay + "?parameter=" + data.parameter + "&oid=" + data.order_oid + "&amount=" + data.order_amount + "&custom_location=1&success_url=" + that.submitData.redirect_url;
+          window.open(href);
+        } else {
+          window.open(data.parameter);
+        }
+        if (typeof callback === "function") {
+          callback();
+          return false;
+        }
+      },
+      handlerPayResult: function () {
+        location.reload();
+      },
+    },
+  });
+</script>

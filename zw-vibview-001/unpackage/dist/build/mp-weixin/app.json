@@ -1,0 +1,70 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/login/index",
+        "pages/nearby/index",
+        "pages/informs/index",
+        "pages/mine/index",
+        "pages/nickname/index",
+        "pages/deviceListfist/index",
+        "pages/password/index",
+        "pages/perfection/index",
+        "pages/passwordForget/index",
+        "pages/search/index",
+        "pages/police/index",
+        "pages/statused/index",
+        "pages/nearbysun/index",
+        "pages/deviceList/index",
+        "pages/measursNmber/index",
+        "pages/projectDevie/index",
+        "pages/TrendChart/index",
+        "pages/trenddt/index",
+        "pages/frequency/index",
+        "pages/dgfrequency/index",
+        "pages/trendmy/index",
+        "pages/trendoil/index",
+        "pages/trendprocess/index",
+        "pages/transtreds/index",
+        "pages/dgtrenddt/index",
+        "pages/dgtranstreds/index",
+        "pages/dgtrendoil/index",
+        "pages/dgtrendmy/index",
+        "pages/dgtrendprocess/index"
+    ],
+    "subPackages": [],
+    "window": {
+        "pageOrientation": "portrait",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8"
+    },
+    "tabBar": {
+        "color": "#FFFFFF",
+        "selectedColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF",
+        "borderStyle": "white",
+        "height": "0px",
+        "list": [
+            {
+                "pagePath": "pages/index/index"
+            },
+            {
+                "pagePath": "pages/nearby/index"
+            },
+            {
+                "pagePath": "pages/informs/index"
+            },
+            {
+                "pagePath": "pages/mine/index"
+            }
+        ]
+    },
+    "unipush": {
+        "enable": true
+    },
+    "usingComponents": {
+        "zdy-dialog": "/components/zdy-popDialog/zdy-popDialog"
+    },
+    "sitemapLocation": "sitemap.json"
+}

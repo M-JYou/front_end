@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "趋 势 图",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-nav-bar": "/uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar",
+    "u-icon": "/components/u-icon/u-icon",
+    "qiun-data-charts": "/uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts"
+  }
+}

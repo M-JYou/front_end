@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "资讯",
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "page-tabpars": "/components/page-tabpars/page-tabpars"
+  }
+}

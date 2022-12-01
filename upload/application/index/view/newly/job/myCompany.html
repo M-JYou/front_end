@@ -1,0 +1,196 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/myCompany.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+    </div>
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/resume">免费招聘</a></el-breadcrumb-item>
+                <el-breadcrumb-item>公司介绍</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="box_1">
+            <div class="child_1">
+                <img src="" alt="">
+                <div class="child_2">
+                    <h1>青海财务管理有限公司</h1>
+                    <div class="child_3">
+                        <p><img src="/assets/images/home/rem_1.png" alt="">100-499人</p>
+                        <p><img src="/assets/images/home/rem_2.png" alt="">计算机软件</p>
+                        <span>周末双休</span>
+                        <span>年假</span>
+                        <span>年底双薪</span>
+                    </div>
+                </div>
+            </div>
+            <div class="child_4">
+                <div class="child_41">
+                    <div>
+                        <p>20</p>
+                        <span>简历投递</span>
+                    </div>
+                    <div>
+                        <p>16</p>
+                        <span>招聘职位</span>
+                    </div>
+                </div>
+                <div class="child_42">
+                    <div class="operation">
+                        <div><img src="/assets/images/home/operation_01.png" alt="">转发23</div>
+                        <div><img src="/assets/images/home/operation_04.png" alt="">转发23</div>
+                        <div><img src="/assets/images/home/operation_02.png" alt="">举报</div>
+                        <div><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="box_2">
+            <span :class="{active:itemIndex==1}" @click="clickTab(1)">公司介绍</span>
+            <span :class="{active:itemIndex==2}" @click="clickTab(2)">招聘职位</span>
+
+        </div>
+        <div class="listItem" v-if="itemIndex==2">
+            <div class="itemPosition">
+                <h2>移动产品经理<span>[西宁·万达]</span></h2>
+                <p>12-25k/月</p>
+                <div class="welfare">
+                    <div class="welfareBox">3-5年</div>
+                    <div class="welfareBox">本科</div>
+                    <div class="welfareBox">产品规划</div>
+                    <div class="welfareBox">数据产品</div>
+                    <div class="welfareBox">功能产品</div>
+                </div>
+            </div>
+            <div class="comInfo">
+                <div class="comPic">
+                    <img src="/assets/images/home/en_01.png" alt="">
+                    <div class="jia"><img src="/assets/images/home/en_03.png" alt=""></div>
+                </div>
+                <h2 class="comName">陈女士</h2>
+                <span class="span_1">人事经理</span>
+            </div>
+            <p class="activity">2022-9-18</p>
+
+        </div>
+
+        <div class="comContent" v-if="itemIndex==1">
+            <div class="box_3">
+                <div class="list">
+                   <div class="left">
+                    <h1>公司信息</h1>
+                    <div class="child_1">
+                        <h2>青海公司名称有限公司</h2>
+                        <span>50-99人 </span>
+                        <span>快速消费品（食品/饮料等）</span>
+                    </div>
+                    <div class="child_2">
+                       <i class="el-icon-circle-check"></i>
+                       已实名认证
+                    </div>
+                   </div>
+                   <div class="right">
+                    <img src="/assets/images/home/en_01.png" alt="">
+                    <div class="jia">
+                        <img src="/assets/images/home/en_03.png" alt="">
+                    </div>
+                    <div class="child_3">
+                        <p>吴女士</p>
+                        <p>人事经理 <span>今天活跃</span></p>
+                    </div>
+
+                   </div>
+
+
+                </div>
+                <div class="list1">
+                    <h1>公司介绍</h1>
+                    <p>公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍公司介绍。</p>
+                    <div>
+                        <div><img src="" alt=""></div>
+                        <div><img src="" alt=""></div>
+                        <div><img src="" alt=""></div>
+                    </div>
+
+                </div>
+                <div class="list2">
+                    <h1>工商信息</h1>
+                    <div class="child_1">
+                        <div>
+                            <p>公司名称</p>
+                            <span>青海公司名称有限公司</span>
+                        </div>
+                        <div>
+                            <p>法定代表人</p>
+                            <span>赵仕鹏</span>
+                        </div>
+                        <div>
+                            <p>成立时间</p>
+                            <span>2012-7-25</span>
+                        </div>
+                        <div>
+                            <p>企业类型</p>
+                            <span>股份有限公司</span>
+                        </div>
+                        <div>
+                            <p>经营状态</p>
+                            <span>正常</span>
+                        </div>
+                        <div>
+                            <p>注册资金</p>
+                            <span>1000万人民币</span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="box_3">
+                
+               <div class="list1">
+                <h1>公司地址</h1>
+                <img src="/assets/images/home/dizhi.png" alt="">
+               </div>
+                
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                itemIndex: 1,
+
+            }
+        },
+        methods: {
+            clickTab(index) {
+                this.itemIndex = index
+            },
+        }
+    })
+
+</script>

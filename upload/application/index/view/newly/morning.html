@@ -1,0 +1,126 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/morning.css" /#}
+<div class="wapper_content" id="app">
+  <!-- #region -->
+  <div class="logoPart">
+    <div class="logo">
+      <img src="/assets/images/home/logo_xiazi.png" alt="">
+      <span>打造财税生态链</span>
+    </div>
+  </div>
+  <div class="main">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+      <el-breadcrumb-item>籽虾早报</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="tag-ite">
+      <div class="span active"><a href="/morning">籽虾早报</a></div>
+      <div class="span"><a href="/monthly">籽虾月报</a></div>
+    </div>
+    <div class="mainContent">
+      <div class="nav">
+        <h2>籽虾早报</h2>
+        <span @click="clickItem3(1)" :class="itemIndex3==1 ? 'current' : ''">全国咨询</span>
+        <span @click="clickItem3(2)" :class="itemIndex3==2 ? 'current' : ''">地方资讯</span>
+      </div>
+      <div class="formContent">
+        <div class="right" v-if="itemIndex3==1">
+          <div class="banner">
+            <el-carousel :interval="5000" arrow="always">
+              <el-carousel-item v-for="item in 4" :key="item">
+                <img style="width: 100%;" src="" alt="">
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+          <!-- <div class="box_2"> -->
+          <div class="itea">
+            <div class="">
+              <img class="cover" src="" alt="">
+            </div>
+            <div class="right">
+              <h2>这是全国新闻这是全国新闻标题这是全国新闻这是全国新闻</h2>
+              <div class="from">
+                央视新闻 2022-09-09
+              </div>
+            </div>
+          </div>
+          <div class="iteb">
+            <div class="title">
+              <h2>这是全国新闻这是全国新闻标题这是全国新闻这是全国新闻</h2>
+            </div>
+            <div class="img">
+              <img v-for="i in 4" class="cover" src="" alt="">
+            </div>
+            <div class="from">
+              央视新闻 2022-09-09
+            </div>
+          </div>
+          <!-- </div> -->
+
+        </div>
+        <div class="right" v-if="itemIndex3==2 ">
+          <div class="difang">
+            <i class="el-icon-location-information"></i>
+            <span class="title">切换城市</span>
+            <span class="city"><select name="" id="">
+                <option value="">青海省</option>
+              </select></span>
+          </div>
+          <div class="banner">
+            <el-carousel :interval="5000" arrow="always">
+              <el-carousel-item v-for="item in 4" :key="item">
+                <img style="width: 100%;" src="" alt="">
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+          <!-- <div class="box_2"> -->
+          <div class="itea">
+            <div class="">
+              <img class="cover" src="" alt="">
+            </div>
+            <div class="right">
+              <h2>这是全国新闻这是全国新闻标题这是全国新闻这是全国新闻</h2>
+              <div class="from">
+                央视新闻 2022-09-09
+              </div>
+            </div>
+          </div>
+          <div class="iteb">
+            <div class="title">
+              <h2>这是全国新闻这是全国新闻标题这是全国新闻这是全国新闻</h2>
+            </div>
+            <div class="img">
+              <img v-for="i in 4" class="cover" src="" alt="">
+            </div>
+            <div class="from">
+              央视新闻 2022-09-09
+            </div>
+          </div>
+          <!-- </div> -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        input: '',
+        itemIndex3: 1,
+      }
+    },
+    methods: {
+      clickItem3(e) {
+        this.itemIndex3 = e;
+      },
+
+    }
+  })
+
+</script>

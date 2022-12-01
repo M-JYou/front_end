@@ -1,0 +1,108 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/statuteDetails.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="banner">
+            <el-carousel trigger="click" height="150px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                    <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+
+    </div>
+    <div class="main">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+            <el-breadcrumb-item>财税法规</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="mainContent">
+            <div class="box">
+                <div class="head">
+                    <h1>{{data.title}}</h1>
+                    <div class="wenhao">
+                        <div><span>文号：123456</span>
+                            <span>执行时间：2022-09-03 </span>
+                        </div>
+                        <span>浏览次数：123456</span>
+                    </div>
+                </div>
+                <div class="content">
+                    {{data.content}}
+                </div>
+                <div class="operation">
+                    <div @click="reprintClick" class="shu_b"><img src="/assets/images/home/operation_01.png" alt="">转发
+                    </div>
+                    <div @click="errorClick" class="shu_b"><img src="/assets/images/home/operation_02.png" alt="">纠错
+                    </div>
+                    <div @click="favoritesClick" class="shu_b"><img src="/assets/images/home/operation_03.png" alt="">收藏
+                    </div>
+                </div>
+                <div class="gaicuo">
+
+                </div>
+                <button>下载</button>
+
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    var strUrl = location.href;
+    var arrUrl = strUrl.split("/");
+    var strPage = arrUrl[arrUrl.length - 1];
+    var id = (strPage.replace(".html", "").replace(".htm", ""));
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                data: {},
+                dataList: [],
+                item: [],
+                input: '',
+            }
+        },
+        created() {
+            if (id) {
+                this.getFinancialList()
+            }
+        },
+        methods: {
+            ft: formatShortTime,
+            async getFinancialList() {
+                const res = await httppost('member/article/index', { id: id })
+                this.data = res.data;
+                // console.log(this.data);
+            },
+            async reprintClick(id) {
+                const r = await httppost('/member/article/reprint', { id });
+                const url = location.href
+                alert(url)
+            },
+            async likesClick(id) {
+                const r = await httppost('/member/article/likes', { id });
+            },
+            async favoritesClick(id) {
+                const r = await httppost('/member/article/favorites', { id });
+            },
+            async errorClick() {
+
+                console.log('111');
+            }
+
+        }
+    })
+
+</script>

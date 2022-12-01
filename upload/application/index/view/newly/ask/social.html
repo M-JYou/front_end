@@ -1,0 +1,390 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/askFinancial.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <img src="/assets/images/home/logo_xiazi.png" alt="">
+            <span>打造财税生态链</span>
+        </div>
+        <div class="search">
+            <div class="search-input">
+                <div>
+                    <i class="el-icon-search"></i>
+                    <input type="text" v-mordel="input" placeholder="请输入关键字">
+                </div>
+                <button>搜索</button>
+            </div>
+        </div>
+        <div class="release">
+            <button>我要提问</button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>问答</el-breadcrumb-item>
+            </el-breadcrumb>
+            <div class="tabs">
+                <span :class="{active:itemIndex==1}" @click="clickTab(1)">申请成为专家</span>
+                <span :class="{active:itemIndex==2}" @click="clickTab(2)">专家风采</span>
+                <span :class="{active:itemIndex==3}" @click="clickTab(3)">我的问答</span>
+                <span :class="{active:itemIndex==4}" @click="clickTab(4)">奖励规则</span>
+            </div>
+        </div>
+        <div class="mainContent" v-if="itemIndex==null || itemIndex==1">
+            <div class="nav">
+                <h2>问答</h2>
+                <span><a href="/ask/financial">财税问答</a></span>
+                <span class="current"><a href="/ask/social">人社问答</a></span>
+            </div>
+            <div class="formContent">
+                <div class="con_1">
+                    <div class="box_con">
+                        <div class="item" v-for="n in 10">
+                            <div class="itemQues">
+                                <div class="itemTop">
+                                    <a href="">
+                                        <div class="userPic"><img src="/assets/images/home/ask_01.png" alt=""></div>
+                                        <span class="userName">尼古丁·凯奇</span>的提问
+                                    </a>
+                                    <span class="time">2022-09-03 10:05:00</span>
+                                </div>
+
+                                <div class="title">
+                                    <div class="box_5">
+                                        <h2>关于籽虾有什么想法？</h2>
+                                        <div v-if="n<7" class="box_3"><img src="/assets/images/home/ask_03.png"
+                                                alt="">60</div>
+                                    </div>
+                                    <div>
+                                        <button class="forgetBtn" v-if="n<7">转为免费提问</button>
+                                        <button class="getBtn" v-else>转为付费回答</button>
+                                        <el-button type="primary" icon="el-icon-edit">我要回答</el-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="itemAnswer">
+                                <div class="itemTop">
+                                    <a href="">
+                                        <div class="userPic"><img src="/assets/images/home/ask_01.png" alt=""></div>
+                                        <span class="userName">尼古丁·凯奇</span>做出解答
+                                    </a>
+                                    <span class="time">2022-09-03 10:05:00</span>
+                                </div>
+                                <div class="answer">
+                                    <p>关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法关于籽虾有什么想法
+                                    </p>
+                                </div>
+                                <div class="operation">
+                                    <div><img src="/assets/images/home/operation_01.png" alt="">分享23</div>
+                                    <div><img src="/assets/images/home/operation_04.png" alt="">转发23</div>
+                                    <div><img src="/assets/images/home/operation_02.png" alt="">举报</div>
+                                    <div><img src="/assets/images/home/operation_03.png" alt="">点赞15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <el-dialog v-if="itemIndex===1" title="付费咨询" :visible.sync="dialogTableVisible" class="con_1">
+            <form action="">
+                <ul>
+                    <li><span>申请人</span>
+                        <div>
+                            <el-input v-model="inputName" placeholder="请输入姓名"></el-input>
+                        </div>
+                    </li>
+                    <li><span>职称</span>
+                        <div><select name="" id="">
+                                <option value="vue1">特级职称</option>
+                                <option value="vue2">高级职称</option>
+                                <option value="vue3">中级职称</option>
+                                <option value="vue4">初级职称</option>
+                                <option value="vue5">一般职称</option>
+                            </select></div>
+                    </li>
+                    <li><span>学历</span>
+                        <div>
+                            <select name="" id="">
+                                <option value="vue1">研究生及以上</option>
+                                <option value="vue2">本科</option>
+                                <option value="vue3">大专</option>
+                                <option value="vue4">中专或高中</option>
+                                <option value="vue5">初中及以下</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li><span>头衔称谓</span>
+                        <div>
+                            <el-input v-model="inputChengwei" placeholder="请输入头衔称谓">
+                        </div>
+                    </li>
+                    <li><span>工作年限</span>
+                        <div><select name="" id="">
+                                <option value="vue1">10年以上</option>
+                                <option value="vue2">6-10年</option>
+                                <option value="vue3">4-5年</option>
+                                <option value="vue4">2-3年</option>
+                                <option value="vue5">1年以内（含1年）</option>
+                            </select></div>
+                    </li>
+                    <li><span>个人介绍</span>
+                        <div>
+                            <el-input v-model="inputText" placeholder="请输入个人介绍">
+                        </div>
+                    </li>
+                    <li><span>证明材料</span>
+                        <div>
+                            <el-input v-model="inputType" placeholder="文件支持类型：DOCX    PDF    PPT">
+                        </div>
+                    </li>
+                    <li><span>手机号</span>
+                        <div>
+                            <el-input v-model="inputPhone" placeholder="请输入手机号">
+                        </div>
+                    </li>
+                    <li><span>验证码</span>
+                        <div>
+                            <el-input v-model="inputNum" placeholder="请输入验证码">
+                        </div>
+                        <button>获取验证码</button>
+                    </li>
+                    <li><button>提交申请</button></li>
+                </ul>
+            </form>
+        </el-dialog>
+        <div class="mainContent" v-if="itemIndex===2">
+            <div class="nav">
+                <h2>问答</h2>
+                <span class="current"><a href="/ask/financial">财税问答</a></span>
+                <span><a href="/ask/social">人社问答</a></span>
+            </div>
+            <div class="formContent">
+                <div class="con_2">
+                    <div class="box_con">
+                        <div class="itempeo" v-for="n in 20">
+                            <div class="itemtop">
+                                <img src="/assets/images/home/academic_01.png" alt="">
+                            </div>
+                            <div class="itemBtm">
+                                <div class="box_3">
+                                    <div class="nameinfo">
+                                        <div class="img">
+                                            <img src="/assets/images/home/ask_01.png" alt="">
+                                            <input type="checkbox" v-model="checked1" name="" id="">
+                                        </div>
+                                        <span>专家昵称专家昵称专家昵称专家昵称</span>
+                                    </div>
+                                </div>
+                                <div class="box_1">
+                                    <h2>王晓辉</h2>
+                                    <span>法律专家</span>
+                                </div>
+                                <div class="box_2">
+                                    <span>高级律师<i class="el-icon-edit"></i></span>
+                                    <span>10年</span>
+                                </div>
+                                <div class="box_4">
+                                    <button class="btn_pay" @click="follow">关注</button>
+                                    <button type="text" @click="dialogTableVisible = true" class="btn_pay">付费咨询</button>
+                                </div>
+
+
+                                <!-- #region -->
+                                <el-dialog title="付费咨询" :visible.sync="dialogTableVisible">
+                                    <ul>
+                                        <li>付费金额 <span>￥10.00元</span></li>
+                                        <li>虾币 <span>100</span></li>
+                                        <li>
+                                            <el-checkbox v-model="checked">
+                                                <el-popover placement="right" width="400" trigger="click">
+                                                    <span>支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议支付协议</span>
+                                                    <el-button slot="reference">支付协议</el-button>
+                                                </el-popover>
+                                            </el-checkbox>
+                                        </li>
+                                        <li><button>确认支付</button></li>
+                                    </ul>
+                                </el-dialog>
+                                <!-- #endregion -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page_box"><span>上一页</span><button>111</button><span>下一页</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainContent" v-if="itemIndex===3">
+            <div class="nav">
+                <h2>问答</h2>
+                <span @click="clickItem3(1)" :class="itemIndex3==1 ? 'current' : ''">我的提问</span>
+                <span @click="clickItem3(2)" :class="itemIndex3==2 ? 'current' : ''">我的回答</span>
+            </div>
+            <div class="formContent" v-if="itemIndex3==1">
+                <div class="con_3">
+                    <div class="box_con">
+                        <div class="box_1">
+                            <button>专家</button>
+                            <button>普通</button>
+                            <button><select name="" id="">
+                                    <option value="opt1">时间不限</option>
+                                    <option value="opt2">1天内</option>
+                                    <option value="opt3">3天内</option>
+                                    <option value="opt4">一周内</option>
+                                </select></button>
+                        </div>
+
+                        <div class="item" v-for="n in 6">
+                            <ul>
+                                <li class="liFirst">
+                                    <div class="box_2"><img src="/assets/images/home/ask_01.png" alt="">
+                                        <h2>老板拖欠工资怎么办？</h2>
+                                        <div v-if="n<3" class="box_3"><img src="/assets/images/home/ask_03.png"
+                                                alt=""><span>60</span><i class="el-icon-edit-outline"></i></div>
+                                    </div>
+                                    <div class="box_4">2022-9-21</div>
+                                </li>
+
+                                <li class="liTwo">
+                                    <div class="box_5">
+                                        <div class="box_6"><img src="/assets/images/home/ask_02.png" alt="">
+                                            <p><span><strong>李祥云</strong>律师</span>的回答 <span><i
+                                                        class="el-icon-trophy"></i></span></p>
+                                        </div>
+                                        <div class="box_4">2022-9-21</div>
+                                    </div>
+                                    <p class="textp">查看详情...</p>
+                                </li>
+                                <li class="liTwo">
+                                    <div class="box_5">
+                                        <div class="box_6"><img src="/assets/images/home/ask_02.png" alt="">
+                                            <p><span><strong>李祥云</strong>律师</span>的回答 <span></span></p>
+                                        </div>
+                                        <div class="box_4">2022-9-21</div>
+                                    </div>
+                                    <p class="textp">查看详情...</p>
+                                </li>
+                                <li class="liThree">
+                                    <button class="freeBtn" v-if="n<3">转为免费提问</button>
+                                    <button class="payBtn" v-else>转为付费提问</button>
+                                    <button class="delete"><i class="el-icon-delete"></i>删除</button>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                    <div class="page_box"><span>上一页</span><button>111</button><span>下一页</span></div>
+                </div>
+            </div>
+            <div class="formContent" v-else>
+                回答
+            </div>
+        </div>
+
+        <div class="mainContent" v-if="itemIndex===4">
+            <div class="nav">
+                <h2>问答</h2>
+                <span class="current"><a href="/ask/financial">财税问答</a></span>
+                <span><a href="/ask/social">人社问答</a></span>
+            </div>
+            <div class="formContent">
+                <div class="con_4">
+                        <h1>奖励规则</h1>
+                        <p>1.1.44. 四十六、积分规则
+                            本平台（本站所有模块）下的 “积分”名称改为“虾币”。
+                            本平台（本站所有模块）下的信息数据在pc端、小程序、app必须互联互通。
+                            （一）积分与平台
+                            积分可购买、免费获取、相互转赠。使用时可以抵现、下载文档等平台内其他应用场景。
+                            个人积分和商家积分可以互转。
+                            （二）积分获取方式
+                            1.购买：人民币与积分购买比例为1:100，1元购买100积分。购买方式为微信、支付宝。
+                            免费获取：通过相关模块取得平台奖励的积分。
+                            2.前述内容中，下载关注籽虾中对转发二维码奖励积分进行了说明，其他模块对分享（转发）奖励积分未作说明，现补充说明：其他模块每分享（转发）一次奖励2积分，每日对同一用户（分享者，不是被分享者）最多奖励10次。分享范围为其他模块中设置了分享按钮的所有内容或页面。分享方式分为两种均可：微信分享、分享链接地址。本平台下的所有分享奖励积分或购买积分通道均可独立关闭（关闭后，即使分享也不获得奖励积分）。所有奖励积分的数量标准及每日奖励的最高次数均可手动设置修改。
+                            已设置了分享按钮的继续保留。本平台所有内容及详情页中，除了求职信息（求职简历）不允许分享（转发）外，其他均可分享（转发），未设置分享按钮的均增加分享按钮，分享方式均包括两种：微信直接分享、分享链接地址。
+                            所有分享均奖励积分，奖励积分明细在各模块中“我的”或个人中心、商家中心中“我的积分”查询。
+                            3.无签到功能，也无签到奖励积分。
+                            4.除分享（转发）奖励积分外，各模块下的各种积分奖励规则及标准，以各模块下的积分说明为准。
+                            （三）积分消费
+                            1.各模块下的积分消费以各模块中的积分消费标准为准。所有模块中积分消费标准均可手动设置修改。
+                            2.以上说明中，应消费积分但未说明积分消费标准的，均按99积分暂时设置但可以后台手动设置修改，如人才测评、背景调查。
+                            3.抵现：在所有模块中均可选择积分抵现，可全额使用积分抵现。积分也可以抵扣运费（如果有运费产生），但如果产生退换货时，积分将无法退还。
+                            （四）积分转赠
+                            转赠时输入对方的ID号或绑定的手机号，输入转入的积分数量（不能大于余额）。
+                            （五）备注：
+                            1. 积分规则的最终解释权归籽虾所有。
+                            2. 如果用户在使用积分时，积分不足进行弹窗展示，用户点击跳转到积分获取页面。
+                            （六）提现、退款
+                            1.积分提现的概念：实质上就是将积分折算为钱并直接转入用户的微信或支付宝。
+                            2.本平台所有用户均可提现，提现前必须实名认证，提现最高限额为当前用户的账户余额。
+                            3.提现时需要用户手动输入微信或支付宝账户（或绑定的手机号）。
+                            4.后台增加每日提现的最多限制次数与每日提现的最高限制金额，可手动设置修改。
+                            5.后台自动统计时间区间访问量、某一时点访问量、虾币持有用户量、虾币提现量、虾币账户余额明细及总量。
+                            6.提现与退款是两个功能。提现是将当前用户的虾币账户余额转入用户的微信或支付宝账户（从本平台转入平台之外）。退款是将当前用户“费用托管”及购物“已付款”中的款项退回，全部或部分用虾币抵现的退至虾币账户（平台内部互转），全部或部分用资金支付的从哪里来退到那里去（从本平台转入平台之外）。
+                            7.后台执行管理员权限中增加人工退款功能，点退款输入用户id号后，显示当前用户的虾币、资金明细，可手动增加或减少当前用户的虾币、资金数量，并输入增加或减少原因，同时长期保留增加或减少的记录。
+                            8.本平台除“费用托管”及财税购物中可全部或部分直接支付资金，也可全部或部分用虾币抵现，除这两处之外，其他地方消费与奖赏时均只能用虾币。虾币可用微信或支付宝购买也可以免费获取（奖赏），虾币收支明细记录在个人中心或商家中心中“我的虾币”记录与查询。资金可以通过微信或支付宝转入个人资金或商家资金，也可以从个人资金或商家资金转入微信或支付宝。费用托管、购物是将资金转入个人或商家资金，再将个人或商家资金转入平台，中间过程自动生成不需要用户二次确认。退托管费用、退购物款是将资金从平台转入个人或商家资金，再将个人或商家资金转入用户的微信或支付宝（与付款账户一致），中间过程自动生成不需要用户二次确认。
+                            “我的虾币”与“个人资金”或“商家资金”，不能互相转换，前述所有内容中与本条叙述内容不一致的，以本条内容为主。
+                            9.退款需要人工审核（提示：预计*小时之内将完成退款，请耐心等待），提现不需要人工审核。
+                            10.为鼓励用户预充值，前述说明中有充值打折规定，如果预充值虾币用户申请提现时（充值时需勾选同意支付协议），按打折幅度相应设置禁止提现的天数，在禁止提现的天数内，虾币账户下的提现按钮为灰框不可操作。
+                            预充值打折幅度与禁止提现的天数规则为：送100积分禁止30天提现，送300积分禁止90天提现，送600积分禁止180天提现，送1000积分禁止300天提现，送1500积分禁止360天提现。送积分的数量及禁止提现的天数可在后台手动设置修改。禁止期满后用户可点击提现进行操作。
+
+                            11.本站所有模块下消费积分时，如果积分不足，弹窗提示“积分不足，请免费获取或购买积分”，点击按钮进入我的积分中，积分免费获取入口及积分购买入口（当前身份为个人时，进入个人中心入口；当前身份为商家时进入商家中心入口）。积分购买途径：微信、支付宝。
+                        </p>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->
+
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                input: '',
+                inputName: '',
+                inputChengwei: '',
+                inputText: '',
+                inputType: '',
+                inputPhone: '',
+                inputNum: '',
+                itemIndex: null,
+                dialogTableVisible: false,
+                checked1: false,
+                payment: false,
+                itemIndex3: 1,
+                checked: false,
+            }
+        },
+        methods: {
+            clickTab(index) {
+                this.itemIndex = index
+                if (index != 3) {
+                    this.itemIndex3 = 1;
+                }
+                if (index == 1) {
+                    this.dialogTableVisible = true
+                }
+            },
+            clickItem3(e) {
+                this.itemIndex3 = e;
+            },
+            follow() {
+                this.$message({
+                    message: '关注成功',
+                    type: 'success'
+                });
+
+            }
+        }
+    })
+
+</script>

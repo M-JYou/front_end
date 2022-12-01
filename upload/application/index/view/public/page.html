@@ -1,0 +1,39 @@
+{#load href="__ROOT__/assets/css/page.css" /#}
+
+<div class="page" id="page">
+  <button class="last" :style="'cursor:'+(data.current_page>1?'pointer':'no-drop')" @click="lastClick"><i
+      class="el-icon-arrow-left"></i></button>
+  <button class="num">{{data.current_page}}</button>
+  <button class="next" :style="'cursor:'+(data.current_page<data.total_page?'pointer':'no-drop')" @click="nextClick"><i
+      class="el-icon-arrow-right"></i></button>
+</div>
+<script>
+  var app = new Vue({
+    el: '#page',
+    data() {
+      return {
+        data: undefined,
+        current_page:'',
+
+      }
+    },
+    methods: {
+      lastClick() {
+        if (this.data.current_page > 1) {
+          this.param.page = --this.data.current_page;
+          this.jump();
+        }
+      },
+      nextClick() {
+        if (this.data.total_page > this.data.current_page) {
+          this.param.page = ++this.data.current_page;
+          this.jump();
+        }
+      },
+
+    },
+
+
+  })
+
+</script>

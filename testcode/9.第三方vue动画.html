@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue动画</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="./vue.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flg=!flg">切换</button>
+        <transition enter-active-class="animate__animated animate__swing"
+            leave-active-class="animate__animated animate__backOutRight">
+            <h1 v-show="flg">使用第三方动画库生成动画效果</h1>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                flg: true
+            }
+        })
+    </script>
+</body>
+
+</html>

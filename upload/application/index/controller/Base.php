@@ -1,0 +1,97 @@
+<?php
+
+namespace app\index\controller;
+
+use app\common\lib\Visitor;
+
+class Base extends \app\common\controller\Base {
+  protected $visitor;
+  protected $pageHeader = [];
+  public function _initialize() {
+    parent::_initialize();
+    $this->userinfo = (new Visitor())->getLoginInfo();
+    $global_config = config('global_config');
+    $img_id_arr = [$global_config['logo'], $global_config['square_logo'], $global_config['wechat_qrcode'], $global_config['wechat_miniprogram_qrcode'], $global_config['guide_qrcode']];
+    $img_arr = model('Uploadfile')->getFileUrlBatch($img_id_arr);
+    $global_config['logo'] = isset($img_arr[$global_config['logo']]) ? $img_arr[$global_config['logo']] : make_file_url('resource/logo.png');
+    $global_config['square_logo'] = isset($img_arr[$global_config['square_logo']]) ? $img_arr[$global_config['square_logo']] : make_file_url('resource/square_logo.png');
+    $global_config['wechat_qrcode'] = isset($img_arr[$global_config['wechat_qrcode']]) ? $img_arr[$global_config['wechat_qrcode']] : make_file_url('resource/weixin_img.jpg');
+    $global_config['wechat_miniprogram_qrcode'] = isset($img_arr[$global_config['wechat_miniprogram_qrcode']]) ? $img_arr[$global_config['wechat_miniprogram_qrcode']] : '';
+    $global_config['guide_qrcode'] = isset($img_arr[$global_config['guide_qrcode']]) ? $img_arr[$global_config['guide_qrcode']] : '';
+    $this->assign('global_config', $global_config);
+    $this->initPageHeader($global_config);
+    $this->initVisitor();
+    if (config('global_config.isclose') == 1) {
+      abort(500, '网站暂时关闭：' . config('global_config.close_reason'));
+    }
+    $this->assign('navSelTag', 'null');
+    $this->assign('subsiteid', $this->subsite === null ? '' : $this->subsite->id);
+    $this->assign('subsite', $this->subsite);
+    $this->assign('stxt', '请输入搜索内容');
+
+    // 天气数据
+    $dcd = new \app\common\model\CategoryDistrict;
+    $this->assign('weather', $dcd->getWeather());
+
+    if ($this->userinfo->uid) {
+      $this->pageHeader['messageUnreadSum'] = model('Chat')->where([
+        'target' => $this->userinfo->uid,
+        'new' => 1
+      ])->count();
+    }
+
+    // 表头数据
+    $this->assign('pageHeader', $this->pageHeader);
+  }
+  protected function initPageHeader($global_config) {
+    $og['type'] = '招聘求职网';
+    $og['title'] = $global_config['sitename'];
+    $og['url'] = $this->getHttpType() . input('server.HTTP_HOST') . input('server.REQUEST_URI');
+    $og['site_name'] = $global_config['sitename'];
+    $og['description'] = '为求职者提供免费注册、求职指导、简历管理等服务，职位真实可靠，上' . $global_config['sitename'] . '，找到满意工作';
+    $this->pageHeader['og'] = $og;
+    $this->pageHeader['title'] = $global_config['sitename'];
+    $this->pageHeader['keywords'] = $global_config['sitename'];
+    $this->pageHeader['description'] = $global_config['sitename'];
+    $this->pageHeader['config'] = $global_config;
+    $this->pageHeader['me'] = $this->userinfo;
+  }
+  protected function getHttpType() {
+    $http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+    return $http_type;
+  }
+  protected function initVisitor() {
+    $instance = new \app\common\lib\Visitor;
+    $this->visitor = $instance->getLoginInfo();
+    $this->assign('visitor', $this->visitor);
+  }
+  protected function initPageSeo($alias, $data = []) {
+    $pageinfo = model('Page')->getCache($alias);
+
+    if ($this->subsite !== null) {
+      if ($this->subsite->title != '') {
+        $pageinfo['seo_title'] = $this->subsite->title;
+      }
+      if ($this->subsite->keywords != '') {
+        $pageinfo['seo_keywords'] = $this->subsite->keywords;
+      }
+      if ($this->subsite->description != '') {
+        $pageinfo['seo_description'] = $this->subsite->description;
+      }
+    }
+    $seo_title = $pageinfo['seo_title'];
+    $seo_keywords = $pageinfo['seo_keywords'];
+    $seo_description = $pageinfo['seo_description'];
+    $seo_title = str_replace("{sitename}", config('global_config.sitename'), $seo_title);
+    $seo_keywords = str_replace("{sitename}", config('global_config.sitename'), $seo_keywords);
+    $seo_description = str_replace("{sitename}", config('global_config.sitename'), $seo_description);
+    foreach ($data as $key => $value) {
+      $seo_title = str_replace("{" . $key . "}", $value, $seo_title);
+      $seo_keywords = str_replace("{" . $key . "}", $value, $seo_keywords);
+      $seo_description = str_replace("{" . $key . "}", $value, $seo_description);
+    }
+    $this->pageHeader['title'] = $seo_title;
+    $this->pageHeader['keywords'] = $seo_keywords;
+    $this->pageHeader['description'] = $seo_description;
+  }
+}

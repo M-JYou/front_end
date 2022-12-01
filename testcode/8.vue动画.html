@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue动画</title>
+    <script src="./vue.js"></script>
+    <style>
+        /* 1.显示时动画效果的开始样式 */
+
+        .box-enter {
+            /* opacity: 0; */
+            transform: translateX(0);
+        }
+
+        /* 2.显示时动画效果的结束样式 */
+
+        .box-enter-to {
+            /* opacity: 1; */
+            transform: translateX(400px);
+        }
+
+        .box-enter-active {
+            transition: 1s linear;
+        }
+
+        /* 3.显示时动画效果的过渡样式 */
+
+        .v-enter-active {
+            animation: move 2s linear;
+        }
+
+        /* 4.隐藏时动画效果的开始样式 */
+
+        .v-leave {
+            /* transform: translateX(400px);
+             */
+            opacity: 1;
+        }
+
+        /* 5.隐藏时动画效果的结束样式 */
+
+        .v-leave-to {
+            /* transform: translateX(0); */
+            opacity: 0;
+        }
+
+        /* 6.隐藏时动画效果的过渡样式 */
+
+        .v-leave-active {
+            transition: 1s linear;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(400px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flg=!flg">切换</button>
+        <transition>
+            <h1 v-show="flg">测试显示和隐藏</h1>
+        </transition>
+        <transition name="box">
+            <h1 v-show="flg">测试显示和隐藏</h1>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                flg: true
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,287 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/trademarkSell.css" /#}
+<div class="wapper_content" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div>
+            <div class="logo">
+                <img src="/assets/images/home/logo_xiazi.png" alt="">
+                <span>打造财税生态链</span>
+            </div>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item>商标转让</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="banner">
+            <el-carousel trigger="click" height="130px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                    <h3 class="small">{{ item }}</h3>
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+    </div>
+    <div class="main">
+        <div class="box_1">
+            <div class="child_1">
+                <div class="search">
+                    <div class="search-input">
+                        <div>
+                            <i class="el-icon-search"></i>
+                            <input type="text" v-mordel="input" placeholder="请输入关键字">
+                        </div>
+                        <button>搜索</button>
+                    </div>
+                </div>
+                <div class="release">
+                    <button @click="fabu=true">我要发布</button>
+                    <el-dialog :visible.sync="fabu">
+                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+                            class="demo-ruleForm">
+                            <el-form-item label="上传照片" prop="photo">
+                                <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
+                                    :show-file-list="false" :on-success="handleAvatarSuccess"
+                                    :before-upload="beforeAvatarUpload">
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                </el-upload>
+                            </el-form-item>
+                            <el-form-item label="转让人" prop="name">
+                                <el-input v-model="ruleForm.name" placeholder="请输入转让人"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="转让价格" prop="points">
+                                <el-input v-model="ruleForm.points" placeholder="请输入转让价格"></el-input>
+                            </el-form-item>
+                            <el-form-item label="商标类型" prop="type">
+                                <el-select v-model="ruleForm.type" placeholder="请选择商标类型">
+                                    <el-option label="文字" value="shanghai"></el-option>
+                                    <el-option label="图片" value="shanghai"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="注册时间" prop="reg_time">
+                                <el-date-picker v-model="ruleForm.reg_time" type="date" placeholder="成立时间">
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="注册类别" prop="category">
+                                <el-select v-model="ruleForm.category" placeholder="请选择注册类别">
+                                    <el-option label="有限责任公司" value="shanghai"></el-option>
+                                    <el-option label="区域二" value="beijing"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="有效期" prop="end_time">
+                                <el-date-picker v-model="ruleForm.end_time" type="date">
+                                </el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="其他说明" prop="requirement">
+                                <el-input v-model="ruleForm.requirement" placeholder="请输入其他说明"></el-input>
+                            </el-form-item>
+
+                            <el-form-item label="手机号" prop="tel">
+                                <el-input v-model="ruleForm.tel" placeholder="请输入手机号"></el-input>
+                            </el-form-item>
+                            <el-form-item label="验证码" prop="code">
+                                <el-input v-model="ruleForm.other.code" placeholder="请输入验证码"></el-input>
+                                <el-button type="success" round>获取验证码</el-button>
+                            </el-form-item>
+                            <el-form-item label="联系人" prop="people">
+                                <el-input v-model="ruleForm.other.people" placeholder="请输入联系人"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+                                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-dialog>
+                </div>
+            </div>
+            <div class="child_2">
+                <span><a href="/company/companySell">企业转让信息</a></span>
+                <span><a href="/company/companyBuy">企业求购信息</a></span>
+                <span class="active"><a href="/company/trademarkSell">商标转让信息</a></span>
+                <span><a href="/company/trademarkBuy">商标求购信息</a></span>
+                <span><a href="/company/companyMy">我的</a></span>
+            </div>
+        </div>
+        <div class="box_2">
+            <div class="tuijian">
+                <img src="/assets/images/home/tuijian_02.png" alt="">
+            </div>
+            <div class="box_right">
+                <div class="line"></div>
+                <div class="child_1 box">
+                    <div class="top">1</div>
+                    <span class="other">上传合同</span>
+                </div>
+                <div class="child_2 box">
+                    <div class="top">2</div>
+                    <span>费用支付托管</span>
+                </div>
+                <div class="child_2 box">
+                    <div class="top">3</div>
+                    <span>
+                        <select name="" id="">
+                            <option value="" disabled selected style="display: none;">付款</option>
+                            <option value="">同意付款</option>
+                            <option value="">延期付款</option>
+                            <option value="">申请退款</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+       
+        <div class="box_3">
+            <div class="box_4">
+                <el-select v-model="value" placeholder="时间" class="selectTime">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="box_7">
+                <div class="list2" v-for="(i,ii) in dataList" :key="ii" @click="goDetails(i.id)">
+                    <div class="child_1">
+                        <img :src="i.cover" alt="">
+                    </div>
+                    <div class="child_2">
+                        <div class="child_3">
+                            <h1>{{i.name}}</h1>
+                            <span>{{ft(i.addtime)}}</span>
+                        </div>
+                        <div class="child_4">￥{{i.points}}<span>元</span></div>
+                        <div class="child_5">
+                            <p>{{i.type}}</p>
+                            <p>{{i.content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+   
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                input:'',
+                value:'',
+                options:'',
+                dataList:[],
+                ruleForm: {
+                    name: '',
+                    type: '',
+                    points: '',
+                    reg_time: '',
+                    use_time: '',
+                    business: '',
+                    taxpayer: '',
+                    tel: '',
+                    requirement:'',
+                    other: {
+                        title: '',
+                        code: '',
+                        category:'',
+                    },
+                },
+                rules: {
+                  
+                    name: [
+                        { required: true, message: '请输入转让人名称', trigger: 'blur' },
+                    ],
+                    type: [
+                        { required: true, message: '请选择商标类型', trigger: 'change' }
+                    ],
+                    category: [
+                        { required: true, message: '请选择商标类型', trigger: 'change' }
+                    ],
+                    reg_time: [{
+                        required: true, message: '请选择注册时间', trigger: 'change'
+                    }],
+                    end_time: [{
+                        required: true, message: '请选择注册时间', trigger: 'change'
+                    }],
+                    points: [
+                        { required: true, message: '请输入转让价格', trigger: 'blur' },
+                    ],
+                   
+                    requirement:[{
+                        required: true, message: '请输入其他要求', trigger: 'blur'
+                    }],
+                    people: [
+                        { required: true, message: '请输入联系人', trigger: 'blur' }
+                    ],
+
+                    tel: [
+                        { required: true, message: '请输入电话号码', trigger: 'blur' }
+                    ],
+                    code: [
+                        { required: true, message: '请输入验证码', trigger: 'blur' }
+                    ]
+                },
+                fabu: false,
+                contact: false,
+                radio1: '1',
+                radio2: '1',
+                checked: false,
+                imageUrl: '',
+                
+
+            }
+        },
+        created() {
+            this.getTrademarkSell()
+        },
+        methods: {
+            ft: formatShortTime,
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt1M = file.size / 1024 / 1024 < 1;
+
+                if (!isJPG) {
+                    this.$message.error('上传图片只能是 JPG 格式!');
+                }
+                if (!isLt1M) {
+                    this.$message.error('上传头像图片大小不能超过 1MB!');
+                }
+                return isJPG && isLt2M;
+            },
+             // 提交
+             submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            //   重置
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            // 商标转让
+            async getTrademarkSell() {
+                const res = await httppost('member/TrademarkTransfer/index');
+                this.dataList = res.data;
+                // console.log(this.dataList[0].tel);
+                console.log(this.dataList);
+            },
+            goDetails(id) {
+                location.href = `/company/sellTrademarkDet/${id}.html`;
+            },
+            
+
+
+
+
+        }
+    })
+
+</script>

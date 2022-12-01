@@ -1,0 +1,101 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/base.css" /#}
+{#load href="__ROOT__/assets/css/index.css" /#}
+<div id="app" class="liveOut" style="background-color: #f3f3f3;padding-bottom: 20px">
+    <div style="height:298px;">
+        <img style="width: 100%;height:298px;" src="__ROOT__/assets/images/live/top.jpg">
+    </div>
+    <div class="liveBox" style="margin-top:44px;">
+        <div class="liveCard"  v-for="(item,index) in list" :key="index" >
+            <!--  notice 为预告的背景色 -->
+            <div v-if="item.state_code == 3" class="liveTag" >{{item.state}}</div>
+            <div v-if="item.state_code == 1" class="liveTag notice" >{{item.state}}</div>
+            <div class="liveBanner" onclick="getList(this)" :id="item.id">
+                <img :src="item.cover_image" alt="">
+                <div v-if="item.state_code == 2" class="liveStart">
+                    <div class="loader loader-7">
+                        <div class="line line1"></div>
+                        <div class="line line2"></div>
+                        <div class="line line3"></div>
+                    </div>
+                    <span class="liveInner" >直播中</span>
+                </div>
+            </div>
+            <div class="liveWord" onclick="getList(this)" :id="item.id">
+                <div class="liveTitle">{{item.name}}</div>
+                <div class="liveTime">直播时间：{{item.live_start}}</div>
+            </div>
+        </div>
+    </div>
+    <el-pagination
+            style="text-align: center;padding: 20px 0"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage1"
+            prev-text="上一页"
+            next-text="下一页"
+            current-page="1"
+            :page-size="12"
+            layout="prev, pager, next"
+            :total="total">
+    </el-pagination>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                list:[],
+                currentPage1:0,
+                page:1,
+                pagesize:12,
+                total:0
+            };
+        },
+        created:function(){
+            var that = this
+            that.listDatas()
+        },
+        methods:{
+            listDatas:function (){
+                var that = this
+                httpget(qscms.apiList.liveList,{page:that.page,pagesize:that.pagesize}).then(function(res){
+                    that.list = res.data.items
+                    that.currentPage1 = res.data.total_page
+                    that.total = res.data.total
+                    that.page = res.data.page
+                    that.pagesize = res.data.pagesize
+                }).catch(function(){})
+            },
+            handleSizeChange(val) {
+                var that = this
+                that.page = val
+                that.listDatas()
+            },
+            handleCurrentChange(val) {
+                var that = this
+                that.page = val
+                that.listDatas()
+            },
+        },
+    })
+    function getList(e){
+        var id = $(e).attr('id');
+        console.log(id)
+        window.open("https://live.74cms.com/live/#/?live="+id+"&appkey={#$global_config.live_app_key#}&appsecret={#$global_config.live_app_secret#}")
+    }
+</script>
+<style>
+    .liveOut .el-pagination .btn-prev{
+        margin-right: 10px;
+        padding-right: 6px;
+    }
+    .liveOut .el-pagination .btn-next{
+        padding-left: 6px;
+    }
+    .liveOut .el-pager li{
+        margin-right: 10px;
+    }
+</style>
+</html>

@@ -1,0 +1,403 @@
+/* 颜色配置 */
+:root {
+  --mac-color-info: #666;
+  --mac-color-bbb: #bbb;
+  --mac-color-back: #fafafa;
+  --mac-color-overlay: #00000080;
+  --mac-color-success: #67c23a;
+  --mac-color-warning: #e6a23c;
+  --mac-color-primary: #409eff;
+  --mac-color-error: #f56c6c;
+  --mac-color-white: #fff;
+  --mac-color-black: #000;
+  --mac-color-selected: #f0f8ff;
+  --mac-color-main: #007768;
+  --mac-color-red: #f40a0a;
+  --mac-color-yellow: #fbff00;
+  --mac-color-green: green;
+  --mac-color-main2: #cfe4e1;
+}
+* {
+  box-sizing: border-box;
+  font-family: "mac-ico";
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* #region 显示、定位 */
+.mac-oh,
+.mac-ox,
+.mac-oy {
+  overflow: hidden;
+}
+.mac-oa {
+  overflow: auto;
+}
+.mac-ox {
+  overflow-x: auto;
+}
+.mac-oy {
+  overflow-y: auto;
+}
+.mac-pr {
+  position: relative;
+}
+.mac-pa {
+  position: absolute;
+}
+.mac-ps {
+  position: static;
+}
+.mac-pf {
+  position: fixed;
+}
+/* #endregion*/
+/* #region flex */
+.mac-xcc,
+.mac-row-buttons-curd,
+.mac-xsc,
+.mac-x {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.mac-row-buttons,
+.mac-xe {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.mac-xw {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.mac-btn,
+.mac-ycc,
+.mac-y {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.mac-ye {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.mac-ww {
+  flex-wrap: wrap;
+}
+.mac-xsc,
+.mac-zs {
+  justify-content: flex-start;
+}
+.mac-ze {
+  justify-content: flex-end;
+}
+.mac-btn,
+.mac-xcc,
+.mac-ycc,
+.mac-zc {
+  justify-content: center;
+}
+.mac-row-buttons-curd,
+.mac-row-buttons,
+.mac-zb {
+  justify-content: space-between;
+}
+.mac-za {
+  justify-content: space-around;
+}
+.mac-js {
+  align-items: flex-start;
+}
+.mac-je {
+  align-items: flex-end;
+}
+.mac-btn,
+.mac-xcc,
+.mac-ycc,
+.mac-xsc,
+.mac-jc {
+  align-items: center;
+}
+.mac-jb {
+  align-items: baseline;
+}
+.mac-jst {
+  align-items: stretch;
+}
+.mac-as {
+  align-content: flex-start;
+}
+.mac-ae {
+  align-content: flex-end;
+}
+.mac-ac {
+  align-content: center;
+}
+.mac-ab {
+  align-content: space-between;
+}
+.mac-aa {
+  align-content: space-around;
+}
+.mac-ast {
+  align-content: stretch;
+}
+.mac-nfd {
+  flex-grow: 0;
+}
+.mac-nsx {
+  flex-shrink: 0;
+}
+.mac-nbx {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.mac-nfd {
+  flex-shrink: 0;
+}
+/* #endregion*/
+/* #region 大小 */
+.mac-mf {
+  max-width: 100%;
+  max-height: 100%;
+}
+.mac-wfm {
+  min-width: 100%;
+}
+.mac-fimg,
+.mac-mimg,
+.mac-wf {
+  width: 100%;
+}
+.mac-wa {
+  width: auto;
+}
+.mac-w25 {
+  width: 25%;
+}
+.mac-w50 {
+  width: 50%;
+}
+.mac-fimg,
+.mac-mimg,
+.mac-hf {
+  height: 100%;
+}
+.mac-ha {
+  height: auto;
+}
+.mac-h50 {
+  height: 50%;
+}
+.mac-hf2 {
+  height: 100%;
+  height: -moz-calc(100%);
+  height: -webkit-calc(100%);
+  height: calc(100%);
+}
+.mac-hfm {
+  min-height: 100%;
+}
+.mac-whf {
+  width: 100%;
+  height: 100%;
+}
+.mac-ml04em {
+  margin-left: 0.4em;
+}
+.mac-mr04em {
+  margin-right: 0.4em;
+}
+.mac-mt04em {
+  margin-top: 0.4em;
+}
+.mac-mb04em {
+  margin-right: 0.4em;
+}
+.mac-ml1em {
+  margin-left: 1em;
+}
+.mac-ml2em {
+  margin-left: 1em;
+}
+.mac-mr1em {
+  margin-right: 1em;
+}
+.mac-mt1em {
+  margin-top: 1em;
+}
+.mac-mt2em {
+  margin-top: 2em;
+}
+.mac-mb1em {
+  margin-right: 1em;
+}
+.mac-p2em {
+  padding: 2em;
+}
+.mac-p1em {
+  padding: 1em;
+}
+.mac-p04em {
+  padding: 0.4em;
+}
+.mac-fg1 {
+  flex-grow: 1;
+}
+.mac-bmr1em::before {
+  margin-right: 1em;
+}
+.mac-fimg{
+  object-fit: cover;
+}
+.mac-mimg{
+  object-fit: contain;
+}
+/* #endregion*/
+/* #region 样式 */
+.mac-vh {
+  visibility: hidden;
+}
+.mac-cb {
+  color: var(--mac-color-black);
+}
+.mac-current {
+  color: var(--mac-color-primary);
+  background-color: var(--mac-color-selected);
+}
+.mac-bx {
+  border: 1px solid #dcdfe6;
+  border-radius: 0.6em;
+}
+.mac-btnss:hover {
+  cursor: pointer;
+}
+.mac-btn {
+  cursor: pointer;
+  background-color: var(--mac-color-main);
+  color: var(--mac-color-white);
+  padding: 0.4em 0.4em 0.4em 0.8em;
+  letter-spacing: 0.4em;
+  border-radius: 0.2em;
+}
+.mac-btn:hover,
+.mac-sbss:hover {
+  cursor: pointer !important;
+  border: 1px solid #a5a5a5;
+  box-sizing: border-box;
+  border-radius: 0.5em;
+  box-shadow: 0 0 10px #000;
+}
+.mac-txt-hid {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mac-input {
+  outline-style: none;
+  border: 1px solid #ccc;
+  border-radius: 0.3em;
+  padding: 0 0.2em;
+  background-color: #fff;
+  /* flex-grow: 1; */
+  width: 100%;
+  /* font-weight: 700; */
+  /* margin-top: 0.2em; */
+}
+.triangle {
+  width: 1em;
+  height: 1em;
+  background-color: skyblue;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+.r90 {
+  transform: rotate(90deg);
+}
+.r180 {
+  transform: rotate(180deg);
+}
+.r270 {
+  transform: rotate(270deg);
+}
+
+.mac-row-buttons {
+  padding: 0.4em;
+  width: 100%;
+}
+.mac-row-buttons :nth-child(1) {
+  color: var(--mac-color-primary);
+}
+.mac-row-buttons :nth-child(2) {
+  color: var(--mac-color-success);
+}
+.mac-row-buttons :nth-child(3) {
+  color: var(--mac-color-warning);
+}
+.mac-row-buttons :nth-child(4) {
+  color: var(--mac-color-error);
+}
+.mac-row-buttons :last-child {
+  color: var(--mac-color-black);
+  border-right: 1px solid #00000000;
+}
+.mac-row-buttons-curd {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 8em;
+}
+.mac-row-buttons-curd > view:before {
+  font-size: 2em;
+}
+.mac-row-buttons-curd > view:nth-child(1):before {
+  content: "\e645";
+  color: var(--mac-color-primary);
+}
+.mac-row-buttons-curd > view:nth-child(2):before {
+  content: "\e64f";
+  color: var(--mac-color-warning);
+}
+.mac-row-buttons-curd > view:nth-child(3):before {
+  content: "\e62a";
+  color: var(--mac-color-success);
+}
+.mac-row-buttons-curd > view:nth-child(4):before {
+  content: "\e635";
+  color: var(--mac-color-error);
+}
+.mac-disabled,
+.mac-disabled:before {
+  color: var(--mac-color-info) !important;
+}
+.mac-disabled:hover {
+  cursor: no-drop !important;
+}
+/* #endregion*/
+
+.bx1 {
+  border: 1px solid red;
+}
+.bx2 {
+  border: 1px solid #0f0;
+}
+.shu_b:hover {
+  cursor: pointer;
+}
+input::-webkit-input-placeholder {
+  color: var(--mac-color-bbb);
+}
+input::-moz-placeholder {
+  color: var(--mac-color-bbb);
+}
+input:-ms-input-placeholder {
+  color: var(--mac-color-bbb);
+}
+input::-webkit-input-placeholder {
+  color: var(--mac-color-bbb);
+}
+input::placeholder {
+  color: var(--mac-color-bbb);
+}

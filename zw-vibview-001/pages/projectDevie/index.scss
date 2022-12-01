@@ -1,0 +1,410 @@
+.pages{
+	background-color: #262b41;
+	width: 100vw;
+	height:100vh;
+	.content-bnimgs{
+		margin-top: 65px;
+		 padding:0 5px;
+		.bnimgs-phtou{
+			background: #3e4558;
+			width: 100%;
+			height: 140px;
+			.imgs{
+				width: 100%;
+				height: 140px;
+			}
+		}
+		
+	}
+	.content{
+		background-color: #262b41;
+		padding:100px 4px 20px 4px;
+		border:1px solid #262b41;
+		.arrondi{
+			background: #3e4558;
+			border-radius: 8px;
+			border: 1px solid #161E35;
+			box-shadow:#161E35 0px 2px 5px 0px;
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 10px;
+			color: #FFFFFF;
+			font-size: 14px;
+      padding:5px;
+			// 上
+			.arrondi-top{
+				width: 100%;
+				line-height: 25px;
+				font-size: 14px;
+				display: flex;
+				justify-content: space-between;
+				.gotext{
+					width:60%;
+					margin-left: 20px;
+					
+				}
+				.gotoscontent{
+					.gotosimgs{
+						width: 18px;
+						height: 18px;
+						top: 4px;
+					}
+					.gotos{
+					// width:40%;
+				
+				}
+				}
+				
+			}
+			// 中
+			.arrondi-center{
+				margin: 5px 0;
+				color: #10D0E1;
+				font-size: 14px;
+				
+				.center-contents{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					border:1px solid #161E35 ;
+					border-top:1px solid #161E35 ;
+					width:100%;
+					height: 30px;
+					 .contentsaccs{
+						 padding:0 2px;
+						 display: flex;
+						 flex-direction: row;
+						 width: 100%;
+						 .textsed{
+							 display: flex;
+							 flex: 33%;
+						 }
+						 .contents1{
+							  display: flex;
+								flex: 33%;
+						 }
+						 .contents2{
+							  display: flex;
+								flex: 33%;
+						 }
+					 }
+					 // 左边按钮
+					 .custom-styleboxo{
+						 padding:0 3px;
+					 }
+				}
+			}
+			// 下
+			.arrondi-bouts{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			.boutstime{
+				font-size: 14px;
+			}
+				
+				.textsconts{
+					font-size:8px;
+					background-color:#fe0200;
+					color: #FFFFFF;
+					padding:2px 4px 2px 4px;
+					border-radius: 3px;
+					margin-bottom:3px;
+				}
+				
+			}
+			
+			
+		}
+		
+		
+	}
+	
+	// 转速位置speed 
+	.speeds{
+		.speeds-contents{
+			background-color: #3e4558;
+			padding:3px;
+			margin-bottom: 10px;
+			border-radius: 8px;
+			// 上
+			.speeds-top{
+				width: 100%;
+				line-height: 25px;
+				color: #FFFFFF;
+				font-size: 14px;
+				display: flex;
+				justify-content: space-between;
+				// background-color: #0000FE;
+					
+				.gotext{
+					width:60%;
+					margin-left: 20px;
+				}
+				
+				.gotoscontent{
+					.gotosimgs{
+						width: 18px;
+						height: 18px;
+						top: 4px;
+					}
+					.gotos{
+					// width:40%;
+				
+				}
+				}
+					
+			}
+			// 中
+			.speeds-center{
+				color: #10D0E1;
+				font-size: 14px;
+				border: 1px solid #161E35;
+				.left-uchart{
+				display: flex;
+					justify-content: center;
+				}
+				.rights-content{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					width:100%;
+					height: 30px;
+					border-top:0.5px solid #161E35 ;
+				.contentsaccs{
+					padding: 0 3px;
+					display: flex;
+					flex-direction: row;
+					width: 100%;
+						.item1{
+						display: flex;
+					  flex: 33%;
+					}
+					.texts1{
+					display: flex;
+					flex: 33%;
+						
+					}
+					
+					.texts{
+						display: flex;
+						flex: 33%;
+						
+					}
+				}
+				.custom-styleboxo{
+					padding:0 3px;
+				}
+				 
+				}
+			}
+			// 下
+			.speeds-boutns{
+				display: flex;
+				justify-content: center;
+				font-size: 14px;
+				color: #FFFFFF;
+			}
+			
+		}
+	}
+	
+	//油液
+	.oils{
+		width: 100%;
+		margin-bottom: 10px;
+		background: #3e4558;
+		border-radius: 8px;
+		border: 1px solid #161E35;
+		box-shadow:#161E35 0px 2px 5px 0px;
+		.oilcontents{
+			margin:3px;
+			.oilcontents-titlet{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				// padding:0 3px;
+				font-size: 14px;
+				color: #FFFFFF;
+				height: 30px;
+				align-items: center;
+				margin-bottom: 6px;
+				.titlet-rights{
+					display: flex;
+					flex-direction: row;
+					.lefts-imags{
+						width: 18px;
+						height: 18px;
+						.gotosimgs{
+							width: 18px;
+							height: 18px;
+						}
+					}
+					
+				}
+			}
+			//内容
+			.oilcontents-content{
+				.contents{
+					display: flex;
+					color: #10D0E1;
+					flex-direction: row;
+					justify-content: space-between;
+					border: 1px solid #161E35;
+					padding:4px 0;
+					margin-bottom: 6px;
+					.content-lefts{
+						flex: 40%;
+					}
+					.content-centers{
+						flex: 30%;
+					}
+					.content-rights{
+						flex: 30%;
+					}
+					.content-lefts text{
+						margin:0 3px;
+
+					}
+					.content-centers text{
+						margin:0 3px;
+					}
+					.content-rights text{
+					margin:0 3px;
+					}
+				}
+				// 时间
+				.contents-tiems{
+					color: #10D0E1;
+					font-size: 14px;
+         display: flex;
+				 flex-direction: row;
+				 justify-content: center;
+				 
+					.tiems{
+						margin-left: 10px;
+					}
+				}
+				
+			}
+			
+		}
+	}
+	
+	
+}
+/deep/image,/deep/img,/deep/video{
+	max-width: 100% !important;
+}
+
+
+		.custom-style1{
+			color: #FFFFFF;
+			width: 42px;
+			height: 24px;
+			background-color:#da0811;
+		margin:2px 0;
+			line-height: 24px;
+			text-align: center;
+			border-radius: 4px;
+			
+		}
+	
+		.custom-style2{
+		margin:2px 0;
+			color: #FFFFFF;
+			width: 42px;
+			height: 24px;
+			background-color:#f1ac4d;
+     margin:2px 0;
+	line-height: 24px;
+	text-align: center;
+	border-radius: 4px;
+		}
+		.custom-style3{
+			margin:2px 0;
+		color: #FFFFFF;
+			width: 42px;
+			height: 24px;
+			background-color:#fe5b0c;
+			line-height: 24px;
+			text-align: center;
+			border-radius: 4px;
+			
+		}
+		.custom-style4{
+			margin:2px 0;
+		color: #FFFFFF;
+			width: 42px;
+			height: 24px;
+			background-color:#2fc25b;
+			line-height: 24px;
+			text-align: center;
+			border-radius: 4px;
+			
+		}
+		.custom-style5{
+	    margin:2px 0;
+			color: #FFFFFF;
+			width: 42px;
+			height: 24px;
+			background-color:#BD0EF3;
+			line-height: 24px;
+			text-align: center;
+			border-radius: 4px;
+			
+		}
+		
+		//自定投头部导航
+		.hadercontents{
+			position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+			  width: 100%;
+				height:85px;
+				z-index: 6;
+			font-size: 16px;
+			color: #FFFFFF;
+			background-color: #333333;
+			
+			.haderbox{
+				display: flex;
+				justify-content:center;
+				align-items: center;
+		    width: 100%;
+				height:100%;
+				justify-content: center;
+				margin-top:10px;
+				flex-direction: row;
+					.hadercontent-left{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					flex:20%;
+					height:98%;
+						
+					.imgsss{
+						width: 22px;
+						height: 22px;
+						top:2px;
+					}
+				}
+		.hadercontent-center{
+			display: flex;
+			flex:60%;
+				 overflow : hidden;  
+								 text-overflow: ellipsis;  
+								 display: -webkit-box;  
+								 -webkit-line-clamp:1;  
+								 -webkit-box-orient: vertical;	
+		}
+		.hadercontent-right{
+			display: flex;
+			flex:2%;
+		}
+			}
+			
+			
+		}

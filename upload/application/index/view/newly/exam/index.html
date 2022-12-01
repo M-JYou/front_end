@@ -1,0 +1,35 @@
+{#layout name="public/layout" /#} {#load href="__ROOT__/assets/css/study.css" /#} {#include file="public/search" /#}
+<div class="main mac-ico">
+  <div class="top mac-y">
+    <div class="breadcrumb"> <a href="/">籽虾云平台</a>免费学习 </div>
+  </div>
+  <div class="mainContent">
+    <div class="nav">
+      <h2>在线题库</h2>
+      <a href="{#:P(['type'=>null])#}" class="{#$type?'':'active'#}">全部</a>
+      {#volist name='types' id='v'#}
+      <a href="{#:P(['type'=>$v.id])#}" class="{#$type==$v.id?'active':''#}">{#$v.name#}</a>
+      {#/volist#}
+    </div>
+    <div class="formContent">
+      {#volist name='data' id='v'#}
+      <div class="item">
+        <div class="videoTop"><img src="{#$v.cover#}" alt="" /></div>
+        <div class="videoBtm">
+          <h2>{#$v.name#}</h2>
+          <div class="mac-oh">试卷总分{#$v.score#}</div>
+          <div>
+            <div class="study_num"><i class="el-icon-view"></i><span>{#$v.history#}人学习</span></div>
+            <a class="btn" href="/exam/{#$v.id#}.html">马上学习</a>
+          </div>
+          <div class="operation">
+            <div class="mac-btnss mac-ico-zhuanfa" model="Exam" mid="{#$v.id#}">转发{#$v.reprint#}</div>
+            <div class="mac-btnss mac-ico-tishi" model="Exam" mid="{#$v.id#}">举报{#$v.report#}</div>
+            <div class="mac-btnss mac-ico-dianzan" model="Exam" mid="{#$v.id#}">点赞{#$v.likes#}</div>
+          </div>
+        </div>
+      </div>
+      {#/volist#}
+    </div>
+  </div>
+</div>

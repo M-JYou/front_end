@@ -1,0 +1,62 @@
+{#layout name="public/layout" /#}
+{#load href="__ROOT__/assets/css/logoLayout.css" /#}
+{#load href="__ROOT__/assets/css/assqueryReport.css" /#}
+<div class="content_wrapper" id="app">
+    <!-- #region -->
+    <div class="logoPart">
+        <div class="logo">
+            <a href=""><img src="/assets/images/home/logo_xiazi.png" alt=""></a>
+            <a href=""><span>打造财税生态链</span></a>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <div class="main">
+        <div class="top">
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item><a href="/">籽虾云平台</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/assessment">人才测评</a></el-breadcrumb-item>
+                <el-breadcrumb-item>查询报告</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
+        <div class="box_2">
+            <table border="0"cellspacing="0"  >
+                <tr>
+                    <th>委托方名称</th>
+                    <th>测评对象</th>
+                    <th>测评目的及用途</th>
+                    <th>委托范围</th>
+                    <th>提交需求时间</th>
+                    <th>操作</th>
+                </tr>
+                <tr>
+                    <td>青海相遇有限公司</td>
+                    <td>王玉</td>
+                    <td>录用测评</td>
+                    <td>理论知识测评</td>
+                    <td>2022-10-16</td>
+                    <td>
+                        <span>在线预览</span>
+                        <span>直接下载</span>
+                    </td>
+                </tr>
+                
+            </table>
+
+
+
+
+            
+        </div>
+
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data() {
+            return {
+                
+            }
+        }
+    });
+</script>

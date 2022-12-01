@@ -1,0 +1,75 @@
+{#layout name="public/campus/campus_layout" /#} {#load href="__ROOT__/assets/css/campus/campus_electionshow.css" /#}
+<div class="s_content" id="app">
+  <div class="banner">
+    <div class="w1200">
+      {#if condition="$info.score eq 0"#}
+      <img src="__ROOT__/assets/images/campus/stm_show_img_0.png" alt="" class="banner_state" />
+      {#/if#} {#if condition="$info.score eq 1"#}
+      <img src="__ROOT__/assets/images/campus/stm_show_img_1.png" alt="" class="banner_state" />
+      {#/if#} {#if condition="$info.score eq 2"#}
+      <img src="__ROOT__/assets/images/campus/stm_show_img_2.png" alt="" class="banner_state" />
+      {#/if#}
+    </div>
+  </div>
+  <div class="double_info_title">
+    <div class="w1200 info_title_min">
+      <h1>{#$info.subject#}</h1>
+      <div class="clearfix">
+        <div class="left address_info">
+          <p class="t1 substring">举办时间： {#$info.starttime#} 至 {#$info.endtime#}</p>
+          <p class="t2 substring">举办地址： {#$info.address#} </p>
+        </div>
+
+        <div class="floatmenu right">
+          <div class="floatmenu_share">
+            <img src="__ROOT__/assets/images/campus/share.png" alt="" />
+            <p>分享</p>
+            <div class="hover_box">
+              <img :src="shareQrcode" alt="" class="share_img" />
+              <span class="share_text">请用微信扫一扫</span>
+            </div>
+          </div>
+        </div>
+        <div class="right estimate_box">
+          <div class="left estimate">
+            <p class="com_text">预计参与公司</p>
+            <p class="num_text">{#$info.company_count#}家</p>
+          </div>
+          <div class="left estimate">
+            <p class="com_text">预计招聘职位</p>
+            <p class="num_text">{#$info.graduate_count#}个</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="double_meet_info w1200">
+    <div class="d_meet_title"> {#$info.subject#} </div>
+
+    <div class="d_text editor-content-view"> {#$info.introduction#} </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $(".double_meet .double_meet_it").each(function (idx) {
+      if ((idx + 1) % 4 == 0) {
+        $(".double_meet .double_meet_it").eq(idx).css({ "margin-right": 0 });
+      }
+    });
+  });
+  var vm = new Vue({
+    el: "#app",
+    data: function () {
+      return {
+        shareQrcode: "",
+      };
+    },
+    created: function () {
+      var locationUrl = "{#$info.share_url#}";
+      this.shareQrcode = qscms.apiUrl + qscms.apiList.qrcode + "?type=normal&url=" + locationUrl;
+    },
+    methods: {},
+  });
+</script>

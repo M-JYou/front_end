@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {#include file="public/meta" /#} {#load href="__ROOT__/assets/css/base.css" /#} {#load href="__ROOT__/assets/css/recruitment.css" /#}
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  </head>
+  <body>
+    <div class="todayBg">
+      <div class="todayHead">
+        <!--        <div class="todayTitle">-->
+        <!--            <img src="__ROOT__/assets/images/recruitment/listBg.png" alt="">-->
+        <!--        </div>-->
+        <div class="todayTitle" style="width: 100%; height: 523px; background: url('__ROOT__/assets/images/recruitment/listBg.png') no-repeat center center / auto 100%"> </div>
+
+        <div class="listBox">
+          {#volist name="list" id="vo"#}
+          <div class="listCard">
+            <div class="listImg">
+              <a href="{#:url('index/recruitment/show',['id'=>$vo.id])#}"><img src="{#$vo.logo_src#}" /></a>
+            </div>
+            <div class="listCon">
+              <span class="listTitle"><a href="{#:url('index/recruitment/show',['id'=>$vo.id])#}">{#$vo.subject_name#}</a></span>
+              <span class="listNum">参加企业 <b class="color1">{#$vo.company_num#}</b> 家，可投职位 <b class="color2">{#$vo.job_num#}</b> 个</span>
+            </div>
+            <a class="listBut" href="{#:url('index/recruitment/show',['id'=>$vo.id])#}">查看详情</a>
+          </div>
+          {#/volist#}
+        </div>
+      </div>
+      <div class="footer"
+        >找工作，招人才，就上{#$global_config.sitename#}<br />未经书面授权，不得转载本网站所有招聘信息
+        <br />
+        <span> {#if $global_config.contact_tel#} 客服电话：{#$global_config.contact_tel#} {#/if#} </span>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "qiun-data-charts": "/uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts",
+    "u-radio-group": "/components/u-radio-group/u-radio-group",
+    "u-radio": "/components/u-radio/u-radio",
+    "u-picker": "/components/u-picker/u-picker"
+  }
+}

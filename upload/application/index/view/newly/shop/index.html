@@ -1,0 +1,12 @@
+{#layout name="public/layout" /#}{#include file="public/search" /#}
+
+<div class="listGrid" sum="4">
+  {#volist name='list' id='d'#}<div class="item">
+    <a href="{#:P(['shop'=>$d.id])#}"><img src="{#$d.photo#}" alt="" /></a>
+    <div class="mac-x mac-jc mac-p04em">
+      <img uid="{#$d.user.id#}" class="imgheader" src="{#$d.user.photo#}" alt="" />
+      <h2 class="mac-txt-hid mac-ml04em">{#$d.name#}</h2>
+    </div>
+    <div class="mac-ml2em mac-mt04em mac-txt-hid">{#$d.addr#}</div></div
+  >{#/volist#}
+</div>

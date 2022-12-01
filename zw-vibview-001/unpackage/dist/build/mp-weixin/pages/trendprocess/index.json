@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "趋 势 图",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "disableScroll": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "qiun-data-charts": "/uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts",
+    "u-picker": "/components/u-picker/u-picker"
+  }
+}
