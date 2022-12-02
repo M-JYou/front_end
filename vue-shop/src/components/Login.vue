@@ -10,11 +10,58 @@
 			</div>
 			<!-- 标题 -->
 			<div class="title">电商后台管理系统</div>
+			<!-- form表单 -->
+			<el-form class="login-form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
+				<el-form-item prop="username">
+					<el-input
+						placeholder="请输入用户名"
+						prefix-icon="iconfont icon-user"
+						v-model="loginForm.username"
+					></el-input>
+				</el-form-item>
+				<el-form-item prop="password">
+					<el-input
+						placeholder="请输入密码"
+						prefix-icon="iconfont icon-lock_fill"
+						v-model="loginForm.password"
+						show-password
+					></el-input>
+				</el-form-item>
+				<el-button type="primary" class="login-btn" @click="login">登录</el-button>
+			</el-form>
 		</div>
 	</div>
 </template>
 <script>
-	export default {};
+	export default {
+		data() {
+			return {
+				loginForm: {
+					username: '',
+					password: '',
+				},
+				loginFormRules: {
+					username: [
+						{ required: true, message: '请输入用户名', trigger: 'blur' },
+						{ min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' },
+					],
+					password: [
+						{ required: true, message: '请输入密码', trigger: 'blur' },
+						{ min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' },
+					],
+				},
+			};
+		},
+		methods: {
+			login() {
+				this.$refs.loginFormRef.validate((validate) => {
+					if (validate) {
+						console.log("数据发送成功");
+					}
+				});
+			},
+		},
+	};
 </script>
 <style lang="less" scoped>
 	.login-containter {
@@ -38,15 +85,15 @@
 			position: relative;
 
 			.avatar-box {
+				position: absolute;
 				width: 120px;
 				height: 120px;
-				position: absolute;
 				top: -60px;
 				right: 140px;
 				background-color: #fff;
 				border-radius: 100px;
 				text-align: center;
-				line-height: 150px;
+				line-height: 110px;
 				border: 5px solid #93defe;
 			}
 
@@ -57,6 +104,19 @@
 				transform: translate(-50%);
 				font-size: 18px;
 				color: #444;
+			}
+
+			.login-form {
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translate(-50%);
+				padding: 30px;
+				width: 80%;
+				box-sizing: border-box;
+				.login-btn {
+					width: 100%;
+				}
 			}
 		}
 	}
