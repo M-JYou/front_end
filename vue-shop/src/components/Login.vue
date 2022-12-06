@@ -33,12 +33,13 @@
 	</div>
 </template>
 <script>
+	import axios from 'axios';
 	export default {
 		data() {
 			return {
 				loginForm: {
-					username: '',
-					password: '',
+					username: 'admin',
+					password: '123456',
 				},
 				loginFormRules: {
 					username: [
@@ -54,10 +55,15 @@
 		},
 		methods: {
 			login() {
-				this.$refs.loginFormRef.validate((validate) => {
-					if (validate) {
-						console.log("数据发送成功");
+				this.$refs.loginFormRef.validate(async (validate) => {
+					const { data: res } = await this.$http.post('login', this.loginForm);
+					// console.log(res);
+					if (res.meta.status !== 200) {
+						return this.$message.error('登录失败');
 					}
+					this.$message.success('登录成功');
+					sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+					this.$router.push('/home');
 				});
 			},
 		},
